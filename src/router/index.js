@@ -1,23 +1,9 @@
 // file: router/index.js
 // 导入相关路由组件对象
-import HtmlBase from '../components/HtmlBase.vue'
-import CssBase from '../components/CssBase.vue'
+// import Overview from '../components/pages/Overview/index.vue'
 
 // 定义路由映射：路由映射到具体组件
-const routes = [
-  {
-    path: '/',
-    redirect: '/htmlbase',
-  },
-  {
-    path: '/htmlbase',
-    component: HtmlBase,
-  },
-  {
-    path: '/cssbase',
-    component: CssBase,
-  },
-];
+import routes from './config/routes';
 
 // 导入相关函数
 import { createRouter, createWebHashHistory } from 'vue-router';

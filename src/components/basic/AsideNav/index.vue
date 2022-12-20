@@ -8,6 +8,7 @@
     ElMenuItemGroup,
     ElMenuItem,
   } from 'element-plus'
+  import routes from './config/routes';
   export default {
     components: { 
         ElRadioGroup,
@@ -18,6 +19,15 @@
         ElMenuItemGroup,
         ElMenuItem,
     },
+    data() {
+      return {
+        overview: routes.overview,
+        frontendbasics: routes.frontendbasics,
+        frontendframe: routes.frontendframe,
+        frontendprogression: routes.frontendprogression,
+        settings: routes.settings
+      }
+    }
   }
 </script>
 
@@ -32,45 +42,51 @@
           @open="handleOpen"
           @close="handleClose"
         >
-          <el-menu-item index="0">
-            <el-icon><icon-menu /></el-icon>
-            <span>概览</span>
-          </el-menu-item>
+            <router-link to="/overview">
+                <el-menu-item index="0">
+                    <el-icon><icon-menu /></el-icon>
+                    <span>{{ overview.name }}</span>
+                </el-menu-item>
+            </router-link>
+
           <el-sub-menu index="1">
             <template #title>
               <el-icon><School /></el-icon>
-              <span>前端基础</span>
+              <span>{{ routes.frontendbasics.name }}</span>
             </template>
-              <el-menu-item index="1-1">HTML</el-menu-item>
-              <el-menu-item index="1-2">CSS</el-menu-item>
-              <el-menu-item index="1-3">JavaScript</el-menu-item>
+            <router-link v-for="item in frontendbasics.children" :to="item.path">
+                <el-menu-item :index="item.index">{{ item.name }}</el-menu-item>
+            </router-link>
           </el-sub-menu>
+
           <el-sub-menu index="2">
             <template #title>
               <el-icon><Box /></el-icon>
-              <span>前端框架</span>
+              <span>{{ routes.frontendframe.name }}</span>
             </template>
-            <el-menu-item index="2-1">Vue</el-menu-item>
-            <el-menu-item index="2-2">React</el-menu-item>
-            <el-menu-item index="2-3">Angular</el-menu-item>
+            <router-link v-for="item in frontendframe.children" :to="item.path">
+                <el-menu-item :index="item.index">{{ item.name }}</el-menu-item>
+            </router-link>
           </el-sub-menu>
+
           <el-sub-menu index="3">
             <template #title>
               <el-icon><OfficeBuilding /></el-icon>
-              <span>前端进阶</span>
+              <span>{{ routes.frontendprogression.name }}</span>
             </template>
-            <el-menu-item index="3-1">TypeScript</el-menu-item>
-            <el-menu-item index="3-2">Webpack</el-menu-item>
-            <el-menu-item index="3-3">Node</el-menu-item>
+            <router-link v-for="item in frontendprogression.children" :to="item.path">
+                <el-menu-item :index="item.index">{{ item.name }}</el-menu-item>
+            </router-link>
           </el-sub-menu>
+
           <el-sub-menu index="4">
             <template #title>
               <el-icon><setting /></el-icon>
-              <span>设置</span>
+              <span>{{ settings.name }}</span>
             </template>
             <el-menu-item index="4-1">
                 <el-icon><MagicStick /></el-icon>
-                敬请期待
+                {{ settings.text }}
             </el-menu-item>
           </el-sub-menu>
 
@@ -88,10 +104,10 @@
     MagicStick
   } from '@element-plus/icons-vue'
   const handleOpen = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
+    // console.log(key, keyPath)
   }
   const handleClose = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
+    // console.log(key, keyPath)
   }
   </script>
 
@@ -99,6 +115,9 @@
     .AsideNav {
         .el-menu {
             border-right: 0px;
+            a {
+                text-decoration: none;
+            }
         }
     }
 </style>

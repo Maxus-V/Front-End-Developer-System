@@ -1,6 +1,6 @@
 <script setup>
 import BasicLayout from './components/basic/BasicLayout.vue'
-import AsideNav from './components/basic/AsideNav.vue';
+import AsideNav from './components/basic/AsideNav/index.vue';
 </script>
 
 <script>
@@ -25,6 +25,9 @@ import AsideNav from './components/basic/AsideNav.vue';
       </template>
       <template #aside>
         <AsideNav/>
+      </template>
+      <template #main>
+        <router-view />
       </template>
     </BasicLayout>
   </header>
