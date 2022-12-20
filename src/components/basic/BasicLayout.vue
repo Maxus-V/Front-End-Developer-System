@@ -12,10 +12,8 @@
       ElAside,
       ElMain
     },
-    data() {
-      return {
-        showHead: true
-      }
+    props: {
+      showHead: Boolean
     }
   }
 </script>

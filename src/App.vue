@@ -1,14 +1,30 @@
 <script setup>
 import BasicLayout from './components/basic/BasicLayout.vue'
+import AsideNav from './components/basic/AsideNav.vue';
+</script>
+
+<script>
+  export default {
+    data() {
+      return {
+
+      }
+    }
+  }
 </script>
 
 <template>
   <header>
-    <BasicLayout>
+    <BasicLayout
+      :showHead="true"
+    >
       <template #header>
         <div style="color: white;">
-          欢迎来到前端基础知识储备系统~！
+          欢迎来到前端知识储备系统~！
         </div>
+      </template>
+      <template #aside>
+        <AsideNav/>
       </template>
     </BasicLayout>
   </header>
