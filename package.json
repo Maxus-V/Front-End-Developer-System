@@ -11,6 +11,7 @@
     "element-plus": "^2.2.27",
     "sass": "^1.57.0",
     "vue": "^3.2.45",
+    "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {

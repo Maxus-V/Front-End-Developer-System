@@ -1,31 +1,44 @@
 <script lang="ts">
   import { 
-    ElRadioGroup,
-    ElRadioButton,
     ElMenu,
     ElSubMenu,
     ElIcon,
-    ElMenuItemGroup,
     ElMenuItem,
   } from 'element-plus'
+  import {
+    Menu as IconMenu,
+    School,
+    Box,
+    OfficeBuilding,
+    Setting,
+  } from '@element-plus/icons-vue'
+
   import routes from './config/routes';
+
+  const {overview, frontendbasics, frontendframe, frontendprogression, settings} = routes
+  const index2Icon = {
+    0: 'IconMenu',
+    1: 'School',
+    2: 'Box',
+    3: 'OfficeBuilding',
+    4: 'Setting',
+  }
+
   export default {
     components: { 
-        ElRadioGroup,
-        ElRadioButton,
         ElMenu,
         ElSubMenu,
         ElIcon,
-        ElMenuItemGroup,
         ElMenuItem,
+        IconMenu,
+        School,
+        Box,
+        OfficeBuilding,
+        Setting,
     },
     data() {
       return {
-        overview: routes.overview,
-        frontendbasics: routes.frontendbasics,
-        frontendframe: routes.frontendframe,
-        frontendprogression: routes.frontendprogression,
-        settings: routes.settings
+        asideNavArr: [frontendbasics, frontendframe, frontendprogression, settings]
       }
     }
   }
@@ -37,7 +50,7 @@
           active-text-color="#ffd04b"
           background-color="rgba(170, 97, 88)"
           class="el-menu-vertical-demo"
-          default-active="2"
+          default-active="0"
           text-color="#fff"
           @open="handleOpen"
           @close="handleClose"
@@ -45,49 +58,18 @@
             <router-link to="/overview">
                 <el-menu-item index="0">
                     <el-icon><icon-menu /></el-icon>
-                    <span>{{ overview.name }}</span>
+                    <span>{{ $t(`${overview.name}`) }}</span>
                 </el-menu-item>
             </router-link>
 
-          <el-sub-menu index="1">
+          <el-sub-menu v-for="(item, index) in asideNavArr" :index="index+'1'">
             <template #title>
-              <el-icon><School /></el-icon>
-              <span>{{ routes.frontendbasics.name }}</span>
+              <el-icon><component :is="index2Icon[index+1]" /></el-icon>
+              <span>{{ $t(`${item.name}`) }}</span>
             </template>
-            <router-link v-for="item in frontendbasics.children" :to="item.path">
-                <el-menu-item :index="item.index">{{ item.name }}</el-menu-item>
+            <router-link v-for="subItem in item.children" :to="subItem.path">
+                <el-menu-item :index="subItem.index">{{ subItem.name }}</el-menu-item>
             </router-link>
-          </el-sub-menu>
-
-          <el-sub-menu index="2">
-            <template #title>
-              <el-icon><Box /></el-icon>
-              <span>{{ routes.frontendframe.name }}</span>
-            </template>
-            <router-link v-for="item in frontendframe.children" :to="item.path">
-                <el-menu-item :index="item.index">{{ item.name }}</el-menu-item>
-            </router-link>
-          </el-sub-menu>
-
-          <el-sub-menu index="3">
-            <template #title>
-              <el-icon><OfficeBuilding /></el-icon>
-              <span>{{ routes.frontendprogression.name }}</span>
-            </template>
-            <router-link v-for="item in frontendprogression.children" :to="item.path">
-                <el-menu-item :index="item.index">{{ item.name }}</el-menu-item>
-            </router-link>
-          </el-sub-menu>
-
-          <el-sub-menu index="4">
-            <template #title>
-              <el-icon><setting /></el-icon>
-              <span>{{ settings.name }}</span>
-            </template>
-            <el-menu-item index="4-1">
-                <el-icon><MagicStick /></el-icon>
-                {{ settings.text }}
-            </el-menu-item>
           </el-sub-menu>
 
         </el-menu>
@@ -95,14 +77,6 @@
   </template>
   
   <script lang="ts" setup>
-  import {
-    Menu as IconMenu,
-    School,
-    Box,
-    OfficeBuilding,
-    Setting,
-    MagicStick
-  } from '@element-plus/icons-vue'
   const handleOpen = (key: string, keyPath: string[]) => {
     // console.log(key, keyPath)
   }

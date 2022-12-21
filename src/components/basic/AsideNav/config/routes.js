@@ -1,9 +1,9 @@
 const routes = {
   overview: {
-    name: '概览',
+    name: 'overview',
   },
   frontendbasics: {
-      name: '前端基础',
+      name: 'frontendbasics',
       children: [
         {
           name: 'HTML',
@@ -23,7 +23,7 @@ const routes = {
       ]
     },
     frontendframe: {
-        name: '前端框架',
+        name: 'frontendframes',
         children: [
           {
             name: 'Vue',
@@ -43,7 +43,7 @@ const routes = {
         ]
     },
     frontendprogression: {
-      name: '前端进阶',
+      name: 'frontendprogression',
       children: [
         {
           name: 'TypeScript',
@@ -63,8 +63,8 @@ const routes = {
       ]
     },
     settings: {
-      name: '设置',
-      text: '敬请期待'
+      name: 'settings',
+      children: []
     }
   }
 
