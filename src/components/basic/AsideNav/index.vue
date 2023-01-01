@@ -55,7 +55,7 @@
           @open="handleOpen"
           @close="handleClose"
         >
-            <router-link to="/overview">
+            <router-link to="/overview" @click="changeMyTitle($t(`${overview.name}`))">
                 <el-menu-item index="0">
                     <el-icon><icon-menu /></el-icon>
                     <span>{{ $t(`${overview.name}`) }}</span>
@@ -67,7 +67,7 @@
               <el-icon><component :is="index2Icon[index+1]" /></el-icon>
               <span>{{ $t(`${item.name}`) }}</span>
             </template>
-            <router-link v-for="subItem in item.children" :to="subItem.path">
+            <router-link v-for="subItem in item.children" :to="subItem.path" @click="changeMyTitle(subItem.name)">
                 <el-menu-item :index="subItem.index">{{ subItem.name }}</el-menu-item>
             </router-link>
           </el-sub-menu>
@@ -77,6 +77,10 @@
   </template>
   
   <script lang="ts" setup>
+  const emits = defineEmits(['changeTitle']);
+  const changeMyTitle = (content) => {
+    emits('changeTitle', content)
+  }
   const handleOpen = (key: string, keyPath: string[]) => {
     // console.log(key, keyPath)
   }

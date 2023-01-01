@@ -41,12 +41,16 @@ const routes = [
           },
           {
             path: 'react',
-            component: () => import('@/components/pages/FrontEndFrame/ReactFrame.vue')
+            component: () => import('@/components/pages/FrontEndFrame/ReactFrame.vue'),
           },
           {
             path: 'angular',
             component: () => import('@/components/pages/FrontEndFrame/AngularFrame.vue')
           },
+          {
+            path: 'create',
+            component: () => import('@/components/pages/FrontEndFrame/contentForm/index.vue')
+          }
         ]
     },
     {

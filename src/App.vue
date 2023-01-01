@@ -1,22 +1,24 @@
 <script setup>
+import { ref, reactive } from 'vue'
+
 import BasicLayout from './components/basic/BasicLayout.vue'
 import AsideNav from './components/basic/AsideNav/index.vue';
-</script>
+import LayoutWrapper from './components/basic/LayoutWrapper/index.vue'
 
-<script>
-  export default {
-    data() {
-      return {
 
-      }
-    }
-  }
+let state = reactive({
+  title: '概览'
+})
+
+const setTitle = (content) => {
+    state.title = content
+}
 </script>
 
 <template>
   <header>
     <BasicLayout
-      :showHead="true"
+      :showHead="false"
     >
       <template #header>
         <div style="color: white;">
@@ -24,10 +26,18 @@ import AsideNav from './components/basic/AsideNav/index.vue';
         </div>
       </template>
       <template #aside>
-        <AsideNav/>
+        <AsideNav
+          @changeTitle="setTitle"
+        />
       </template>
       <template #main>
-        <router-view />
+        <LayoutWrapper
+          :state="state"
+        >
+          <template #content>
+            <router-view />
+          </template>
+        </LayoutWrapper>
       </template>
     </BasicLayout>
   </header>
