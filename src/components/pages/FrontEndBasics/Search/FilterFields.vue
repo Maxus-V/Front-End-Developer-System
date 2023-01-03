@@ -23,6 +23,7 @@ const initSelectedNodes = () => column.sort((x, y) => x.order - y.order).map(ite
 const dataSource = publicFields.concat({
             name: '自定义字段',
             id: 'custom',
+            children: []
         })
 
 const searchValue = 'searchValue'

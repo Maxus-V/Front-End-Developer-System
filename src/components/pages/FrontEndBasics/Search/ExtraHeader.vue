@@ -3,7 +3,6 @@ import { ref } from 'vue';
 import { ElTooltip, ElButton, ElIcon, ElDialog, ElInput, ElEmpty, ElCheckbox } from 'element-plus';
 import { Filter, Search } from '@element-plus/icons-vue';
 
-import TreeNode from './TreeNode.vue'
 import FilterFields from './FilterFields.vue';
 
 let modalVisible = ref(true)

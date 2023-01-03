@@ -1,16 +1,17 @@
 <script setup>
-import TreeNode from './TreeNode.vue';
+import TreeMenu from './TreeMenu.vue'
 const props = defineProps({
     dataSource: Array,
     searchValue: String
 })
 const dataSource = props.dataSource
+
 </script>
 
 <template>
-    <div v-for="item in dataSource"> 
-        <TreeNode/>
-    </div>
+        <TreeMenu
+            :dataSource="dataSource"
+        />
 </template>
 
 <style lang="scss" scoped>
