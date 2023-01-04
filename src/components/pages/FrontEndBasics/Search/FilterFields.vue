@@ -1,10 +1,15 @@
 <script setup>
-import { ElButton, ElDialog, ElInput, ElEmpty } from 'element-plus';
+import { ElButton, ElDialog, ElInput } from 'element-plus';
 import { Search } from '@element-plus/icons-vue';
 
 import BasicTree from '../../../basic/BasicTree/index.vue'
+import DraggableList from '../../../basic/DraggableList/index.vue'
+import TestDraggableList from '../../../basic/TestDraggableList/index.vue'
 
 import {publicFields} from '../config/constant'
+
+import { DndProvider } from 'vue3-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 const props = defineProps({
     modalVisible: Boolean,
@@ -51,9 +56,15 @@ const searchValue = 'searchValue'
             <!-- DraggableList -->
             <div class="listWrapper">
                 <div class="countTitle">
-                    已添加n条
+                    已选择n条
                 </div>
-                <el-empty description="暂无数据"/>
+                <DndProvider :backend="HTML5Backend">
+                    <DraggableList
+                        :dataSource="dataSource"
+                        :searchValue="searchValue"
+                    />
+                    <!-- <TestDraggableList/> -->
+                </DndProvider>
             </div>
         </div>
         <template #footer>

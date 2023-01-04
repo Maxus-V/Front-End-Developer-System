@@ -11,15 +11,20 @@
 <template>
     <SubMenu>
         <template #title>
-            <el-icon><ArrowRightBold /></el-icon>
-            <el-checkbox/>
+            <el-checkbox
+                :disabled="data.disabled"
+                :checked="data.defaultSelected"
+            />
             <el-tooltip effect="light" :content="data.name" placement="top">
                 {{data.name}}
             </el-tooltip>
         </template>
         <template v-for="child in data.children">
             <div :key="child.name" v-if="!child.children">
-                <el-checkbox/>
+                <el-checkbox
+                    :disabled="child.disabled"
+                    :checked="child.defaultSelected"
+                />
                 <el-tooltip effect="light" :content="child.name" placement="top">
                     {{child.name}}
                 </el-tooltip>
