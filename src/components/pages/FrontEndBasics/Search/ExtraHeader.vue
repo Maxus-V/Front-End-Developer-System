@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { ElTooltip, ElButton, ElIcon, ElDialog, ElInput, ElEmpty, ElCheckbox } from 'element-plus';
 import { Filter, Search } from '@element-plus/icons-vue';
 
@@ -8,6 +8,7 @@ import FilterFields from './FilterFields.vue';
 let modalVisible = ref(true)
 
 const changeModalVisible = () => {
+    console.log('en')
     modalVisible = !modalVisible
 }
 </script>
@@ -26,6 +27,7 @@ const changeModalVisible = () => {
     </el-tooltip>
     <FilterFields
         :modalVisible="modalVisible"
+        :changeModalVisible="changeModalVisible"
     />
 </template>
 

@@ -3,21 +3,24 @@ import { computed, ref, unref } from 'vue'
 import { useDrag, useDrop } from 'vue3-dnd'
 import { toRefs } from '@vueuse/core'
 
-import { ElIcon } from 'element-plus';
+import { ElTooltip, ElIcon } from 'element-plus';
 import { Delete } from '@element-plus/icons-vue';
+import DragSvg from '../../icons/IconDrag.vue'
 
 const props = defineProps({
     id: String,
     name: String,
     index: Number,
     moveCard: Function,
-    disabled: Boolean
+    disabled: Boolean,
+    removeSelectNodes: Function,
 })
 
-const {disabled} = props
+const {id, disabled, removeSelectNodes} = props
 
 const removeItem = () => {
-    console.log('removeItem')
+    removeSelectNodes(id)
+    // attrs.onRemoveSelectNodes(id)
 }
 
 const card = ref(null)
@@ -54,6 +57,7 @@ const [collect, drag] = useDrag({
 const { handlerId } = toRefs(dropCollect)
 const { isDragging } = toRefs(collect)
 const opacity = computed(() => (unref(isDragging) ? 0 : 1))
+const cursor = computed(() => (!disabled ? 'move' : 'default'))
 
 const setRef = (el) => {
     card.value = drag(drop(el))
@@ -65,15 +69,20 @@ const setRef = (el) => {
   <div
     :ref="setRef"
     class="draggableItem"
-    :style="{ opacity }"
+    :style="{ opacity, cursor }"
     :data-handler-id="handlerId"
   >
-    <div class="left">
-        {{ name }}
+    <div>
+        <el-tooltip v-if="!disabled" effect="light" content="可进行拖拽移动" placement="top">
+            <el-icon><DragSvg/></el-icon>
+        </el-tooltip>
+        <span>{{ name }}</span>
     </div>
-    <el-icon v-if="!disabled" @click="removeItem()">
-        <Delete/>
-    </el-icon>
+    <div class="icon">
+        <el-icon v-if="!disabled" @click="removeItem()">
+            <Delete/>
+        </el-icon>
+    </div>
   </div>
 </template>
 
@@ -86,10 +95,11 @@ const setRef = (el) => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    .icon {
+        cursor: pointer;
+    }
     &:hover {
-        background-color: white;
-        cursor: move;
+        // background-color: white;
     }
 }
 </style>

@@ -1,35 +1,90 @@
 <script setup>
+import {ref, reactive, toRaw} from 'vue'
 import { ElButton, ElDialog, ElInput } from 'element-plus';
 import { Search } from '@element-plus/icons-vue';
-
+ 
 import BasicTree from '../../../basic/BasicTree/index.vue'
 import DraggableList from '../../../basic/DraggableList/index.vue'
 import TestDraggableList from '../../../basic/TestDraggableList/index.vue'
 
+import { unionWith, xorWith } from 'lodash';
+
 import {publicFields} from '../config/constant'
+import { getChildrenByLoop } from './utils';
 
 import { DndProvider } from 'vue3-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
 const props = defineProps({
     modalVisible: Boolean,
-    column: Array
+    column: Array,
+    changeModalVisible: Function
 })
 
-const column = []
+// const initSelectedNodes = publicFields[0].children.slice(2,6)
+
+const initSelectedNodes = []
+
+const defaultSelectedPublicKey = getChildrenByLoop(publicFields)
+
+// const selectNodes = unionWith(defaultSelectedPublicKey, initSelectedNodes, (a, b) => a.id === b.id)
 
 const modalVisible = props.modalVisible
 
-const initSelectedNodes = () => column.sort((x, y) => x.order - y.order).map(item => ({
-        name: item.field,
-        id: item.field
-    }))
+// const dataSource = publicFields.concat({
+//             name: '自定义字段',
+//             id: 'custom',
+//             children: []
+//         })
 
-const dataSource = publicFields.concat({
+const state = reactive({
+    selectNodes: unionWith(defaultSelectedPublicKey, initSelectedNodes, (a, b) => a.id === b.id),
+    dataSource: publicFields.concat({
             name: '自定义字段',
             id: 'custom',
             children: []
-        })
+        }),
+    testSource: []
+})
+
+state.testSource = state.selectNodes
+
+const expandObj = (source = []) => {
+    let arr = []
+    source.map(item => {
+        const { name, id } = item
+        if (item.children.length) {
+            arr.push({
+                name,
+                id,
+                disabled: false,
+                defaultSelected: false
+            })
+            arr = arr.concat(item.children)
+        } else {
+            arr.push({
+                name,
+                id,
+                disabled: false,
+                defaultSelected: false
+            })
+        }
+    })
+    return arr
+}
+
+const addSelectNodes = (id) => {
+    const obj = expandObj(state.dataSource).find(item => {
+        return item.id == id
+    })
+    state.testSource.push(obj)
+    
+}
+
+const removeSelectNodes = (id) => {
+    let index = state.testSource.findIndex((item) => item.id === id)
+    state.testSource.splice(index, 1)
+}
 
 const searchValue = 'searchValue'
 </script>
@@ -49,19 +104,21 @@ const searchValue = 'searchValue'
                     />
                 </div>
                 <BasicTree
-                    :dataSource="dataSource"
+                    :dataSource="state.dataSource"
                     :searchValue="searchValue"
+                    :addSelectNodes="addSelectNodes"
                 />
             </div>
             <!-- DraggableList -->
             <div class="listWrapper">
                 <div class="countTitle">
-                    已选择n条
+                    已选择3条
                 </div>
                 <DndProvider :backend="HTML5Backend">
                     <DraggableList
-                        :dataSource="dataSource"
+                        :dataSource=" state.testSource"
                         :searchValue="searchValue"
+                        :removeSelectNodes="removeSelectNodes"
                     />
                     <!-- <TestDraggableList/> -->
                 </DndProvider>
@@ -69,8 +126,8 @@ const searchValue = 'searchValue'
         </div>
         <template #footer>
         <span>
-            <el-button @click="modalVisible = false">取消</el-button>
-            <el-button type="primary" @click="modalVisible = false">
+            <el-button @click="changeModalVisible()">取消</el-button>
+            <el-button type="primary" @click="changeModalVisible()">
                 确定
             </el-button>
         </span>
@@ -94,7 +151,7 @@ const searchValue = 'searchValue'
             width: 100%;
             height: 32px;
             box-sizing: border-box;
-            //padding: 0 12px;
+            //padding: 0 12px;        
           }
 
           .searchModalTree {

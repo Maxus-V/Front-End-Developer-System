@@ -2,7 +2,8 @@
 import TreeMenu from './TreeMenu.vue'
 const props = defineProps({
     dataSource: Array,
-    searchValue: String
+    searchValue: String,
+    addSelectNodes: Function,
 })
 const dataSource = props.dataSource
 
@@ -11,6 +12,7 @@ const dataSource = props.dataSource
 <template>
         <TreeMenu
             :dataSource="dataSource"
+            :addSelectNodes="addSelectNodes"
         />
 </template>
 

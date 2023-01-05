@@ -3,9 +3,14 @@
     import { ElIcon, ElCheckbox, ElTooltip } from 'element-plus';
     import { ArrowRightBold } from '@element-plus/icons-vue';
     const props = defineProps({
-        data: Object
+        data: Object,
+        addSelectNodes: Function
     })
     const data = props.data
+
+    const changeChecked = (id = 'nothing') => {
+        props.addSelectNodes(id)
+    }
 </script>
 
 <template>
@@ -14,6 +19,7 @@
             <el-checkbox
                 :disabled="data.disabled"
                 :checked="data.defaultSelected"
+                @change="changeChecked(data.id)"
             />
             <el-tooltip effect="light" :content="data.name" placement="top">
                 {{data.name}}
@@ -24,6 +30,7 @@
                 <el-checkbox
                     :disabled="child.disabled"
                     :checked="child.defaultSelected"
+                    @change="changeChecked(child.id)"
                 />
                 <el-tooltip effect="light" :content="child.name" placement="top">
                     {{child.name}}
