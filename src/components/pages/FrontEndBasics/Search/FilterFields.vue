@@ -18,8 +18,11 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 const props = defineProps({
     modalVisible: Boolean,
     column: Array,
-    changeModalVisible: Function
+    changeModalVisible: Function,
+    pstate: Object
 })
+
+const {changeModalVisible, pstate} = props
 
 // const initSelectedNodes = publicFields[0].children.slice(2,6)
 
@@ -28,8 +31,7 @@ const initSelectedNodes = []
 const defaultSelectedPublicKey = getChildrenByLoop(publicFields)
 
 // const selectNodes = unionWith(defaultSelectedPublicKey, initSelectedNodes, (a, b) => a.id === b.id)
-
-const modalVisible = props.modalVisible
+let modalVisible = props.modalVisible
 
 // const dataSource = publicFields.concat({
 //             name: '自定义字段',
@@ -44,7 +46,8 @@ const state = reactive({
             id: 'custom',
             children: []
         }),
-    testSource: []
+    testSource: [],
+    searchValue: '',
 })
 
 state.testSource = state.selectNodes
@@ -86,12 +89,14 @@ const removeSelectNodes = (id) => {
     state.testSource.splice(index, 1)
 }
 
-const searchValue = 'searchValue'
+const changeDialogVisible = (value) => {
+    pstate.modalVisible = value
+}
 </script>
 
 <template>
 <el-dialog
-        v-model="modalVisible"
+        v-model="pstate.modalVisible"
         title="表格字段显示"
     >
         <div class="wrapper">
@@ -101,11 +106,12 @@ const searchValue = 'searchValue'
                     <el-input 
                         :suffix-icon="Search" 
                         placeholder="请输入关键字"
+                        v-model="state.searchValue"
                     />
                 </div>
                 <BasicTree
                     :dataSource="state.dataSource"
-                    :searchValue="searchValue"
+                    :searchValue="state.searchValue"
                     :addSelectNodes="addSelectNodes"
                 />
             </div>
@@ -117,7 +123,7 @@ const searchValue = 'searchValue'
                 <DndProvider :backend="HTML5Backend">
                     <DraggableList
                         :dataSource=" state.testSource"
-                        :searchValue="searchValue"
+                        :searchValue="state.searchValue"
                         :removeSelectNodes="removeSelectNodes"
                     />
                     <!-- <TestDraggableList/> -->
@@ -126,8 +132,8 @@ const searchValue = 'searchValue'
         </div>
         <template #footer>
         <span>
-            <el-button @click="changeModalVisible()">取消</el-button>
-            <el-button type="primary" @click="changeModalVisible()">
+            <el-button @click="changeModalVisible(false)">取消</el-button>
+            <el-button type="primary" @click="changeModalVisible(false)">
                 确定
             </el-button>
         </span>

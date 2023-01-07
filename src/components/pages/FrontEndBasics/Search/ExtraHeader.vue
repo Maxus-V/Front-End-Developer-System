@@ -5,11 +5,12 @@ import { Filter, Search } from '@element-plus/icons-vue';
 
 import FilterFields from './FilterFields.vue';
 
-let modalVisible = ref(true)
+const state = reactive({
+    modalVisible: true
+})
 
-const changeModalVisible = () => {
-    console.log('en')
-    modalVisible = !modalVisible
+const changeModalVisible = (value) => {
+    state.modalVisible = value
 }
 </script>
 
@@ -19,15 +20,16 @@ const changeModalVisible = () => {
         effect="light"
         placement="top"
     >
-        <el-button size="small" @click="changeModalVisible()">
+        <el-button size="small" @click="changeModalVisible(true)">
             <el-icon>
                 <Filter />
             </el-icon>
         </el-button>
     </el-tooltip>
     <FilterFields
-        :modalVisible="modalVisible"
+        :modalVisible="state.modalVisible"
         :changeModalVisible="changeModalVisible"
+        :pstate="state"
     />
 </template>
 

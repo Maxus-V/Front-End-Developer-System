@@ -8,6 +8,8 @@
     })
     const data = props.data
 
+    const {name, isLeaf, id, disabled, isDefaultExpand, isHit} = data
+
     const changeChecked = (id = 'nothing') => {
         props.addSelectNodes(id)
     }
