@@ -6,7 +6,15 @@ import Handle from '../Handle/index.vue'
 
 import { debounce } from 'lodash';
 
-const yet = ref(true)
+const props = defineProps({
+    state: Object,
+    changeShowDialog: Function
+})
+
+const { state } = props
+
+const {showDialog} = state
+
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive({
     name:'',
@@ -34,7 +42,7 @@ const checkStrategyName = (rule, value, callback, source) => {
 
 <template>
     <el-dialog
-        v-model="yet"
+        v-model="showDialog"
         title="新建策略"
     >
         <el-form 

@@ -1,21 +1,35 @@
 <script setup>
+import { reactive } from 'vue'
 import { ElInput, ElButton } from 'element-plus';
 import BasicTable from '../../../basic/BasicTable/index.vue'
 import EditPage from './subComponents/EditPage/index.vue'
+
+
+const state = reactive({
+  showDialog: true
+})
+
+const changeShowDialog = (value) => {
+  state.showDialog = value
+}
 </script>
 
 <template>
     <div class="selfHealingStrategy">
         <div class="tableTopLine">
             <el-input></el-input>
-            <el-button>新建策略</el-button>
+            <el-button @click="changeShowDialog(true)">新建策略</el-button>
+            <button>222</button>
         </div>
         <div className="content">
             <BasicTable
               :data="[]"
             />
         </div>
-        <EditPage/>
+        <EditPage
+          :state='state'
+          :changeShowDialog="changeShowDialog"
+        />
     </div>
 </template>
 
