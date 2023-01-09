@@ -11,6 +11,7 @@ import { unionWith, xorWith } from 'lodash';
 
 import {publicFields} from '../config/constant'
 import { getChildrenByLoop } from './utils';
+import { generateData } from '../../../basic/BasicTree/utils';
 
 import { DndProvider } from 'vue3-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -49,6 +50,26 @@ const state = reactive({
     testSource: [],
     searchValue: '',
 })
+
+const treeState = reactive({
+    expendKeys: [],
+    checkedKeys: state.selectNodes,
+    initData: generateData(state.dataSource, state.searchValue)
+})
+
+const changeTreeState = (type, payload) => {
+    if (type === 'CHANGE_EXPAND_KEYS') {
+        const {expendKeys} = treeState
+        const keys = expendKeys.map(i => i.id)
+        treeState.expendKeys = keys.includes(payload.id) ? expendKeys.filter(i => i.id !== payload.id) : expendKeys.concat(payload)
+    }
+    if (type === 'CHANGE_SELECTED_KEYS') {
+        return (payload) => {
+            const {checkedKeys} = treeState
+            treeState.checkedKeys = xorWith(checkedKeys, payload, (a, b) => a.id === b.id)
+        }
+    }
+}
 
 state.testSource = state.selectNodes
 
@@ -113,6 +134,8 @@ const changeDialogVisible = (value) => {
                     :dataSource="state.dataSource"
                     :searchValue="state.searchValue"
                     :addSelectNodes="addSelectNodes"
+                    :treeState="treeState"
+                    :changeTreeState="changeTreeState"
                 />
             </div>
             <!-- DraggableList -->

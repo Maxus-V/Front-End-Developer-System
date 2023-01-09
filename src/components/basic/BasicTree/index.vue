@@ -7,6 +7,8 @@ const props = defineProps({
     dataSource: Array,
     searchValue: String,
     addSelectNodes: Function,
+    treeState: Object,
+    changeTreeState: Function
 })
 const {dataSource, searchValue} = props
 
@@ -18,6 +20,8 @@ const treeData = generateData(dataSource, searchValue)
         <TreeMenu
             :dataSource="treeData"
             :addSelectNodes="addSelectNodes"
+            :treeState="treeState"
+            :changeTreeState="changeTreeState"
         />
 </template>
 

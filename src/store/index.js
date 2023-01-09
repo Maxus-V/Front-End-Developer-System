@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import { xorWith } from 'lodash';
 
 const store = createStore({
     state () {
@@ -14,6 +15,31 @@ const store = createStore({
     mutations: {
       changeTimeSet (state, num) {
         state._is7days = num == 7 ? true : false
+      }
+    },
+    modules: {
+      useTree: {
+        namespaced: true, 
+        state () {
+          return {
+            initialState: {
+              expendKeys: [],
+              checkedKeys: [],
+              initData: []
+            }
+          }
+        },
+        mutations: {
+          onExpand (payload) {
+            const {expendKeys} = state.initialState
+            const keys = expendKeys.map(i => i.id)
+            state.initialState.expendKeys = keys.includes(payload.id) ? expendKeys.filter(i => i.id !== payload.id) : expendKeys.concat(payload)
+          },
+          onSelect (payload) {
+            const {checkedKeys} = state.initialState
+            state.initialState.checkedKeys = xorWith(checkedKeys, payload, (a, b) => a.id === b.id)
+          }
+        }
       }
     }
 })

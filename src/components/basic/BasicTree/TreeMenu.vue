@@ -2,7 +2,9 @@
 import ReSubMenu from './ReSubMenu.vue'
 const props = defineProps({
     dataSource: Array,
-    addSelectNodes:Function
+    addSelectNodes:Function,
+    treeState: Object,
+    changeTreeState: Function
 })
 
 </script>
@@ -13,6 +15,9 @@ const props = defineProps({
                  <ReSubMenu v-else 
                     :data="data"
                     :addSelectNodes="addSelectNodes"
+                    :treeState="treeState"
+                    :changeTreeState="changeTreeState"
+                    :dataSource="dataSource"
                 >
                 </ReSubMenu>
          </template>

@@ -81,9 +81,9 @@ export const getChildrenId = (children, callBack) => children.reduce((list, chil
     return isLeaf ? list.concat(child, ...childList) : list.concat(...childList)
 }, [])
 
-export const useSelectStatus = (node, selectedNodes, callback) => {
+export const useSelectStatus = (node, selectedNodes, callback, value) => {
     const selectedIds = selectedNodes.map(node => node.id)
-    const childList = () => getChildrenId(node.children)
+    const childList = getChildrenId(node.children)
     const {selectedChild, unSelectedChild} = childList.reduce((t, child) => {
         const {id} = child
         const {selectedChild, unSelectedChild} = t
@@ -98,21 +98,22 @@ export const useSelectStatus = (node, selectedNodes, callback) => {
         selectedChild: [],
         unSelectedChild: []
     })
+    
     const status = () => {
-        const {isLeaf, name} = node
-        if (isLeaf) {
-            return !!(selectedNodes.find((i) => i.id === node.id))
-        } else {
-            const count = selectedChild.length
-            return count === childList.length ? true : count === 0 ? false : 'half'
-        }
+            const {isLeaf, name} = node
+            if (isLeaf) {
+                return !!(selectedNodes.find((i) => i.id === node.id))
+            } else {
+                const count = selectedChild.length
+                return count === childList.length ? true : count === 0 ? false : 'half'
+            }
     }
     const selectedNode = () => {
         const {isLeaf} = node
         if (isLeaf) {
-            callback && callback([node])
+            callback(value) && callback(value)([node])
         } else {
-            callback && callback(status === 'half' ? unSelectedChild.filter(i => !(i.disabled)) : childList.filter(i => !(i.disabled)))
+            callback(value) && callback(value)(status === 'half' ? unSelectedChild.filter(i => !(i.disabled)) : childList.filter(i => !(i.disabled)))
         }
     }
     return {

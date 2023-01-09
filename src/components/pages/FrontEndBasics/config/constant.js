@@ -106,24 +106,24 @@ export const publicFields = [
                 id: 'mergeRuleName',
                 disabled: false,
                 defaultSelected: false,
-                children: [
-                    {
-                        name: '测试2',
-                        id: 'test2',
-                    }
-                ],
+                // children: [
+                //     {
+                //         name: '测试2',
+                //         id: 'test2',
+                //     }
+                // ],
             },
             {
                 name: '备注',
                 id: 'remark',
                 disabled: false,
                 defaultSelected: true,
-                children: [
-                    {
-                        name: '测试',
-                        id: 'test',
-                    }
-                ],
+                // children: [
+                //     {
+                //         name: '测试',
+                //         id: 'test',
+                //     }
+                // ],
             },
         ]
     },
