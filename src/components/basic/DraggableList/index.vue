@@ -1,43 +1,33 @@
 <script setup>
-import {ref} from 'vue'
 import { ElEmpty } from 'element-plus';
 import DraggableItem from './DraggableItem.vue'
 
 const props = defineProps({
-    dataSource: Array,
-    searchValue: String,
+    treeState: Object,
     removeSelectNodes: Function,
 })
 
-const {dataSource} = props
-
-// const cards = ref(dataSource)
+const { treeState } = props
 
 const moveCard = (dragIndex, hoverIndex) => {
-    const item = dataSource[dragIndex]
-    dataSource.splice(dragIndex, 1)
-    dataSource.splice(hoverIndex, 0, item)
+    const item = treeState.checkedKeys[dragIndex]
+    treeState.checkedKeys.splice(dragIndex, 1)
+    treeState.checkedKeys.splice(hoverIndex, 0, item)
 }
-
-// const moveCard = (dragIndex, hoverIndex) => {
-//     const item = cards.value[dragIndex]
-//     cards.value.splice(dragIndex, 1)
-//     cards.value.splice(hoverIndex, 0, item)
-// }
 
 </script>
 
 <template>
     <div class="DraggableList">
-        <template v-if="dataSource.length">
+        <template v-if="treeState.checkedKeys.length">
             <DraggableItem
-            v-for="(card, index) in dataSource"
-            :id="card.id"
-            :key="card.id"
-            :name="card.name"
+            v-for="(checkedKey, index) in treeState.checkedKeys"
+            :id="checkedKey.id"
+            :key="checkedKey.id"
+            :name="checkedKey.name"
+            :disabled="checkedKey.disabled"
             :index="index"
-            :move-card="moveCard"
-            :disabled="card.disabled"
+            :moveCard="moveCard"
             :removeSelectNodes="removeSelectNodes"
             />
         </template>
@@ -48,7 +38,5 @@ const moveCard = (dragIndex, hoverIndex) => {
 </template>
 
 <style lang="scss" scoped>
-.DraggableList {
-    
-}
+
 </style>

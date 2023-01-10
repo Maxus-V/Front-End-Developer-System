@@ -108,6 +108,8 @@ export const useSelectStatus = (node, selectedNodes, callback, value) => {
                 return count === childList.length ? true : count === 0 ? false : 'half'
             }
     }
+
+    const newStatus = node.isLeaf ? !! (selectedNodes.find((i) => i.id === node.id)) : selectedChild.length === childList.length ? true : selectedChild.length === 0 ? false : 'half'
     const selectedNode = () => {
         const {isLeaf} = node
         if (isLeaf) {
@@ -118,6 +120,7 @@ export const useSelectStatus = (node, selectedNodes, callback, value) => {
     }
     return {
         status,
+        newStatus,
         selectedNode
     }
 }

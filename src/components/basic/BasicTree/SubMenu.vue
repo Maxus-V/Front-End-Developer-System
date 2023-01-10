@@ -19,16 +19,16 @@ const change = () => {
 
 <template>
     <div>
-        <div class="title" @click="change">
-            <el-icon v-show="!state.flag">
+        <div class="title">
+            <!-- <el-icon v-show="!state.flag">
                 <ArrowRightBold />
             </el-icon>
             <el-icon v-show="state.flag">
                 <ArrowDownBold />
-            </el-icon>
+            </el-icon> -->
             <slot name="title"></slot>
         </div>
-        <div class="sub" v-show="state.flag">
+        <div class="sub">
             <slot></slot>
         </div>
     </div>

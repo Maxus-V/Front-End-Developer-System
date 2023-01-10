@@ -20,7 +20,6 @@ const {id, disabled, removeSelectNodes} = props
 
 const removeItem = () => {
     removeSelectNodes(id)
-    // attrs.onRemoveSelectNodes(id)
 }
 
 const card = ref(null)
@@ -79,7 +78,7 @@ const setRef = (el) => {
         <span>{{ name }}</span>
     </div>
     <div class="icon">
-        <el-icon v-if="!disabled" @click="removeItem()">
+        <el-icon v-if="!disabled" @click="removeItem">
             <Delete/>
         </el-icon>
     </div>
@@ -97,9 +96,6 @@ const setRef = (el) => {
     justify-content: space-between;
     .icon {
         cursor: pointer;
-    }
-    &:hover {
-        // background-color: white;
     }
 }
 </style>

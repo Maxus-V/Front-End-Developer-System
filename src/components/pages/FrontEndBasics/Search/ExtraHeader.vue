@@ -27,9 +27,8 @@ const changeModalVisible = (value) => {
         </el-button>
     </el-tooltip>
     <FilterFields
-        :modalVisible="state.modalVisible"
+        :modalVisible="state"
         :changeModalVisible="changeModalVisible"
-        :pstate="state"
     />
 </template>
 
