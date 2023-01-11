@@ -1,33 +1,21 @@
 <script setup>
+    import {reactive} from 'vue'
     import CustomFileldsModal from './CustomFieldsModal.vue'
-</script>
-
-<script>
-import { 
-    ElButton,
-    ElIcon
-} from 'element-plus'
-    
-import { Plus } from '@element-plus/icons-vue';
-    
-export default {
-    components: {
-        ElIcon,
+    import FilterFields from './FilterFields.vue';
+    import { 
         ElButton,
-        Plus
-    },
-    data() {
-        return {
-            modalVisible: false
-        }
-    },
-    methods: {
-        changeModalVisible() {
-            this.modalVisible = !this.modalVisible
-        }
+        ElIcon
+    } from 'element-plus'
+    import { Plus } from '@element-plus/icons-vue';
+
+    const state = reactive({
+        modalVisible: false
+    })
+
+    const changeModalVisible = () => {
+        state.modalVisible = !state.modalVisible
     }
-}
-</script>
+</script>   
 
 <template>
     <div class="extraPanel">
@@ -48,9 +36,13 @@ export default {
             </div>
         </div>
         
-        <CustomFileldsModal
+        <!-- <CustomFileldsModal
             :dialogVisible="modalVisible"
             @changeDialogVisible="changeModalVisible"
+        /> -->
+        <FilterFields
+            :modalVisible="state"
+            :changeModalVisible="changeModalVisible"
         />
     </div>
 </template>
