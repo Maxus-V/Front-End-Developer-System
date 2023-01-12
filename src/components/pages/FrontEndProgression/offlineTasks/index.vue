@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive } from 'vue'
-import { ElTabs, ElTabPane, ElButton, ElSelect, ElOption, ElInput, ElTable } from 'element-plus';
+import { ElTabs, ElTabPane, ElButton, ElSelect, ElOption, ElInput, ElTable, ElTableColumn } from 'element-plus';
 import { Search } from '@element-plus/icons-vue'
 import EditPage from './EditPage.vue'
 
@@ -8,7 +8,39 @@ const state = reactive({
     taskType: "uploadData",
     selectType: "",
     inputValue: "",
-    isView: false
+    isView: false,
+    columnState:[
+      {
+        title: '任务名称',
+        prop: 'title'
+      },
+      {
+        title: '状态',
+        prop: 'status'
+      },
+      {
+        title: '告警源',
+        prop: 'alertSource'
+      },
+      {
+        title: '创建时间',
+        prop: 'createTime',
+        sortable: true
+      },
+      {
+        title: '数据导入',
+        prop: 'operation'
+      },
+    ],
+    testData: [
+      {
+        title: 'a',
+        status: 'b',
+        alertSource: 'c',
+        createTime: 'd',
+        operation: 'e'
+      }
+    ]
 })
 
 const onTypeChange = () => {
@@ -30,6 +62,13 @@ const changeQueryName = () => {
 
 const deleteBatch = () => {
     console.log('删除')
+}
+
+const formatter = (row, column, cellValue, index) => {
+  if (column.property === 'createTime') {
+    return cellValue + '1'
+  }
+  return cellValue
 }
 
 </script>
@@ -81,7 +120,14 @@ const deleteBatch = () => {
                         </div>
                     </div>
                     <div class="content">
-                      <el-table/>
+                      <el-table :data="state.testData">
+                        <el-table-column v-for="column in state.columnState" 
+                          :label="column.title"
+                          :prop="column.prop"
+                          :sortable="column.sortable"
+                          :formatter="formatter"
+                        />
+                      </el-table>
                     </div>
                 </div>
             </el-tab-pane>
