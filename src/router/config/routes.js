@@ -73,7 +73,20 @@ const routes = [
           component: () => import('@/components/pages/FrontEndProgression/NodeBase.vue')
         },
       ]
-  },
+    },
+    {
+      path: '/settings',
+      children: [
+        {
+          path: '/settings',
+          redirect: '/settings/refreshrate'
+        },
+        {
+          path: 'refreshrate',
+          component: () => import('@/components/pages/Settings/RefreshRate/index.vue')
+        }
+      ]
+    }
 ];
 
 export default routes
