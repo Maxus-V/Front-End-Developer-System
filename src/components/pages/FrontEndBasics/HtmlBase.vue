@@ -1,11 +1,9 @@
 <script setup>
-  import Search from './Search/index.vue'
-  import ContentTable from './Search/contentTable.vue'
+  import Htmlbase from './htmlbase/index.vue'
 </script>
 
 <template>
     <div>
-      <Search/>
-      <ContentTable/>
+      <Htmlbase/>
     </div>
 </template>

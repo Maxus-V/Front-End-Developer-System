@@ -6,7 +6,7 @@ import {
 } from 'element-plus'
 import { get } from 'lodash';
 
-import { getList } from '../service';
+import { getList } from '../../service';
     
 export default {
     components: {

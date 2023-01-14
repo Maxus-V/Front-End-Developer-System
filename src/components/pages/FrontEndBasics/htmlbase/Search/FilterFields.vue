@@ -3,14 +3,14 @@ import {ref, reactive, toRaw} from 'vue'
 import { ElButton, ElDialog, ElInput } from 'element-plus';
 import { Search } from '@element-plus/icons-vue';
  
-import BasicTree from '../../../basic/BasicTree/index.vue'
-import DraggableList from '../../../basic/DraggableList/index.vue'
+import BasicTree from '../../../../basic/BasicTree/index.vue'
+import DraggableList from '../../../../basic/DraggableList/index.vue'
 
 import { unionWith, xorWith } from 'lodash';
 
-import {publicFields} from '../config/constant'
+import {publicFields} from '../../config/constant'
 import { getChildrenByLoop } from './utils';
-import { generateData } from '../../../basic/BasicTree/utils';
+import { generateData } from '../../../../basic/BasicTree/utils';
 
 import { DndProvider } from 'vue3-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'

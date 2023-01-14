@@ -6,7 +6,7 @@ import { Filter, Search } from '@element-plus/icons-vue';
 import FilterFields from './FilterFields.vue';
 
 const state = reactive({
-    modalVisible: true
+    modalVisible: false
 })
 
 const changeModalVisible = (value) => {
