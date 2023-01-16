@@ -93,6 +93,7 @@ const useTable = (type, fetchTableData, initConditions = {}, isLoadable = false)
         })
     }
     const modifyConditions = (conditions) => {
+        console.log('这里已执行modifyConditions的发送请求逻辑，参数为', conditions)
         tableHandler({
             type: 'MODIFY_CONDITION',
             payload: conditions

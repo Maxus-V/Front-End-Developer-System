@@ -11,7 +11,6 @@ const download = () => {
 </script>
 
 <template>
-    <div style="margin: 0 8px;">
         <!-- <span class="helpMsg">{{ msg }}</span> -->
         <ElTooltip content="下载" effect="light" placement="top">
             <ElButton 
@@ -25,7 +24,6 @@ const download = () => {
                 </ElIcon>
             </ElButton>
         </ElTooltip>
-    </div>
 </template>
 
 <style lang="scss" scoped>

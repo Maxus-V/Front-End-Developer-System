@@ -1,15 +1,24 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
 
+const props = defineProps({
+    tableData: Object,
+    modifyConditions: Function,
+    state:Object
+})
+
+const { tableData, modifyConditions, state } = props
+
 const type = 'archiveEvent1'
 const incidentPageCount = {
     pendingCount: 0,
     processingCount: 0,
     closedCount: 0
 }
-const currentCategory = 'PENDING'
 
 const {pendingCount=0, processingCount=0, closedCount=0} = incidentPageCount
+
+
 
 const mapArr = reactive({
     arr1: [],
@@ -21,13 +30,13 @@ mapArr.arr1 = computed(() => {
             id: 1,
             name: '待处理',
             processStatus: "PENDING",
-            count: currentCategory === "PENDING" ? pendingCount : 0
+            count: state.currentCategory === "PENDING" ? pendingCount : 0
         },
         {
             id: 2,
             name: '处理中',
             processStatus: "PROCESSING",
-            count: currentCategory === "PROCESSING" ? processingCount : 0
+            count: state.currentCategory === "PROCESSING" ? processingCount : 0
         },
     ]
 })
@@ -37,7 +46,7 @@ mapArr.arr2 = computed(() => {
             id: 3,
             name: '已解决',
             processStatus: "CLOSED",
-            count: currentCategory === "CLOSED" ? closedCount : 0
+            count: state.currentCategory === "CLOSED" ? closedCount : 0
         }
     ]
 })
@@ -50,8 +59,14 @@ const categorys = computed(() => {
     }
 })
 
-const changeProcess = () => {
-
+const changeProcess = (value, id) => {
+    if (value && id) {
+        state.currentCategory = value
+    }
+    modifyConditions({
+        processStatusList: [value],
+        currentPage: 1,
+    })
 }
 
 </script>
@@ -62,8 +77,8 @@ const changeProcess = () => {
       <div class="action">
         <div v-for="category in categorys"
             class="default"
-            :class="category.processStatus === currentCategory ? 'active' : ''"
-            @click="changeProcess('processStatus', category.processStatus, category.id)"
+            :class="category.processStatus === state.currentCategory ? 'active' : ''"
+            @click="changeProcess(category.processStatus, category.id)"
         > 
             {{ category.name }}
             {{ category.count }}

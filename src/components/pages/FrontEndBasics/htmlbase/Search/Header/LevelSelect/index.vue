@@ -2,7 +2,14 @@
 import { ref } from 'vue'
 import { ElSelect, ElOption } from 'element-plus';
 
-const levelList = ref([])
+const props = defineProps({
+    conditions: Object,
+    modifyConditions: Function,
+})
+
+const {conditions, modifyConditions} = props
+
+const levelList = ref(conditions.levelLis || [])
 
 const options = [
     {
@@ -32,8 +39,11 @@ const options = [
     },
 ]
 
-const onChangeLevel = () => {
-    console.log('要发请求了')
+const onChangeLevel = (value) => {
+    modifyConditions({
+        levelList: value || [],
+        currentPage: 1
+    })
 }
 </script>
 

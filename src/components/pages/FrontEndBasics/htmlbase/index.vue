@@ -1,4 +1,5 @@
 <script setup>
+  import { reactive } from 'vue'
   import Search from './Search/index.vue'
   import EventTable from './eventTable.vue';
 
@@ -12,6 +13,10 @@
     customFetchData
   } = useTable()
 
+  const state = reactive({
+    currentCategory: 'PENDING'
+  })
+
 </script>
 
 <template>
@@ -20,6 +25,7 @@
         :tableData="tableData"
         :conditions = "tableData"
         :modifyConditions="modifyConditions"
+        :state="state"
       />
       <EventTable/>
     </div>

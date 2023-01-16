@@ -4,30 +4,55 @@ import LevelSelect from './LevelSelect/index.vue'
 
 import { ElDatePicker, ElInput } from 'element-plus';
 
+import moment from 'moment';
+
 const props = defineProps({
     tableData: Object,
     conditions: Object,
     modifyConditions: Function,
 })
 
+const { tableData, modifyConditions } = props
+const { conditions } = tableData
+const { startTime, endTime } = conditions
+
 const type = 'archiveEvent1'
 
-const query = ref(null)
-const rangeTime = ref(null)
+const rangeTime = ref((startTime && endTime) ? [moment(startTime), moment(endTime)] : [])
+const query = ref(conditions.query)
 
-const selectTime = () => {
-    console.log('选择时间了')
+const selectTime = (range) => {
+    if (range && range.length ) {
+        const [startTime, endTime] = range
+        modifyConditions({
+            startTime: startTime,
+            endTime: endTime,
+            currentPage: 1,
+        })
+    } else {
+        modifyConditions({
+            startTime: undefined,
+            endTime: undefined,
+            currentPage: 1,
+        })
+    }
 }
 
-const setQuery = () => {
-    console.log('改变参数')
+const inputOnChange = (value) => {
+    modifyConditions({
+        query: value,
+        currentPage: 1,
+    })
 }
 
 </script>
 
 <template>
     <div class="searchHeader">
-        <LevelSelect v-if="type !== 'archiveEvent'"/>
+        <LevelSelect v-if="type !== 'archiveEvent'"
+            :conditions="conditions"
+            :modifyConditions="modifyConditions"
+        />
         <ElDatePicker
             style="width: 250px"
             type="daterange"
@@ -40,7 +65,7 @@ const setQuery = () => {
         />
         <ElInput
             v-model="query"
-            @change="setQuery"
+            @change="inputOnChange"
             clearable
             class="input"
             placeholder="请输入事件名称/ID"
@@ -50,5 +75,18 @@ const setQuery = () => {
 </template>
 
 <style lang="scss" scoped>
+.searchHeader {
+      display: flex;
+      flex-direction: row;
 
+      .select {
+        width: 150px;
+        margin-right: 10px;
+      }
+
+      .input {
+        width: 150px;
+        margin-left: 10px;
+      }
+    }
 </style>

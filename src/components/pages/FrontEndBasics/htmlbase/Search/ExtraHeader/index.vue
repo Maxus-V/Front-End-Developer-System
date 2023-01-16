@@ -2,6 +2,11 @@
 import DeleteBtn from './DeleteBtn.vue'
 import ExportBtn from './ExportBtn.vue'
 import FilterFields from './FilterFields/index.vue';
+
+const props = defineProps({
+    tableData: Object,
+    modifyCondition: Function
+})
 </script>
 
 <template>
