@@ -1,7 +1,7 @@
 <script setup>
   import { reactive } from 'vue'
   import Search from './Search/index.vue'
-  import EventTable from './eventTable.vue';
+  import EventTable from './EventTable.vue';
 
   import useTable from './logicExtraction/useTable.js'
   const {
@@ -30,3 +30,9 @@
       <EventTable/>
     </div>
 </template>
+
+<style lang="scss" scoped>
+.eventWrapper{
+  height: 69vh;
+}
+</style>
