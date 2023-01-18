@@ -1,6 +1,13 @@
 <script setup>
 import { ref } from 'vue'
-import { ElTable, ElPagination } from 'element-plus';
+import { ElTable, ElPagination, ElEmpty, ElTableColumn } from 'element-plus';
+
+const props = defineProps({
+    state: Object
+})
+
+const { state } = props
+const { columns, data } = state
 
 const currentPage4 = ref(4)
 
@@ -20,11 +27,27 @@ const handleCurrentChange = (val) => {
         <div class="basicTable">
             <div class="tableItem">
                 <ElTable
-                    
-                />
+                    :data="data"
+                >   
+                    <ElTableColumn v-for="column in columns" 
+                        :prop="column.prop" 
+                        :label="column.title"
+                    >
+                        <template #default="scope">
+                            <RouterLink v-if="column.prop === 'incidentNameText'" :to="column.goto">
+                                {{ scope.row[column.prop] || '-' }}
+                            </RouterLink>
+                            <div v-else>{{ scope.row[column.prop] || '-' }}</div>
+                        </template>
+                    </ElTableColumn>
+                    <template #empty>
+                        <ElEmpty  description="暂无数据" />
+                    </template>
+                </ElTable>
+                
             </div>
             <div class="paginationItem">
-                <ElPagination
+                <!-- <ElPagination
                     :current-page="currentPage4"
                     :page-sizes="[10, 30, 50, 100]"
                     :pager-count="2"
@@ -38,7 +61,7 @@ const handleCurrentChange = (val) => {
                     <div>
                         共 n 条
                     </div>
-                </ElPagination>
+                </ElPagination> -->
             </div>
         </div>
     </div>
