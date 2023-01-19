@@ -28,6 +28,12 @@
         level: 'high',
         createdTime: '2023-01-18'
       },
+      {
+        seriNum: '666666',
+        incidentNameText: '什么动静',
+        level: 'high',
+        createdTime: '2023-01-19'
+      },
     ],
   })
 

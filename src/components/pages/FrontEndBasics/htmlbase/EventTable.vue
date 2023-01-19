@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { ElTable, ElPagination, ElEmpty, ElTableColumn } from 'element-plus';
 
 const props = defineProps({
@@ -9,15 +9,22 @@ const props = defineProps({
 const { state } = props
 const { columns, data } = state
 
-const currentPage4 = ref(4)
+const tableState = reactive({
+    currentPage: 1,
+    pageSizes: [10, 30, 50, 100],
+    total: 500,
+})
 
 const handleSizeChange = (val) => {
-  console.log(`${val} items per page`)
-  currentPage4.value = val
+  console.log(`${val} items per page`, 'sizechange')
+  tableState.currentPage = val
 }
 const handleCurrentChange = (val) => {
-  console.log(`current page: ${val}`)
-  currentPage4.value = val
+  console.log(`current page: ${val}`, 'currentchange')
+  tableState.currentPage = val
+}
+const handleSelectionChange = (val) => {
+    console.log('val', val)
 }
 
 </script>
@@ -28,13 +35,15 @@ const handleCurrentChange = (val) => {
             <div class="tableItem">
                 <ElTable
                     :data="data"
+                    @selection-change="handleSelectionChange"
                 >   
+                    <ElTableColumn type="selection"/>
                     <ElTableColumn v-for="column in columns" 
                         :prop="column.prop" 
                         :label="column.title"
                     >
                         <template #default="scope">
-                            <RouterLink v-if="column.prop === 'incidentNameText'" :to="column.goto">
+                            <RouterLink v-if="column.prop === 'incidentNameText'" :to="'htmlbase/' + scope.row.seriNum">
                                 {{ scope.row[column.prop] || '-' }}
                             </RouterLink>
                             <div v-else>{{ scope.row[column.prop] || '-' }}</div>
@@ -47,21 +56,17 @@ const handleCurrentChange = (val) => {
                 
             </div>
             <div class="paginationItem">
-                <!-- <ElPagination
-                    :current-page="currentPage4"
+                <ElPagination
+                    :total="tableState.total"
+                    layout="sizes, prev, pager, next, jumper"
                     :page-sizes="[10, 30, 50, 100]"
-                    :pager-count="2"
-                    background
-                    layout="slot,sizes, prev, pager, next, jumper"
-                    :total="400"
                     @size-change="handleSizeChange"
+                    background
+                    :current-page="tableState.currentPage"
                     @current-change="handleCurrentChange"
-                    total="1000"
+                    :pager-count="5"
                 >
-                    <div>
-                        共 n 条
-                    </div>
-                </ElPagination> -->
+                </ElPagination>
             </div>
         </div>
     </div>
@@ -73,7 +78,6 @@ const handleCurrentChange = (val) => {
     .basicTable {
         width: 100%;
         height: 100%;
-        border: 1px solid red;
         .tableItem {
             margin-bottom: 20px;
         }

@@ -115,7 +115,6 @@ const specialColumns = {
     incidentNameText: {
         title: '事件名称',
         prop: 'incidentNameText',
-        goto: '/overview',
     },
     alertCount: {
         title: '警报数',

@@ -64,7 +64,13 @@ const routes = {
     },
     settings: {
       name: 'settings',
-      children: []
+      children: [
+        {
+          name: '刷新频率',
+          path: '/settings/refreshrate',
+          index: '4-1',
+        }
+      ]
     }
   }
 

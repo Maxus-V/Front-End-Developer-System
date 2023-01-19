@@ -29,6 +29,10 @@ const routes = [
       ]
     },
     {
+      path: '/frontendbasics/:type/:id',
+      component: () => import('@/components/pages/FrontEndBasics/BaseDetail/index.vue')
+    },
+    {
         path: '/frontendframes',
         children: [
           {
