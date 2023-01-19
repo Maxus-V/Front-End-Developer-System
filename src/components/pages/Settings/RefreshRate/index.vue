@@ -1,16 +1,24 @@
 <script setup>
 import { reactive } from 'vue';
 import { ElForm, ElFormItem, ElSwitch, ElSelect, ElOption } from 'element-plus';
+import { useStore } from 'vuex'
 
 import { timeConfig } from '@/components/pages/Settings/config/index.js'
 
+const store = useStore()
+const { charger, rate } = store.state.refresh
+
 const state = reactive({
-    switchValue: false,
-    selectValue: 5,
+    switchValue: charger || false,
+    selectValue: rate || 5,
 })
 
 const onSwitchChange = () => {
-    console.log('hi')
+    store.commit('setRefreshCharger', state.switchValue)
+}
+
+const onSelectChange = () => {
+    store.commit('setRefreshRate', state.selectValue)
 }
 
 </script>
@@ -30,6 +38,7 @@ const onSwitchChange = () => {
                 <ElOption v-for="config in timeConfig" 
                     :key="config.value" 
                     :value="config.value"
+                    @click="onSelectChange"
                 >
                     {{ config.name }}
                 </ElOption>

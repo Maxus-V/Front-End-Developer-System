@@ -4,17 +4,31 @@ import { xorWith } from 'lodash';
 const store = createStore({
     state () {
       return {
-        _is7days : true
+        _is7days : true,
+        refresh: {
+          charger: false,
+          rate: 30
+        }
       }
     },
     getters: {
-        isRecent7days () {
+        isRecent7days() {
           return store.state._is7days
+        },
+        refreshRate() {
+          const { charger, rate} = store.state.refresh
+          return charger? rate: charger
         }
     },
     mutations: {
       changeTimeSet (state, num) {
         state._is7days = num == 7 ? true : false
+      },
+      setRefreshCharger(state, value) {
+        state.refresh.charger = value
+      },
+      setRefreshRate(state, value) {
+        state.refresh.rate = value
       }
     },
     modules: {
