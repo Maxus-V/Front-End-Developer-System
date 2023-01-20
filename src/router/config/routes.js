@@ -33,6 +33,10 @@ const routes = [
       component: () => import('@/components/pages/FrontEndBasics/BaseDetail/index.vue')
     },
     {
+      path: '/frontendframes/formfilling/:type/create',
+      component: () => import('@/components/pages/FrontEndFrame/formFilling/index.vue')
+    },
+    {
         path: '/frontendframes',
         children: [
           {
@@ -41,7 +45,7 @@ const routes = [
           },
           {
             path: 'vue',
-            component: () => import('@/components/pages/FrontEndFrame/VueFrame.vue')
+            component: () => import('@/components/pages/FrontEndFrame/vueFrame/index.vue')
           },
           {
             path: 'react',
