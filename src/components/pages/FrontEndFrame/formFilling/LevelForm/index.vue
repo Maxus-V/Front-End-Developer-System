@@ -1,6 +1,11 @@
 <script setup>
-import { ElTooltip, ElIcon, ElFormItem, ElRow, ElCol, ElSelect, ElOption } from 'element-plus';
+import { reactive } from 'vue';
+import { ElTooltip, ElRadioGroup, ElRadio, ElIcon, ElFormItem, ElRow, ElCol, ElSelect, ElOption } from 'element-plus';
 import { QuestionFilled } from '@element-plus/icons-vue';
+
+const levelFormState = reactive({
+    radioValue: 'compress',
+})
 </script>
 
 <template>
@@ -17,8 +22,12 @@ import { QuestionFilled } from '@element-plus/icons-vue';
         <div class="levelFormTitle">
             事件生成规则配置
         </div>
-        <ElFormItem>
-
+        <ElFormItem label="事件生成方式">
+            <ElRadioGroup v-model="levelFormState.radioValue">
+                <ElRadio label="merge">告警合并</ElRadio>
+                <ElRadio label="compress">告警压缩</ElRadio>
+                <ElRadio label="direct">告警直发</ElRadio>
+            </ElRadioGroup>
         </ElFormItem>
         <ElFormItem>
             
