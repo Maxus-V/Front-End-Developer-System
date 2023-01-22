@@ -3,6 +3,8 @@ import { reactive } from 'vue';
 import { ElTooltip, ElRadioGroup, ElRadio, ElIcon, ElFormItem, ElRow, ElCol, ElSelect, ElOption } from 'element-plus';
 import { QuestionFilled } from '@element-plus/icons-vue';
 
+import levelConfig from './levelConfig.vue'
+
 const levelFormState = reactive({
     radioValue: 'compress',
 })
@@ -17,7 +19,7 @@ const levelFormState = reactive({
             </ElTooltip>
         </div>
         <ElFormItem>
-
+            <levelConfig />
         </ElFormItem>
         <div class="levelFormTitle">
             事件生成规则配置
