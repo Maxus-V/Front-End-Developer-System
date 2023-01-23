@@ -5,6 +5,7 @@ import { ElTable } from 'element-plus';
 
 <template>
     <ElTable />
+    
 </template>
 
 <style lang="scss" scoped>
