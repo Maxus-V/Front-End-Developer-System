@@ -1,14 +1,31 @@
 <script setup>
-// import { toRefs } from 'vue';
 import { ElIcon } from 'element-plus';
-import UpgradeIcon from '../../../../icons/IconUpgrade.vue'
+
+import UpgradeIcon from '@/components/icons/IconUpgrade.vue'
+
 const props = defineProps({
+  title: String,
   cardData: Object,
-  title: String
 })
 
-// const { cardData } = toRefs(props);
 const {myCount = 0, allCount = 0, todayMyTotal = 0, todayAllTotal = 0} = props.cardData
+
+const contents = [
+  {
+    classNames: 'events',
+    href: '/frontendbasics/htmlbase',
+    count: myCount,
+    eventName: '我的事件',
+    totalCount: todayMyTotal,
+  },
+  {
+    classNames: 'all events',
+    href: '/frontendbasics/cssbase',
+    count: allCount,
+    eventName: '所有事件',
+    totalCount: todayAllTotal,
+  },
+]
 
 //实现千位分隔
 const thousandth = (num) => {
@@ -25,41 +42,19 @@ const thousandth = (num) => {
     <div class='textCard'>
     <div class='container'>
       <div class='cardTitle'>{{title}}</div>
-      <div>
         <div class='cardContent'>
-          <div class='events'>
-            <router-link to="/frontendbasics/cssbase">
-                <h1 class='main'>{{thousandth(myCount)}}</h1>
-                <div class='head lucency'>我的事件</div>
+          <div v-for="content in contents" :class="content.classNames">
+            <RouterLink :to="content.href">
+                <h1 class='main'>{{thousandth(content.count)}}</h1>
+                <div class='head lucency'>{{ content.eventName }}</div>
                 <div class='footer lucency'>
-                    <!-- 今日 +{{todayMyTotal}} -->
-                    今日 +0
-                    <span> </span>
-                    <!-- <Icon component={Upgrade}/> -->
-                    <el-icon>
-                      <UpgradeIcon/>
-                    </el-icon>
+                  <span>今日 +{{ content.totalCount }}</span>
+                  <ElIcon><UpgradeIcon /></ElIcon>
                 </div>
-            </router-link>
-          </div>
-          <div class='all events'>
-            <router-link to="/frontendbasics/cssbase">
-                <h1 class='main'>{{thousandth(allCount)}}</h1>
-                <div class='head lucency'>所有事件</div>
-                <div class='footer lucency'>
-                    <!-- 今日 +{{todayAllTotal}} -->
-                    今日 +0
-                    <span> </span>
-                    <!-- <Icon component={Upgrade}/> -->
-                    <el-icon>
-                      <UpgradeIcon/>
-                    </el-icon>
-                </div>
-            </router-link>
+            </RouterLink>
           </div>
         </div>
         <div class='dashline'></div>
-      </div>
     </div>
   </div>
 </template>

@@ -1,6 +1,7 @@
 <script setup>
 import { reactive } from 'vue'
-import { ElSelect, ElOption, ElInput, ElTooltip } from 'element-plus';
+import { ElSelect, ElOption, ElInput, ElTooltip, ElIcon } from 'element-plus';
+import { Search } from '@element-plus/icons-vue';
 
 const searchBarState = reactive({
     selectValueOne: [],
@@ -56,7 +57,13 @@ const AlertSourcesConfig = {
             placeholder="请输入告警源名称"
             class="alertSourceListInput"
             v-model="searchBarState.inputValue"
-        />
+        >
+            <template #suffix>
+                <ElIcon style="cursor: pointer">
+                    <Search />
+                </ElIcon>
+            </template>
+        </ElInput>
     </div>
 </template>
 

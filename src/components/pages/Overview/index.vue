@@ -1,13 +1,13 @@
 <script setup>
-  import { ref, reactive, computed, watch, nextTick } from 'vue';
-  import { useStore } from 'vuex';
-  import CardZone from './components/CardZone.vue';
-  import ChartZone from './components/ChartZone.vue'
-  import TableZone from './components/TableZone.vue'
-  import { 
-    ElRow,
-    ElCol
-  } from 'element-plus';
+import { ref, reactive, computed, watch, nextTick } from 'vue';
+import { ElRow, ElCol } from 'element-plus';
+
+
+import { useStore } from 'vuex';
+import CardZone from './CardZone/index.vue';
+import ChartZone from './components/ChartZone.vue'
+import TableZone from './components/TableZone.vue'
+
 
   import {
     getOverviewCardsData,
@@ -15,7 +15,13 @@
     getOverviewTableData
   } from './service'
 
-  let cardsData = reactive({})
+  import axios from "axios";
+  axios.get('/test.json')
+    .then(res => {
+      console.log(res.data);
+    });
+
+  // let cardsData = reactive({})
   let chartsData = ref('00000')
   let tableData = ref('666666')
 
@@ -28,7 +34,7 @@
       timeRange: !is7days ? '7d' : '14d'
     }
     // console.log('params1', params)
-    cardsData = getOverviewCardsData(params).data
+    // cardsData = getOverviewCardsData(params).data
   }
 
   const getChartsData = (is7days='7d') => {
@@ -62,26 +68,24 @@
 
 <template>
     <div class="overview">
-      <!-- TODO:BasicScrollBar -->
       <CardZone
-        :cardData="cardsData"
       />
-      <el-row :gutter="12">
-        <el-col :span="12">
+      <!-- <ElRow :gutter="12">
+        <ElCol :span="12">
           <ChartZone
             recentDays="7d"
             :chartData = 'chartsData'
           />
-        </el-col>
-        <el-col :span="12">
+        </ElCol>
+        <ElCol :span="12">
           <ChartZone
             recentDays="14d"
             :chartData = 'chartsData'
           />
-        </el-col>
-      </el-row>
+        </ElCol>
+      </ElRow>
       <TableZone
         :tableData='tableData'
-      />
+      /> -->
     </div>
 </template>

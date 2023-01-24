@@ -29,6 +29,7 @@ const { state } = toRefs(props)
     height: 92%;
     background-color: rgba(255, 255, 255, 0.3);
     overflow-y: scroll;
+    margin-top: 10px;
   }
   
   @media (min-width: 1024px) {
