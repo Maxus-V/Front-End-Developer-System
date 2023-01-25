@@ -1,6 +1,6 @@
 <script setup>
 import { ElTabs, ElTabPane, ElEmpty } from 'element-plus';
-import BasicTable from '../../../basic/BasicTable/index.vue'
+import BasicTable from '../../../../basic/BasicTable/index.vue'
 
 const dataList = [
     {

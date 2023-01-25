@@ -1,10 +1,11 @@
 <script setup>
+import { computed } from 'vue';
 import { ElProgress } from 'element-plus';
 const props = defineProps({
+  title: String,
   cardData: Object,
-  title: String
 })
-const {compressRate=0} = props.cardData
+const compressRate = computed(() => props.cardData.compressRate)
 </script>
 
 <template>

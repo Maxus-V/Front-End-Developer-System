@@ -1,4 +1,5 @@
 <script setup>
+import { reactive, computed } from 'vue';
 import { ElRow, ElCol } from 'element-plus';
 
 import TextCard from './TextCard.vue'
@@ -6,11 +7,16 @@ import ProgressCard from './ProgressCard.vue'
 import ChartCard from './ChartCard.vue'
 
 const props = defineProps({
-  cardData: {
-    type: Object,
-    default: {}
-  }
+  cardsData: Object
 })
+
+const cardZoneState = reactive([
+  { value: computed(() => props.cardsData.incidentSummary) },
+  { value: computed(() => props.cardsData.pendingIncidentSummary) },
+  { value: computed(() => props.cardsData.compressRateSummary) },
+  { value: computed(() => props.cardsData.mttaSummary) },
+  { value: computed(() => props.cardsData.mttrSummary) },
+])
 
 const cards = [
   {
@@ -46,11 +52,11 @@ const cards = [
 <template>
     <div class="cardZone">
       <ElRow :gutter="10">
-        <ElCol v-for="card in cards" :span="card.width">
+        <ElCol v-for="(card, index) in cards" :span="card.width" :key="index">
           <component :is="card.type"
               :title="card.title"
               :tip="card.tip || null"
-              :cardData="props.cardData"
+              :cardData="cardZoneState[index].value"
           />
         </ElCol>
       </ElRow>

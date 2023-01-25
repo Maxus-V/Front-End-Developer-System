@@ -1,0 +1,43 @@
+{
+    "incidentSummary": {
+      "myCount": 0,
+      "allCount": 0,
+      "todayMyTotal": 0,
+      "todayAllTotal": 0
+    },
+    "pendingIncidentSummary": {
+      "myCount": 10,
+      "allCount": 20,
+      "todayMyTotal": 50,
+      "todayAllTotal": 60
+    },
+    "compressRateSummary": {
+      "compressRate": 10
+    },
+    "mttaSummary": {
+      "averageTime": "22222",
+      "statistics": [
+        {
+          "value": "11111",
+          "time": 11111
+        },
+        {
+          "value": "222222",
+          "time": 22222
+        }
+      ]
+    },
+    "mttrSummary": {
+      "averageTime": "333333",
+      "statistics": [
+        {
+          "value": "22222",
+          "time": 22222
+        },
+        {
+          "value": "33333",
+          "time": 33333
+        }
+      ]
+    }
+  }

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import * as echarts from 'echarts';
 import moment from 'moment';
 import { ElTooltip, ElIcon } from 'element-plus';
@@ -8,9 +8,12 @@ import { QuestionFilled } from '@element-plus/icons-vue'
 const props = defineProps({
   cardData: Object,
   title: String,
-  tip: String
+  tip: String,
 })
-const {averageTime = '', statistics = []} = props.cardData
+const averageTime = '', statistics = []
+
+// const averageTime = computed(() => props.cardData.averageTime || '')
+// const statistics = computed(() => props.cardData.statistics || )
 
 //由秒格式转化为天时分秒格式
 const s2hms = (time = 0) => {

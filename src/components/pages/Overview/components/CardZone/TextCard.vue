@@ -1,14 +1,18 @@
 <script setup>
+import { computed } from 'vue';
 import { ElIcon } from 'element-plus';
 
 import UpgradeIcon from '@/components/icons/IconUpgrade.vue'
 
 const props = defineProps({
   title: String,
-  cardData: Object,
+  cardData: Object
 })
 
-const {myCount = 0, allCount = 0, todayMyTotal = 0, todayAllTotal = 0} = props.cardData
+const myCount = computed(() => props.cardData.myCount || 0) 
+const allCount = computed(() => props.cardData.allCount || 0)
+const todayMyTotal = computed(() => props.cardData.todayMyTotal || 0)
+const todayAllTotal = computed(() => props.cardData.todayAllTotal || 0)
 
 const contents = [
   {
@@ -36,6 +40,7 @@ const thousandth = (num) => {
   })
   return res
 }
+
 </script>
 
 <template>
@@ -45,10 +50,10 @@ const thousandth = (num) => {
         <div class='cardContent'>
           <div v-for="content in contents" :class="content.classNames">
             <RouterLink :to="content.href">
-                <h1 class='main'>{{thousandth(content.count)}}</h1>
+                <h1 class='main'>{{thousandth(content.count.value)}}</h1>
                 <div class='head lucency'>{{ content.eventName }}</div>
                 <div class='footer lucency'>
-                  <span>今日 +{{ content.totalCount }}</span>
+                  <span>+{{ content.totalCount }}</span>
                   <ElIcon><UpgradeIcon /></ElIcon>
                 </div>
             </RouterLink>

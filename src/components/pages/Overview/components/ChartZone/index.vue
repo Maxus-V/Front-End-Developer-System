@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { ElRadioGroup, ElRadioButton } from 'element-plus';
 
-import TriChart from './subComponents/TriChart.vue'
+import TriChart from './TriChart.vue'
 
 const props = defineProps({
     chartData: Object,
