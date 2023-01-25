@@ -1,36 +1,30 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import * as echarts from 'echarts';
-import moment from 'moment';
+import { ref, reactive, onMounted, computed, watch } from 'vue'
 import { ElTooltip, ElIcon } from 'element-plus';
 import { QuestionFilled } from '@element-plus/icons-vue'
 
+import moment from 'moment';
+import { s2hms } from '@/utils'
+import * as echarts from 'echarts';
+
 const props = defineProps({
-  cardData: Object,
   title: String,
   tip: String,
+  cardData: Object,
 })
-const averageTime = '', statistics = []
 
-// const averageTime = computed(() => props.cardData.averageTime || '')
-// const statistics = computed(() => props.cardData.statistics || )
+let myChart 
+const cardData = computed(() => props.cardData)
 
-//由秒格式转化为天时分秒格式
-const s2hms = (time = 0) => {
-    const days = parseInt(time / 86400)
-    const remainTime = time % 86400
-    const hours = parseInt(remainTime / 3600)
-    const minutes = parseInt((remainTime / 60) % 60)
-    const seconds = Math.ceil(remainTime % 60)
-    return `${days > 0 ? days + '天' : ''}${hours > 0 ? hours + '小时' : ''}${minutes > 0 ? minutes + '分' : ''}${seconds}秒`
-}
-let chartDataY = statistics.map(item => {
-      return item.value
-    })
-    let chartDataX = statistics.map(item => {
-      return moment(new Date(item.time)).format('YYYY-MM-DD')
-    })
-let option = {
+const ttt = reactive({
+  chartDataY: computed(() => props.cardData.statistics.map(item => item.value) || []),
+  chartDataX: computed(() => props.cardData.statistics.map(item => moment(new Date(item.time)).format('YYYY-MM-DD')) || [])
+})
+
+// const chartDataY = computed(() => props.cardData.statistics.map(item => item.value) || [])
+// const chartDataX = computed(() => props.cardData.statistics.map(item => moment(new Date(item.time)).format('YYYY-MM-DD')) || [])
+
+const option = {
       grid: {
         x: 0,
         y: 40,
@@ -40,7 +34,7 @@ let option = {
       xAxis: {
         type: 'category',
         show: false,
-        data: chartDataX
+        data: [],
       },
       yAxis: {
         type: 'value',
@@ -67,7 +61,7 @@ let option = {
       },
       series: [
         {
-          data: chartDataY,
+          data: [],
           type: 'line',
           symbol: 'circle',
           smooth: true,
@@ -99,13 +93,22 @@ let option = {
     }
 
 const trendRef = ref(null)
-onMounted(() => {
-  let myChart = echarts.init(trendRef.value)
-  const chartResize = () => {
-    if (myChart) myChart.resize()
-  }
+const test = () => {
+  if (myChart) echarts.dispose(myChart)
+  myChart = echarts.init(trendRef.value)
   option && myChart.setOption(option)
-  window.addEventListener('resize', chartResize)
+}
+onMounted(() => {
+  test()
+  // const chartResize = () => {
+  //   if (myChart) myChart.resize()
+  // }
+  
+  // window.addEventListener('resize', chartResize)
+})
+
+watch(cardData, () => {
+  test()
 })
 </script>
 
@@ -115,12 +118,12 @@ onMounted(() => {
       <div class='chartHead'>
         <div class='cardTitle'>
           {{title}}
-          <el-tooltip :content="tip" placement="top">
-            <el-icon><QuestionFilled /></el-icon>
-          </el-tooltip>
+          <ElTooltip :content="tip" effect="light" placement="top">
+            <ElIcon><QuestionFilled /></ElIcon>
+          </ElTooltip>
         </div>
       </div>
-      <h1 class='cardParameter'>{{averageTime ? averageTime : '-'}}</h1>
+      <h1 class='cardParameter'>{{cardData.averageTime ? cardData.averageTime : '-'}}</h1>
       <div ref='trendRef' class='chartContent'></div>
     </div>
   </div>

@@ -13,13 +13,7 @@ const store = useStore()
 const isRecent7days = computed(() => store.getters.isRecent7days)
 
 const overviewState = reactive({
-  cardsData: {
-    incidentSummary: {},
-    pendingIncidentSummary: {},
-    compressRateSummary: {},
-    mttaSummary: {},
-    mttrSummary: {},
-  },
+  cardsData: {},
 })
 
 const getCardsData = (value) => {

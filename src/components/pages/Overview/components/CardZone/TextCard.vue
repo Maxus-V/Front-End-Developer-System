@@ -1,7 +1,8 @@
 <script setup>
-import { computed } from 'vue';
+import { reactive, computed } from 'vue';
 import { ElIcon } from 'element-plus';
 
+import { thousandth } from '@/utils';
 import UpgradeIcon from '@/components/icons/IconUpgrade.vue'
 
 const props = defineProps({
@@ -9,38 +10,29 @@ const props = defineProps({
   cardData: Object
 })
 
-const myCount = computed(() => props.cardData.myCount || 0) 
-const allCount = computed(() => props.cardData.allCount || 0)
-const todayMyTotal = computed(() => props.cardData.todayMyTotal || 0)
-const todayAllTotal = computed(() => props.cardData.todayAllTotal || 0)
+const textCardState = reactive({
+  myCount: computed(() => props.cardData.myCount || 0),
+  allCount: computed(() => props.cardData.allCount || 0),
+  todayMyTotal: computed(() => props.cardData.todayMyTotal || 0),
+  todayAllTotal: computed(() => props.cardData.todayAllTotal || 0),
+})
 
 const contents = [
   {
     classNames: 'events',
     href: '/frontendbasics/htmlbase',
-    count: myCount,
+    count: 'myCount',
     eventName: '我的事件',
-    totalCount: todayMyTotal,
+    totalCount: 'todayMyTotal',
   },
   {
     classNames: 'all events',
     href: '/frontendbasics/cssbase',
-    count: allCount,
+    count: 'allCount',
     eventName: '所有事件',
-    totalCount: todayAllTotal,
+    totalCount: 'todayAllTotal',
   },
 ]
-
-//实现千位分隔
-const thousandth = (num) => {
-  let res = num.toString().replace(/\d+/, (n) => {
-    return n.replace(/(\d)(?=(\d{3})+$)/g, ($1) => {
-      return $1 + ","
-    })
-  })
-  return res
-}
-
 </script>
 
 <template>
@@ -50,10 +42,10 @@ const thousandth = (num) => {
         <div class='cardContent'>
           <div v-for="content in contents" :class="content.classNames">
             <RouterLink :to="content.href">
-                <h1 class='main'>{{thousandth(content.count.value)}}</h1>
+                <h1 class='main'>{{thousandth(textCardState[content.count])}}</h1>
                 <div class='head lucency'>{{ content.eventName }}</div>
                 <div class='footer lucency'>
-                  <span>+{{ content.totalCount }}</span>
+                  <span>+{{ textCardState[content.totalCount] }}</span>
                   <ElIcon><UpgradeIcon /></ElIcon>
                 </div>
             </RouterLink>

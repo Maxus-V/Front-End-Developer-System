@@ -1,24 +1,26 @@
 <script setup>
 import { computed } from 'vue';
 import { ElProgress } from 'element-plus';
+
 const props = defineProps({
   title: String,
   cardData: Object,
 })
-const compressRate = computed(() => props.cardData.compressRate)
+
+const compressRate = computed(() => props.cardData.compressRate || 0)
 </script>
 
 <template>
 <div class='chartCard'>
-          <div class='container'>
-            <div class='chartHead'>
-              <div class='cardTitle'>{{title}}</div>
-            </div>
-            <h1 class='cardParameter'>{{compressRate}}%</h1>
-            <div class='progressArea'>
-              <el-progress :percentage="compressRate"></el-progress>
-            </div>
-          </div>
+  <div class='container'>
+    <div class='chartHead'>
+      <div class='cardTitle'>{{title}}</div>
+    </div>
+    <h1 class='cardParameter'>{{compressRate}}%</h1>
+    <div class='progressArea'>
+      <ElProgress :percentage="compressRate"></ElProgress>
+    </div>
+  </div>
 </div>
 </template>
 
