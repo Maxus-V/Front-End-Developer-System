@@ -15,16 +15,15 @@ const overviewState = reactive({
   isRecent7days: computed(() => store.getters.isRecent7days || null),
   isAll: true,
 })
-
 const overviewData = reactive({
   cardsData: {},
   chartsData: {},
+  tablesData: {},
 })
 
 const changeIsAll = () => {
   overviewState.isAll = !overviewState.isAll
 }
-
 const getCardsData = (value) => {
   const params = {type: value}
     getOverviewCardsData(params).then(res => {
@@ -33,7 +32,6 @@ const getCardsData = (value) => {
       }
   })
 }
-
 const getChartsData = (value, bool) => {
   const params = {
     type: value,
@@ -53,6 +51,7 @@ onBeforeMount(() => {
 
 watch(() => overviewState.isRecent7days, () => {   
   getCardsData(overviewState.isRecent7days)
+  getChartsData(overviewState.isRecent7days, overviewState.isAll)
 })
 
 watch(() => overviewState.isAll, () => {
@@ -73,14 +72,14 @@ watch(() => overviewState.isAll, () => {
           />
         </ElCol>
         <ElCol :span="12">
-          <!-- <ChartZone
-            recentDays="14d"
-            :chartData = 'chartsData'
-          /> -->
+          <ChartZone
+            :chartData='overviewData.chartsData'
+            @changeIsAll="changeIsAll"
+          />
         </ElCol>
       </ElRow>
-      <!-- <TableZone
-        :tableData='tableData'
-      /> -->
+      <TableZone
+        :tableData='overviewData.tablesData'
+      />
     </div>
 </template>

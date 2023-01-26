@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, onMounted, watch, onBeforeUnmount } from 'vue';
+import { ref, reactive, computed, toRaw, onMounted, watch, onBeforeUnmount } from 'vue';
 
 import moment from 'moment';
 import * as echarts from 'echarts';
@@ -10,23 +10,13 @@ const props = defineProps({
 })
 
 const triChartState = reactive({
-  formatAlertsXAxisData: computed(() => (props.chartData.formatAlertsXAxisData) || []),
+  formatAlertsXAxisData: computed(() => (toRaw(props.chartData.formatAlertsXAxisData) || []).sort((a,b) => a-b).map(item => moment(new Date(item)).format('YYYY-MM-DD'))),
   incidentTrendData: computed(() => (props.chartData.incidentTrendData) || []),
   alertTrendData: computed(() => (props.chartData.alertTrendData) || []),
   eventTrendData: computed(() => (props.chartData.eventTrendData) || []),
+  leftMaxValue: computed(() => formatInt(Math.max(...toRaw(triChartState.incidentTrendData), ...toRaw(triChartState.alertTrendData))) || 100),
+  rightMaxValue: computed(() => Math.max(...toRaw(triChartState.eventTrendData)) || 100),
 })
-
-const leftMaxValue = computed(() => Math.max([].concat(triChartState.incidentTrendData, triChartState.alertTrendData)) || 100)
-const rightMaxValue = computed(() => Math.max([].concat(triChartState.eventTrendData)) || 100)
-
-console.log('leftMaxValue', leftMaxValue.value,triChartState.incidentTrendData)
-
-  let leftMax = formatInt(Math.max(...[]))
-  if (!leftMax) leftMax = 100
-  let rightMax = formatInt(Math.max(...[]))
-  if (!rightMax) rightMax = 100
-  let leftInterval = leftMax / 4
-  let rightInterval = rightMax / 4
 
 let myChart = null
 const triLineRef = ref(null)
@@ -87,8 +77,8 @@ const init = () => {
           padding: [0, 0, 0, 30]
         },
         min: 0,
-        max: leftMax, 
-        interval: leftInterval,
+        max: triChartState.leftMaxValue, 
+        interval: triChartState.leftMaxValue / 4,
         axisLabel: {
           color: 'rgba(110,112,120)',
           formatter: (value) => value >= 1000 ? Math.floor(value / 1000) + 'K' : value
@@ -102,8 +92,8 @@ const init = () => {
           padding: [0, 0, 0, 25]
         },
         min: 0,
-        max: rightMax, 
-        interval: rightInterval, 
+        max: triChartState.rightMaxValue, 
+        interval: triChartState.rightMaxValu / 4, 
         axisLabel: {
           color: 'rgba(110,112,120)',
           formatter: (value) => value >= 1000 ? Math.floor(value / 1000) + 'K' : value
@@ -150,8 +140,8 @@ onMounted(() => {
   window.addEventListener('resize', chartResize)
 })
 
-watch(()=> {}, () => {
-
+watch(triChartState, () => {
+  init()
 })
 
 onBeforeUnmount(() => {

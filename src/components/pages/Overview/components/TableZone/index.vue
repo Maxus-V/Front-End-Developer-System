@@ -1,8 +1,13 @@
 <script setup>
-import { ElTabs, ElTabPane, ElEmpty } from 'element-plus';
+import { computed } from 'vue';
+import { ElTabs, ElTabPane } from 'element-plus';
 import BasicTable from '../../../../basic/BasicTable/index.vue'
 
-const dataList = [
+const props = defineProps({
+  tableData: Object,
+})
+
+const itemList = [
     {
       key: '1',
       tab: '待处理事件',
@@ -17,20 +22,18 @@ const dataList = [
       data: [],
     }
   ]
-
 </script>
 
 <template>
-    <div class="tableZone">
-        <el-tabs>
-            <ElTabPane v-for="item in dataList" class="listContent" :label="item.tab">
-                <!-- <el-empty :description="item.tab+'，暂无数据'" /> -->
-                <BasicTable
-                  :data="item.data"
-                />
-            </ElTabPane>
-        </el-tabs>
-    </div>
+  <div class="tableZone">
+    <ElTabs>
+      <ElTabPane v-for="item in itemList" class="listContent" :label="item.tab">
+        <BasicTable
+          :data="item.data"
+        />
+      </ElTabPane>
+    </ElTabs>
+  </div>
 </template>
 
 <style lang="scss" scoped>

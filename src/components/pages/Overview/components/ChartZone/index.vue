@@ -10,20 +10,6 @@ const props = defineProps({
 const emit = defineEmits(['changeIsAll'])
 
 const radio = ref('all')
-const incidentTrend=[], alertTrend=[], eventTrend=[]
-let alertsXAxisData = []
-    incidentTrend && incidentTrend.forEach(item => {
-    alertsXAxisData.push(item.time)
-  })
-  alertTrend && alertTrend.forEach(item => {
-    alertsXAxisData.push(item.time)
-  })
-  eventTrend && eventTrend.forEach(item => {
-    alertsXAxisData.push(item.time)
-  })
-  let formatAlertsXAxisData = alertsXAxisData.sort((a,b) => a-b).map(item => {
-    return moment(new Date(item)).format('YYYY-MM-DD')
-  })
 </script>
 
 <template>
@@ -38,7 +24,6 @@ let alertsXAxisData = []
       </div>
       <div class="chart-h-200">
         <TriChart
-          :formatAlertsXAxisData="formatAlertsXAxisData"
           :chartData="chartData"
         />
       </div>
