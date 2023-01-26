@@ -18,6 +18,14 @@ export const s2hms = (time = 0) => {
     return `${days > 0 ? days + '天' : ''}${hours > 0 ? hours + '小时' : ''}${minutes > 0 ? minutes + '分' : ''}${seconds}秒`
 }
 
+  //向上往整10取整数
+ export const formatInt = (num) => {
+    let str = num + ''
+    let len = str.length
+    let mult = Math.pow(10, len)
+    return Math.ceil(num / mult) * mult
+  }
+
 export const getChildrenByLoop = (children) => children.reduce((list, child) => {
     const {defaultSelected, children} = child
     const childList = children && children.length ? getChildrenByLoop(children) : []

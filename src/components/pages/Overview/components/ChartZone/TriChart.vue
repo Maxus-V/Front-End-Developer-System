@@ -1,51 +1,40 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, reactive, computed, onMounted, watch, onBeforeUnmount } from 'vue';
+
+import moment from 'moment';
 import * as echarts from 'echarts';
+import { formatInt } from '@/utils'
 
 const props = defineProps({
-    formatAlertsXAxisData: Array,
-    chartData: Object
+  chartData: Object
 })
 
+const triChartState = reactive({
+  formatAlertsXAxisData: computed(() => (props.chartData.formatAlertsXAxisData) || []),
+  incidentTrendData: computed(() => (props.chartData.incidentTrendData) || []),
+  alertTrendData: computed(() => (props.chartData.alertTrendData) || []),
+  eventTrendData: computed(() => (props.chartData.eventTrendData) || []),
+})
 
+const leftMaxValue = computed(() => Math.max([].concat(triChartState.incidentTrendData, triChartState.alertTrendData)) || 100)
+const rightMaxValue = computed(() => Math.max([].concat(triChartState.eventTrendData)) || 100)
 
-const {formatAlertsXAxisData=[], chartData={}, dataName = [], title="告警事件数/警报数"} = props
-let newArr = formatAlertsXAxisData.map(item => {
-    return item
-  })
-  let res = Array.from(new Set(newArr))
-  const {
-    incidentTrend = [],
-    alertTrend = [],
-    eventTrend = [],
-  } = chartData
+console.log('leftMaxValue', leftMaxValue.value,triChartState.incidentTrendData)
 
-  //向上往整10取整数
-  const formatInt = (num) => {
-    let str = num + ''
-    let len = str.length
-    let mult = Math.pow(10, len)
-    return Math.ceil(num / mult) * mult
-  }
-
-  let leftArr = [], rightArr = []
-  incidentTrend && incidentTrend.forEach(item => {
-    leftArr.push(item.value)
-  })
-  alertTrend && alertTrend.forEach(item => {
-    leftArr.push(item.value)
-  })
-  eventTrend && eventTrend.forEach(item => {
-    rightArr.push(item.value)
-  })
-
-  let leftMax = formatInt(Math.max(...leftArr))
+  let leftMax = formatInt(Math.max(...[]))
   if (!leftMax) leftMax = 100
-  let rightMax = formatInt(Math.max(...rightArr))
+  let rightMax = formatInt(Math.max(...[]))
   if (!rightMax) rightMax = 100
   let leftInterval = leftMax / 4
   let rightInterval = rightMax / 4
-let option = {
+
+let myChart = null
+const triLineRef = ref(null)
+
+const init = () => {
+  if (myChart) myChart.dispose()
+  myChart = echarts.init(triLineRef.value)
+  const option = {
       color: ['#5D7092', '#5B8FF9', '#FF9D4D'],
       tooltip: {
         trigger: 'axis',
@@ -61,7 +50,6 @@ let option = {
         },
       },
       legend: {
-        // data: dataName,
         data: ['事件数', '警报数', '告警数'],
         padding: [206, 0, 0, 0],
         icon: 'rect',
@@ -80,9 +68,7 @@ let option = {
       },
       xAxis: {
         type: 'category',
-        // data: ['2019-01', '2019-02', '2019-03', '2019-04', '2019-04', '2019-04'],
-        // data: formatAlertsXAxisData,
-        data: res,
+        data: triChartState.formatAlertsXAxisData,
         axisLine: {
           lineStyle: {
             color: 'rgba(110,112,120)',
@@ -95,15 +81,14 @@ let option = {
       },
       yAxis: [{
         type: 'value',
-        name: title,
+        name: "告警事件数/警报数",
         nameTextStyle: {
           align: 'center',
           padding: [0, 0, 0, 30]
         },
         min: 0,
-        max: leftMax, //这里有个注意的
-        interval: leftInterval, //这里也有个注意的
-        // splitNumber: 4,
+        max: leftMax, 
+        interval: leftInterval,
         axisLabel: {
           color: 'rgba(110,112,120)',
           formatter: (value) => value >= 1000 ? Math.floor(value / 1000) + 'K' : value
@@ -117,73 +102,67 @@ let option = {
           padding: [0, 0, 0, 25]
         },
         min: 0,
-        max: rightMax, //这里有个注意的
-        interval: rightInterval, //这里有个注意的
-        // splitNumber: 4,
+        max: rightMax, 
+        interval: rightInterval, 
         axisLabel: {
           color: 'rgba(110,112,120)',
           formatter: (value) => value >= 1000 ? Math.floor(value / 1000) + 'K' : value
         }
-      },
-      ],
+      }],
       series: [
         {
           name: '事件数',
           type: 'line',
           symbolSize: 0,
-          data: [800, 520, 750, 920, 880, 520],
-          // data: incidentTrendData,
-        //   data: incidentTrend,
-              lineStyle: {
-                color: '#5D7092'
-              }
+          data: triChartState.incidentTrendData,
+          lineStyle: {
+            color: '#5D7092'
+          }
         },
         {
           name: '警报数',
           type: 'line',
           symbolSize: 0,
-          data: [1050, 460, 1100, 480, 1800, 1180],
-        //   data: alertTrend,
-              lineStyle: {
-                color: '#5B8FF9'
-              }
-            },
+          data: triChartState.alertTrendData,
+          lineStyle: {
+            color: '#5B8FF9'
+          }
+        },
         {
           name: '告警数',
           type: 'line',
           symbolSize: 0,
-          data: [280, 220, 310, 220, 290, 260],
-        //   data: eventTrend,
+          data: triChartState.eventTrendData,
           yAxisIndex: 1,
-              lineStyle: {
-                color: '#FF9D4D',
-              }
+          lineStyle: {
+            color: '#FF9D4D',
+          }
         },
       ]
     }
+  myChart.setOption(option)
+}
+const chartResize = () => {
+  if (myChart) myChart.resize()
+}
+onMounted(() => {
+  init()
+  window.addEventListener('resize', chartResize)
+})
 
-    const triLineRef = ref(null)
-    onMounted(() => {
-        let myChart = echarts.init(triLineRef.value)
-        const chartResize = () => {
-        if (myChart) myChart.resize()
-        }
+watch(()=> {}, () => {
 
-        option && myChart.setOption(option)
-        window.addEventListener('resize', chartResize)
-        })
+})
 
-    onBeforeUnmount(() => {
-        //组件注销
-    })
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', chartResize)
+  if (myChart) myChart.dispose()
+})
 </script>
 
 <template>
-<div ref="triLineRef" style="width:100%; height:222px">
-    
-</div>
+  <div ref="triLineRef" style="width:100%; height:222px"></div>
 </template>
 
-<style scoped>
-
+<style lang="scss" scoped>
 </style>

@@ -6,12 +6,11 @@ import TriChart from './TriChart.vue'
 
 const props = defineProps({
     chartData: Object,
-    recentDays: String
 })
+const emit = defineEmits(['changeIsAll'])
 
-const radio1 = ref(null)
-
-const {incidentTrend, alertTrend, eventTrend} = props.chartData
+const radio = ref('all')
+const incidentTrend=[], alertTrend=[], eventTrend=[]
 let alertsXAxisData = []
     incidentTrend && incidentTrend.forEach(item => {
     alertsXAxisData.push(item.time)
@@ -25,26 +24,25 @@ let alertsXAxisData = []
   let formatAlertsXAxisData = alertsXAxisData.sort((a,b) => a-b).map(item => {
     return moment(new Date(item)).format('YYYY-MM-DD')
   })
-
 </script>
 
 <template>
-<div class='chartContent'>
-        <div class='content-div'>
-          <h3 class='hasBottom'>
-            告警事件趋势
-            <el-radio-group v-model="radio1">
-                <el-radio-button label="全部"></el-radio-button>
-                <el-radio-button label="我的"></el-radio-button>
-            </el-radio-group>
-          </h3>
-          <div class="chart-h-200">
-            <TriChart
-                :formatAlertsXAxisData="formatAlertsXAxisData"
-                :chartData="chartData"
-            />
-          </div>
-        </div>
+  <div class='chartContent'>
+    <div class='content-div'>
+      <div class='hasBottom'>
+        <h3>告警事件趋势</h3>
+        <ElRadioGroup v-model="radio" @change="emit('changeIsAll')">
+          <ElRadioButton label="all">全部</ElRadioButton>
+          <ElRadioButton label="my">我的</ElRadioButton>
+        </ElRadioGroup>
+      </div>
+      <div class="chart-h-200">
+        <TriChart
+          :formatAlertsXAxisData="formatAlertsXAxisData"
+          :chartData="chartData"
+        />
+      </div>
+    </div>
   </div>
 </template>
 

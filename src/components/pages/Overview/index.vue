@@ -7,53 +7,79 @@ import CardZone from './components/CardZone/index.vue';
 import ChartZone from './components/ChartZone/index.vue'
 import TableZone from './components/TableZone/index.vue'
 
-import { getOverviewCardsData } from './service'
+import { getOverviewCardsData, getOverviewChartsData } from './service'
 
 const store = useStore()
-const isRecent7days = computed(() => store.getters.isRecent7days)
 
 const overviewState = reactive({
-  cardsData: {},
+  isRecent7days: computed(() => store.getters.isRecent7days || null),
+  isAll: true,
 })
+
+const overviewData = reactive({
+  cardsData: {},
+  chartsData: {},
+})
+
+const changeIsAll = () => {
+  overviewState.isAll = !overviewState.isAll
+}
 
 const getCardsData = (value) => {
   const params = {type: value}
     getOverviewCardsData(params).then(res => {
       if (res && res.status === 200) {
-        overviewState.cardsData = res.data
+        overviewData.cardsData = res.data
       }
   })
 }
 
+const getChartsData = (value, bool) => {
+  const params = {
+    type: value,
+    flag: bool,
+  }
+  getOverviewChartsData(params).then(res => {
+    if (res && res.status === 200) {
+      overviewData.chartsData = res.data
+    }
+  })
+}
+
 onBeforeMount(() => {
-  getCardsData(isRecent7days.value)
+  getCardsData(overviewState.isRecent7days)
+  getChartsData(overviewState.isRecent7days, overviewState.isAll)
 })
 
-watch(isRecent7days, () => {   
-  getCardsData(isRecent7days.value)
+watch(() => overviewState.isRecent7days, () => {   
+  getCardsData(overviewState.isRecent7days)
+})
+
+watch(() => overviewState.isAll, () => {
+  getChartsData(overviewState.isRecent7days, overviewState.isAll)
 })
 </script>
 
 <template>
     <div class="overview">
       <CardZone
-        :cardsData="overviewState.cardsData"
+        :cardsData="overviewData.cardsData"
       />
-      <!-- <ElRow :gutter="12">
+      <ElRow :gutter="12">
         <ElCol :span="12">
           <ChartZone
-            recentDays="7d"
-            :chartData = 'chartsData'
+            :chartData='overviewData.chartsData'
+            @changeIsAll="changeIsAll"
           />
         </ElCol>
         <ElCol :span="12">
-          <ChartZone
+          <!-- <ChartZone
             recentDays="14d"
             :chartData = 'chartsData'
-          />
+          /> -->
         </ElCol>
       </ElRow>
-      <TableZone
+      <!-- <TableZone
         :tableData='tableData'
       /> -->
     </div>

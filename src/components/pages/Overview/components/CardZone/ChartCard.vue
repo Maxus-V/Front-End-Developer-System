@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted, computed, watch } from 'vue'
+import { ref, reactive, computed, onMounted, watch, onBeforeUnmount } from 'vue'
 import { ElTooltip, ElIcon } from 'element-plus';
 import { QuestionFilled } from '@element-plus/icons-vue'
 
@@ -13,18 +13,17 @@ const props = defineProps({
   cardData: Object,
 })
 
-let myChart 
-const cardData = computed(() => props.cardData)
-
-const ttt = reactive({
-  chartDataY: computed(() => props.cardData.statistics.map(item => item.value) || []),
-  chartDataX: computed(() => props.cardData.statistics.map(item => moment(new Date(item.time)).format('YYYY-MM-DD')) || [])
+let myChart = null
+const trendRef = ref(null)
+const chartCardZone = reactive({
+  chartDataY: computed(() => (props.cardData.statistics || []).map(item => item.value)),
+  chartDataX: computed(() => (props.cardData.statistics || []).map(item => moment(new Date(item.time)).format('YYYY-MM-DD'))),
 })
 
-// const chartDataY = computed(() => props.cardData.statistics.map(item => item.value) || [])
-// const chartDataX = computed(() => props.cardData.statistics.map(item => moment(new Date(item.time)).format('YYYY-MM-DD')) || [])
-
-const option = {
+const init = () => {
+  if (myChart) myChart.dispose()
+  myChart = echarts.init(trendRef.value)
+  const option = {
       grid: {
         x: 0,
         y: 40,
@@ -34,7 +33,7 @@ const option = {
       xAxis: {
         type: 'category',
         show: false,
-        data: [],
+        data: chartCardZone.chartDataX,
       },
       yAxis: {
         type: 'value',
@@ -61,7 +60,7 @@ const option = {
       },
       series: [
         {
-          data: [],
+          data: chartCardZone.chartDataY,
           type: 'line',
           symbol: 'circle',
           smooth: true,
@@ -90,25 +89,25 @@ const option = {
           }
         }
       ]
-    }
-
-const trendRef = ref(null)
-const test = () => {
-  if (myChart) echarts.dispose(myChart)
-  myChart = echarts.init(trendRef.value)
-  option && myChart.setOption(option)
+  }
+  myChart.setOption(option)
 }
+const chartResize = () => {
+  if (myChart) myChart.resize()
+}
+
 onMounted(() => {
-  test()
-  // const chartResize = () => {
-  //   if (myChart) myChart.resize()
-  // }
-  
-  // window.addEventListener('resize', chartResize)
+  init()
+  window.addEventListener('resize', chartResize)
 })
 
-watch(cardData, () => {
-  test()
+watch(chartCardZone, () => {
+  init()
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', chartResize)
+  if (myChart) myChart.dispose()
 })
 </script>
 
