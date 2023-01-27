@@ -1,35 +1,116 @@
 <script setup>
-import { computed } from 'vue';
+import { reactive, computed } from 'vue';
 import { ElTabs, ElTabPane } from 'element-plus';
-import BasicTable from '../../../../basic/BasicTable/index.vue'
+
+import BasicTable from '@/components/basic/BasicTable/index.vue'
 
 const props = defineProps({
   tableData: Object,
 })
 
+const tableZoneState = reactive({
+  alertSourceTableData: computed(() => props.tableData.alertSourceTableData || []),
+  alertSourceObjectTableData: computed(() => props.tableData.alertSourceObjectTableData || []),
+  alertSourceIndicatorsTableData: computed(() => props.tableData.alertSourceIndicatorsTableData || []),
+})
+
+const alertSourceTable = [
+  {
+    prop: 'level',
+    label: '事件级别',
+    // width: '15%',
+  },
+  {
+    prop: 'incidentNameText',
+    label: '事件名称',
+    // width: '30%',
+  },
+  {
+    prop: 'checks',
+    label: '监控项',
+    // width: '30%',
+  },
+  {
+    prop: 'updatedTime',
+    label: '最近时间',
+    // width: '25%',
+  },
+]
+const alertSourceObjectTableData = [
+  {
+    prop: 'sourcename',
+    label: '告警源名称',
+    // width: '25%',
+  },
+  {
+    prop: 'modelname',
+    label: '模型名称',
+    // width: '15%',
+  },
+  {
+    prop: 'ciid',
+    label: '告警次数',
+    // width: '15%',
+  },
+  {
+    prop: 'timestamp',
+    label: '最近时间',
+    // width: '30%',
+  },
+]
+const alertSourceIndicatorsTableData = [
+  {
+    prop: 'sourcename',
+    label: '告警源名称',
+    // width: '25%',
+  },
+  {
+    prop: 'ruletype',
+    label: '监控类型',
+    // width: '15%',
+  },
+  {
+    prop: 'checkname',
+    label: '指标名称',
+    // width: '15%',
+  },
+  {
+    prop: 'checks',
+    label: '告警次数',
+    // width: '15%',
+  },
+  {
+    prop: 'timestamp',
+    label: '最近时间',
+    // width: '30%',
+  },
+]
 const itemList = [
     {
-      key: '1',
       tab: '待处理事件',
-      data: [],
-    }, {
-      key: '2',
+      data: 'alertSourceTableData',
+      columns: alertSourceTable,
+    }, 
+    {
       tab: '对象告警',
-      data: [],
-    }, {
-      key: '3',
+      data: 'alertSourceObjectTableData',
+      columns: alertSourceObjectTableData,
+    }, 
+    {
       tab: '指标告警',
-      data: [],
-    }
-  ]
+      data: 'alertSourceIndicatorsTableData',
+      columns: alertSourceIndicatorsTableData,
+    },
+]
 </script>
 
 <template>
   <div class="tableZone">
     <ElTabs>
-      <ElTabPane v-for="item in itemList" class="listContent" :label="item.tab">
+      <ElTabPane v-for="(item, index) in itemList" class="listContent" :label="item.tab" :key="index">
         <BasicTable
-          :data="item.data"
+          :tableColumns="item.columns"
+          :tableData="tableZoneState[item.data]"
         />
       </ElTabPane>
     </ElTabs>
@@ -44,12 +125,10 @@ const itemList = [
       border-radius: 2px;
       // box-shadow: 0px 2px 4px 0px rgba(31, 40, 54, 0.2);
       height: 280px;
-
       h3 {
         // border-bottom: 1px solid #D7DBE0;
         padding-bottom: 15px;
       }
-
       .levelCircle {
         width: 8px;
         height: 8px;
@@ -57,14 +136,12 @@ const itemList = [
         border-radius: 50%;
         margin-right: 6px;
       }
-
       .label {
         width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
-
       .listContent {
         height: 182px;
         overflow-y: auto;

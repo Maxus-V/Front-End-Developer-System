@@ -7,7 +7,7 @@ import CardZone from './components/CardZone/index.vue';
 import ChartZone from './components/ChartZone/index.vue'
 import TableZone from './components/TableZone/index.vue'
 
-import { getOverviewCardsData, getOverviewChartsData } from './service'
+import { getOverviewCardsData, getOverviewChartsData, getOverviewTablesData } from './service'
 
 const store = useStore()
 
@@ -43,15 +43,25 @@ const getChartsData = (value, bool) => {
     }
   })
 }
+const getTablesData = (value) => {
+  const params = {type: value}
+    getOverviewTablesData(params).then(res => {
+      if (res && res.status === 200) {
+        overviewData.tablesData = res.data
+      }
+  })
+}
 
 onBeforeMount(() => {
   getCardsData(overviewState.isRecent7days)
   getChartsData(overviewState.isRecent7days, overviewState.isAll)
+  getTablesData(overviewState.isRecent7days)
 })
 
 watch(() => overviewState.isRecent7days, () => {   
   getCardsData(overviewState.isRecent7days)
   getChartsData(overviewState.isRecent7days, overviewState.isAll)
+  getTablesData(overviewState.isRecent7days)
 })
 
 watch(() => overviewState.isAll, () => {
