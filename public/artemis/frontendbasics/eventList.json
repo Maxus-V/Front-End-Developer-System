@@ -1,0 +1,11 @@
+{
+    "incidentPageCount":{
+        "closedCount": 1,
+        "pendingCount": 2,
+        "processingCount": 3
+    },
+    "currentPage": 1,
+    "pageSize": 5,
+    "count": 100,
+    "totalPage": 100
+}

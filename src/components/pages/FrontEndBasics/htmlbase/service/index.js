@@ -1,15 +1,23 @@
+import axios from "axios";
+import api from '../config'
 
-export const getList = (params) => {
-    return {
-        data: [
-            
-        ],
-        incidentPageCount:{
-
-        },
-        currentPage: 1,
-        pageSize: 5,
-        count: 100,
-        totalPage: 100
-    }
+export const getList = () => {
+    return axios.get(api.GET_EVENT_LIST).then(res => {
+        if (res && res.status === 200) {
+            const {
+                incidentPageCount,
+                currentPage,
+                pageSize,
+                count,
+                totalPage,
+            } = res.data
+            return {
+                incidentPageCount,
+                currentPage,
+                pageSize,
+                count,
+                totalPage,
+            }
+        }
+    })
 }

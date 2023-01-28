@@ -1,6 +1,5 @@
-import api from '../config'
 import axios from "axios";
-  
+import api from '../config'
 
 export const getOverviewCardsData =  (params) => {
     const { type } = params

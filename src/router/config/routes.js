@@ -16,15 +16,15 @@ const routes = [
         },
         {
           path: 'htmlbase',
-          component: () => import('@/components/pages/FrontEndBasics/HtmlBase.vue')
+          component: () => import('@/components/pages/FrontEndBasics/HtmlBase/index.vue')
         },
         {
           path: 'cssbase',
-          component: () => import('@/components/pages/FrontEndBasics/CssBase.vue')
+          component: () => import('@/components/pages/FrontEndBasics/CssBase/index.vue')
         },
         {
           path: 'javascriptbase',
-          component: () => import('@/components/pages/FrontEndBasics/JavascriptBase.vue')
+          component: () => import('@/components/pages/FrontEndBasics/JavaScriptBase/index.vue')
         },
       ]
     },
