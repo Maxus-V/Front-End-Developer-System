@@ -10,7 +10,7 @@ import ExtraHeader from './ExtraHeader/index.vue'
 import ExtraColumns from './ExtraColumns/index.vue'
 
 import { getList } from '../../service'
-import { useTable } from '../../utils'
+import { useTable } from '../../utils/useTable'
 import { typeEnum, statusEnum } from '../../config/constants'
 
 const type = 'ownEvent'

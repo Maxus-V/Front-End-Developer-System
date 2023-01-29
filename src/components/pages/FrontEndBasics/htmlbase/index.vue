@@ -1,23 +1,12 @@
 <script setup>
   import { reactive } from 'vue'
-  // import Search from './Search/index.vue'
   import Search from './components/Search/index.vue'
   import EventTable from './components/EventTable/index.vue';
 
-  import useColumn from './logicExtraction/useColumn';
-  import useTable from './logicExtraction/useTable.js'
+  import useColumn from './utils/useColumn';
 
   import { publicFields } from '../config/constant';
   import { getChildrenByLoop } from '@/utils/index.js';
-
-  const {
-    tableData,
-    modifyPages,
-    modifyConditions,
-    isLoading,
-    forceRefresh,
-    customFetchData
-  } = useTable()
 
   const state = reactive({
     currentCategory: 'PENDING',
@@ -44,12 +33,6 @@
 
 <template>
     <div class="eventWrapper">
-      <!-- <Search
-        :tableData="tableData"
-        :conditions = "tableData"
-        :modifyConditions="modifyConditions"
-        :state="state"
-      /> -->
       <Search />
       <EventTable
         :state="state"
