@@ -8,7 +8,11 @@ const props = defineProps({
     changeCurrentCategory: Function,
 })
 
-const tabState = computed(() => searchState.incidentPageCount)
+const tabState = computed(() => modifyMethods.tableData.initData.incidentPageCount || {
+    pendingCount: 0,
+    processingCount: 0,
+    closedCount: 0,
+})
 
 const categorys = [
     {
@@ -46,8 +50,7 @@ const changeProcessStatus = (type) => {
                     :class="category.processStatus === searchState.currentCategory ? 'default active' : 'default'"
                     @click="changeProcessStatus(category.processStatus)"
                 >
-                    {{ category.name }}
-                    {{ tabState[category.count] || 0 }}
+                    {{ category.name }}{{ tabState[category.count]}}
                 </div>
             </div>
         </div>

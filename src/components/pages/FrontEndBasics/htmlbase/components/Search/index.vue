@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, provide, onBeforeMount } from 'vue'
+import { ref, reactive, provide } from 'vue'
 import { ElIcon } from 'element-plus'
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
 
@@ -11,26 +11,28 @@ import ExtraColumns from './ExtraColumns/index.vue'
 
 import { getList } from '../../service'
 import { useTable } from '../../utils'
+import { typeEnum, statusEnum } from '../../config/constants'
+
+const type = 'ownEvent'
+const hasExtraColumns = ref(false)
 
 const searchState = reactive({
     currentCategory: "PENDING",
-    incidentPageCount: {},
 })
 provide('searchState', searchState)
 
-const modifyMethods = useTable(getList)
+const modifyMethods = useTable(getList, Object.assign({}, {
+    type: typeEnum[type],
+    processStatusList: [statusEnum[type]],
+}))
 provide('modifyMethods', modifyMethods)
 
 const changeCurrentCategory = (type) => {
     searchState.currentCategory = type
 }
-
-onBeforeMount(() => {
-    modifyMethods.modifyConditions().then(res => {
-        searchState.incidentPageCount = res.incidentPageCount
-    })
-})
-
+const changeHasExtraColumns = () => {
+    hasExtraColumns.value = !hasExtraColumns.value
+}
 </script>
 
 <template>
@@ -41,16 +43,17 @@ onBeforeMount(() => {
         <div class="header">
             <div class="leftHeader">
                 <LeftHeader />
+                <div class="highSearch" @click="changeHasExtraColumns">
+                    <span class="label">高级搜索</span>
+                    <ElIcon><component :is="hasExtraColumns? ArrowUp : ArrowDown" /></ElIcon>
+                </div>
+                <Handler />
             </div>
-            <div class="highSearch">
-                <span class="label">高级搜索</span>
+            <div class="rightHeader">
+                <ExtraHeader />
             </div>
-            <Handler />
         </div>
-        <div class="rightHeader">
-            <ExtraHeader />
-        </div>
-        <div>
+        <div v-show="hasExtraColumns">
             <ExtraColumns />
         </div>
     </div>

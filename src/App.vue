@@ -35,7 +35,12 @@ const setTitle = (content) => {
           :state="state"
         >
           <template #content>
-            <router-view />
+            <!-- <router-view /> -->
+            <RouterView v-slot="{ Component }">
+              <KeepAlive>
+                <component :is="Component"></component>
+              </KeepAlive>
+            </RouterView>
           </template>
         </LayoutWrapper>
       </template>

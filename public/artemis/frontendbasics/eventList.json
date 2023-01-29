@@ -1,11 +1,14 @@
 {
-    "incidentPageCount":{
-        "closedCount": 1,
-        "pendingCount": 2,
-        "processingCount": 3
-    },
-    "currentPage": 1,
-    "pageSize": 5,
+    "data": [],
     "count": 100,
-    "totalPage": 100
+    "totalPage": 20,
+    "incidentPageCount":{
+        "closedCount": 300,
+        "pendingCount": 100,
+        "processingCount": 200
+    },
+    "conditions":{
+        "pageSize": 5,
+        "currentPage": 1
+    }
 }
