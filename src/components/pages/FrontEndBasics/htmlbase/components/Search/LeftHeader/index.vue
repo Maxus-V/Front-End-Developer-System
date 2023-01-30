@@ -10,7 +10,7 @@ const rangeValue = ref([])
 const inputValue = ref('')
 
 const onSelectTimeChange = (rangeArr=[]) => {
-    if(rangeArr.length) {
+    if(rangeArr && rangeArr.length) {
         const [startTime, endTime] = rangeArr
         modifyMethods.modifyConditions({
             startTime: startTime.valueOf(),

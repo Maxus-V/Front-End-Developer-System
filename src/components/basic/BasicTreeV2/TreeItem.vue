@@ -3,6 +3,7 @@ import { inject, ref, computed } from 'vue'
 import { ElIcon, ElCheckbox } from 'element-plus';
 import { ArrowRightBold, ArrowDownBold } from '@element-plus/icons-vue';
 
+const tree = inject('treeState')
 const changeCheckedKeys = inject('changeCheckedKeys')
 
 const props = defineProps({
@@ -10,14 +11,18 @@ const props = defineProps({
 })
 
 const isExpand = ref(false)
-
 const hasChildren = computed(() => props.treeData.children && props.treeData.children.length)
+const isChecked = computed(() => tree.checkedKeys.some(item => item.id === props.treeData.id))
 
 const changeIsExpand = () => {
-  isExpand.value = !isExpand.value
+    isExpand.value = !isExpand.value
 }
 const selectNode = (node) => {
-    changeCheckedKeys([node])
+    const { children = [] } = node
+    if (children.length) {
+        changeCheckedKeys([...children], 'addSelectNode')
+    }
+    changeCheckedKeys([node], 'addSelectNode')
 }
 </script>
 
@@ -27,7 +32,7 @@ const selectNode = (node) => {
             <ElIcon>
                 <component :is="isExpand && hasChildren? ArrowDownBold : ArrowRightBold" />
             </ElIcon>
-            <ElCheckbox :disabled="treeData.disabled" @change="selectNode(treeData)" />
+            <ElCheckbox :modelValue="isChecked" :disabled="treeData.disabled" @change="selectNode(treeData)" />
             <span>{{ treeData.name }}</span>
         </div>
         <div v-show="isExpand" class="expandArea">

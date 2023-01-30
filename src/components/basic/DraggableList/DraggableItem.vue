@@ -8,21 +8,16 @@ import { toRefs } from '@vueuse/core'
 
 import DragSvg from '@/components/icons/IconDrag.vue'
 
-const deleteSelectNode = inject('deleteSelectNode')
+const moveCard = inject('moveCard')
+const changeCheckedKeys = inject('changeCheckedKeys')
 
 const props = defineProps({
     id: String,
     name: String,
     index: Number,
-    moveCard: Function,
     disabled: Boolean,
 })
-
-const {id, disabled} = props
-
-const removeItem = () => {
-    deleteSelectNode(id)
-}
+const {id, index, disabled} = props
 
 const card = ref(null)
 
@@ -32,7 +27,7 @@ const [dropCollect, drop] = useDrop({
     hover: (node, monitor) => {
         if (!card.value) return
         const dragIndex = node.index
-        const hoverIndex = props.index
+        const hoverIndex = index
         if (dragIndex === hoverIndex) return
         const hoverBoundingRect = card.value.getBoundingClientRect()
         const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
@@ -40,7 +35,7 @@ const [dropCollect, drop] = useDrop({
         const hoverClientY = (clientOffset).y - hoverBoundingRect.top
         if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return
         if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return
-        props.moveCard(dragIndex, hoverIndex)
+        moveCard(dragIndex, hoverIndex)
         node.index = hoverIndex
     }
 })
@@ -48,7 +43,7 @@ const [collect, drag] = useDrag({
     type: 'box',
     canDrag: !disabled,
     item: () => ({
-        id: props.id, index: props.index
+        id: id, index: index
     }),
     collect: (monitor) => ({isDragging: monitor.isDragging()}),
 })
@@ -73,7 +68,7 @@ const setRef = (el) => {
         <span>{{ name }}</span>
     </div>
     <div class="icon">
-        <ElIcon v-if="!disabled" @click="removeItem"><Delete/></ElIcon>
+        <ElIcon v-if="!disabled" @click="changeCheckedKeys(id, 'deleteSelectNode')"><Delete/></ElIcon>
     </div>
   </div>
 </template>

@@ -1,12 +1,14 @@
 <script setup>
-import { ElDialog, ElButton, ElInput, ElIcon } from 'element-plus';
+import { inject, computed } from 'vue';
+import { ElDialog, ElButton } from 'element-plus';
 
-// import BasicTree from '@/components/basic/BasicTree/index.vue'
 import BasicTreeV2 from '@/components/basic/BasicTreeV2/index.vue'
 import DraggableList from '@/components/basic/DraggableList/index.vue'
 
 import { DndProvider } from 'vue3-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+
+const treeState = inject('treeState')
 
 const props = defineProps({
     modalVisible: Boolean,
@@ -14,40 +16,37 @@ const props = defineProps({
 
 const emit = defineEmits(['changeModalVisible'])
 
+const checkedCounts = computed(() => treeState.checkedKeys.length || 0)
+
 const changeModalVisible = () => {
   emit("changeModalVisible", false)
 }
-
 const onSave = () => {
-    console.log('保存')
-    changeModalVisible()
+  changeModalVisible()
 }
-
 </script>
 
 <template>
-  <ElDialog title="表格字段显示" :model-value="props.modalVisible" class="searchModal">
-      <div class="wrapper"> 
-          <div class="treeWrapper">
-              <!-- <BasicTree
-                  :treeState="treeState"
-                  :changeTreeState="changeTreeState"
-              /> -->
-              <BasicTreeV2 />
-          </div>
-          <div class="listWrapper">
-              <div class="countTitle">
-                  已选择 n 条
-              </div>
-              <DndProvider :backend="HTML5Backend">
-                  <DraggableList />
-              </DndProvider>
-          </div>
+  <ElDialog title="表格字段显示" 
+    :model-value="props.modalVisible" 
+    @close="changeModalVisible"
+    class="searchModal"
+  >
+    <div class="wrapper"> 
+      <div class="treeWrapper">
+        <BasicTreeV2 />
       </div>
-      <template #footer>
-          <ElButton @click="changeModalVisible">取消</ElButton>
-          <ElButton type="primary" @click="onSave">确定</ElButton>
-      </template>
+      <div class="listWrapper">
+        <div class="countTitle">已选择 {{ checkedCounts }} 条</div>
+        <DndProvider :backend="HTML5Backend">
+          <DraggableList />
+        </DndProvider>
+      </div>
+    </div>
+    <template #footer>
+      <ElButton @click="changeModalVisible">取消</ElButton>
+      <ElButton type="primary" @click="onSave">确定</ElButton>
+    </template>
   </ElDialog>
 </template>
 
@@ -74,7 +73,7 @@ const onSave = () => {
         }
         .listWrapper {
           width: 50%;
-          height: 100%;
+          height: 300px;
           padding: 20px;
           border-left: 1px solid rgba(0, 0, 0, 0.06);
           .countTitle {
