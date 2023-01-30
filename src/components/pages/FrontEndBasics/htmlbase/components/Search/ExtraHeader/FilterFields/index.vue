@@ -1,81 +1,53 @@
 <script setup>
-import { reactive } from 'vue'
-import CustomFieldsModal from './CustomFieldsModal/index.vue'
-
+import { ref, reactive, provide } from 'vue'
 import { ElTooltip, ElButton,ElIcon } from 'element-plus';
 import { Filter } from '@element-plus/icons-vue';
 
+import CustomFieldsModal from './CustomFieldsModal/index.vue'
+
+import { unionWith, xorWith } from 'lodash-es';
 import { getChildrenByLoop } from '@/utils/index.js';
 import { generateData } from '@/components/basic/BasicTree/utils';
 import { publicFields } from '@/components/pages/FrontEndBasics/config/constant.js';
 
-import { unionWith, xorWith } from 'lodash-es';
-
-const state = reactive({
-    modalVisible: false
+const treeDatas = publicFields.concat({
+    name: '自定义字段',
+    id: 'custom',
+    children: []
 })
+provide('treeDatas', treeDatas)
 
-const initSelectedNodes = []
-const defaultSelectedPublicKey = getChildrenByLoop(publicFields)
-const treeState = reactive({
-    expendKeys: [],
-    checkedKeys: unionWith(defaultSelectedPublicKey, initSelectedNodes, (a, b) => a.id === b.id),
-    initData: generateData(publicFields.concat({
-            name: '自定义字段',
-            id: 'custom',
-            children: []
-        }),[])
+const modalVisible = ref(true)
+
+const filterFieldsState = reactive({
+    checkedKeys: getChildrenByLoop(publicFields)
 })
-
-const changeTreeState = (type, payload) => {
-    if (type === 'CHANGE_EXPAND_KEYS') {
-        const {expendKeys} = treeState
-        const keys = expendKeys.map(i => i.id)
-        treeState.expendKeys = keys.includes(payload.id) ? expendKeys.filter(i => i.id !== payload.id) : expendKeys.concat(payload)
-    }
-    if (type === 'CHANGE_SELECTED_KEYS') {
-        return (payload) => {
-            const {checkedKeys} = treeState
-            treeState.checkedKeys = xorWith(checkedKeys, payload, (a, b) => a.id === b.id)
-        }
-    }
-    if (type === 'DELETE_SELECTED_NODE_BY_ID') {
-        return (payload) => {
-            treeState.checkedKeys = treeState.checkedKeys.filter(node => node.id !== payload)
-        }
-    }
-}
-
-const removeSelectNodes = (id) => {
-    changeTreeState('DELETE_SELECTED_NODE_BY_ID')(id)
-    console.log('tr', treeState.checkedKeys)
-}
+provide('tree', filterFieldsState)
 
 const changeModalVisible = (value) => {
-    state.modalVisible = value
+    modalVisible.value = value
 }
+const changeCheckedKeys = (valueArr) => {
+    const { checkedKeys } = filterFieldsState
+    filterFieldsState.checkedKeys = xorWith(checkedKeys, valueArr, (a, b) => a.id === b.id)
+}
+provide('changeCheckedKeys', changeCheckedKeys)
+const deleteSelectNode = (id) => {
+    filterFieldsState.checkedKeys = filterFieldsState.checkedKeys.filter(node => node.id !== id)
+}
+provide('deleteSelectNode', deleteSelectNode)
 
 </script>
 
 <template>
-     <el-tooltip 
-        content="表格字段显示"
-        effect="light"
-        placement="top"
-    >
-        <el-button size="small" @click="changeModalVisible(true)">
-            <el-icon>
-                <Filter />
-            </el-icon>
-        </el-button>
-    </el-tooltip>
+     <ElTooltip content="表格字段显示" effect="light" placement="top">
+        <ElButton size="small" @click="changeModalVisible(true)">
+            <ElIcon><Filter /></ElIcon>
+        </ElButton>
+    </ElTooltip>
     <CustomFieldsModal
-        v-if="state.modalVisible"
-        :state="state"
-        :changeModalVisible="changeModalVisible"
-        :treeState="treeState"
-        :changeTreeState="changeTreeState"
-        :removeSelectNodes="removeSelectNodes"
+        :modalVisible="modalVisible"
+        @changeModalVisible="changeModalVisible"
     />
 </template>
 

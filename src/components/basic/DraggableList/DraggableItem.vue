@@ -1,11 +1,14 @@
 <script setup>
-import { computed, ref, unref } from 'vue'
+import { inject, ref, computed, unref } from 'vue'
+import { ElTooltip, ElIcon } from 'element-plus';
+import { Delete } from '@element-plus/icons-vue';
+
 import { useDrag, useDrop } from 'vue3-dnd'
 import { toRefs } from '@vueuse/core'
 
-import { ElTooltip, ElIcon } from 'element-plus';
-import { Delete } from '@element-plus/icons-vue';
-import DragSvg from '../../icons/IconDrag.vue'
+import DragSvg from '@/components/icons/IconDrag.vue'
+
+const deleteSelectNode = inject('deleteSelectNode')
 
 const props = defineProps({
     id: String,
@@ -13,13 +16,12 @@ const props = defineProps({
     index: Number,
     moveCard: Function,
     disabled: Boolean,
-    removeSelectNodes: Function,
 })
 
-const {id, disabled, removeSelectNodes} = props
+const {id, disabled} = props
 
 const removeItem = () => {
-    removeSelectNodes(id)
+    deleteSelectNode(id)
 }
 
 const card = ref(null)
@@ -42,7 +44,6 @@ const [dropCollect, drop] = useDrop({
         node.index = hoverIndex
     }
 })
-
 const [collect, drag] = useDrag({
     type: 'box',
     canDrag: !disabled,
@@ -52,35 +53,27 @@ const [collect, drag] = useDrag({
     collect: (monitor) => ({isDragging: monitor.isDragging()}),
 })
 
-
 const { handlerId } = toRefs(dropCollect)
 const { isDragging } = toRefs(collect)
+
 const opacity = computed(() => (unref(isDragging) ? 0 : 1))
 const cursor = computed(() => (!disabled ? 'move' : 'default'))
 
 const setRef = (el) => {
     card.value = drag(drop(el))
 }
-
 </script>
 
 <template>
-  <div
-    :ref="setRef"
-    class="draggableItem"
-    :style="{ opacity, cursor }"
-    :data-handler-id="handlerId"
-  >
+  <div :ref="setRef" class="draggableItem" :style="{ opacity, cursor }" :data-handler-id="handlerId">
     <div>
-        <el-tooltip v-if="!disabled" effect="light" content="可进行拖拽移动" placement="top">
-            <el-icon><DragSvg/></el-icon>
-        </el-tooltip>
+        <ElTooltip v-if="!disabled" effect="light" content="可进行拖拽移动" placement="top">
+            <ElIcon><DragSvg/></ElIcon>
+        </ElTooltip>
         <span>{{ name }}</span>
     </div>
     <div class="icon">
-        <el-icon v-if="!disabled" @click="removeItem">
-            <Delete/>
-        </el-icon>
+        <ElIcon v-if="!disabled" @click="removeItem"><Delete/></ElIcon>
     </div>
   </div>
 </template>

@@ -1,34 +1,29 @@
 <script setup>
+import { inject } from 'vue';
 import { ElEmpty } from 'element-plus';
+
 import DraggableItem from './DraggableItem.vue'
 
-const props = defineProps({
-    treeState: Object,
-    removeSelectNodes: Function,
-})
-
-const { treeState } = props
+const tree = inject('tree')
 
 const moveCard = (dragIndex, hoverIndex) => {
-    const item = treeState.checkedKeys[dragIndex]
-    treeState.checkedKeys.splice(dragIndex, 1)
-    treeState.checkedKeys.splice(hoverIndex, 0, item)
+    const item = tree.checkedKeys[dragIndex]
+    tree.checkedKeys.splice(dragIndex, 1)
+    tree.checkedKeys.splice(hoverIndex, 0, item)
 }
-
 </script>
 
 <template>
     <div class="DraggableList">
-        <template v-if="treeState.checkedKeys.length">
+        <template v-if="tree.checkedKeys.length">
             <DraggableItem
-            v-for="(checkedKey, index) in treeState.checkedKeys"
-            :id="checkedKey.id"
-            :key="checkedKey.id"
-            :name="checkedKey.name"
-            :disabled="checkedKey.disabled"
-            :index="index"
-            :moveCard="moveCard"
-            :removeSelectNodes="removeSelectNodes"
+                v-for="(treeNode, index) in tree.checkedKeys"
+                :id="treeNode.id"
+                :key="treeNode.id"
+                :name="treeNode.name"
+                :disabled="treeNode.disabled"
+                :index="index"
+                :moveCard="moveCard"
             />
         </template>
         <template  v-else>
