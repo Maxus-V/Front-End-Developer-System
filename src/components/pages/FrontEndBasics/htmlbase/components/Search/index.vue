@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, provide } from 'vue'
+import { ref } from 'vue'
 import { ElIcon } from 'element-plus'
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
 
@@ -9,37 +9,16 @@ import Handler from './Handler/index.vue'
 import ExtraHeader from './ExtraHeader/index.vue'
 import ExtraColumns from './ExtraColumns/index.vue'
 
-import { getList } from '../../service'
-import { useTable } from '../../utils/useTable'
-import { typeEnum, statusEnum } from '../../config/constants'
-
-const type = 'ownEvent'
 const hasExtraColumns = ref(false)
 
-const searchState = reactive({
-    currentCategory: "PENDING",
-})
-provide('searchState', searchState)
-
-const modifyMethods = useTable(getList, Object.assign({}, {
-    type: typeEnum[type],
-    processStatusList: [statusEnum[type]],
-}))
-provide('modifyMethods', modifyMethods)
-
-const changeCurrentCategory = (type) => {
-    searchState.currentCategory = type
-}
 const changeHasExtraColumns = () => {
-    hasExtraColumns.value = !hasExtraColumns.value
+  hasExtraColumns.value = !hasExtraColumns.value
 }
 </script>
 
 <template>
     <div class="search">
-        <Tabs 
-            :changeCurrentCategory="changeCurrentCategory"
-        />
+        <Tabs />
         <div class="header">
             <div class="leftHeader">
                 <LeftHeader />

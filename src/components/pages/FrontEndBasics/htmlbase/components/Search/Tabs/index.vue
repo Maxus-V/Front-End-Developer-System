@@ -1,12 +1,9 @@
 <script setup>
 import { inject, computed } from 'vue';
 
-const searchState = inject('searchState')
+const htmlBaseState = inject('htmlBaseState')
 const modifyMethods = inject('modifyMethods')
-
-const props = defineProps({
-    changeCurrentCategory: Function,
-})
+const changeCurrentCategory = inject('changeCurrentCategory')
 
 const tabState = computed(() => modifyMethods.tableData.initData.incidentPageCount || {
     pendingCount: 0,
@@ -33,7 +30,7 @@ const categorys = [
 ]
 
 const changeProcessStatus = (type) => {
-    props.changeCurrentCategory(type)
+    changeCurrentCategory(type)
     modifyMethods.modifyConditions({
         processStatusList: [type],
         currentPage: 1,
@@ -47,7 +44,7 @@ const changeProcessStatus = (type) => {
             <div class="action">
                 <div v-for="(category, index) in categorys"
                     :key="index"
-                    :class="category.processStatus === searchState.currentCategory ? 'default active' : 'default'"
+                    :class="category.processStatus === htmlBaseState.currentCategory ? 'default active' : 'default'"
                     @click="changeProcessStatus(category.processStatus)"
                 >
                     {{ category.name }}{{ tabState[category.count]}}

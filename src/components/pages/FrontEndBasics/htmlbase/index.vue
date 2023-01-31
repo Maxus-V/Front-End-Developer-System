@@ -1,17 +1,25 @@
 <script setup>
-  import { reactive } from 'vue'
-  import Search from './components/Search/index.vue'
-  import EventTable from './components/EventTable/index.vue';
+import { reactive, provide } from 'vue'
 
-  import useColumn from './utils/useColumn';
+import Search from './components/Search/index.vue'
+import EventTable from './components/EventTable/index.vue';
 
-  import { publicFields } from '../config/constant';
-  import { getChildrenByLoop } from '@/utils/index.js';
+import { getList } from './service'
+import { useTable } from './utils/useTable'
+import { typeEnum, statusEnum } from './config/constants'
 
-  const state = reactive({
-    currentCategory: 'PENDING',
-    columns: getChildrenByLoop(publicFields).map(i => i.defaultSelected ? i.id : undefined).filter(Boolean),
-    data: [
+const type = 'ownEvent'
+
+const htmlBaseState = reactive({
+  currentCategory: 'PENDING',
+  columns: [
+    {title: '事件ID', prop: 'seriNum'},
+    {title: '事件名称', prop: 'incidentNameText'},
+    {title: '告警级别', prop: 'level'},
+    {title: '创建时间', prop: 'createdTime'},
+    {title: '备注', prop: 'remark'},
+  ],
+  data: [
       {
         seriNum: '233333',
         incidentNameText: '哈哈哈哈哈哈',
@@ -24,19 +32,26 @@
         level: 'high',
         createdTime: '2023-01-19'
       },
-    ],
-  })
+  ],
+})
+provide('htmlBaseState', htmlBaseState)
 
-  state.columns = useColumn(state.columns)
+const modifyMethods = useTable(getList, Object.assign({}, {
+    type: typeEnum[type],
+    processStatusList: [statusEnum[type]],
+}))
+provide('modifyMethods', modifyMethods)
 
+const changeCurrentCategory = (type) => {
+  htmlBaseState.currentCategory = type
+}
+provide('changeCurrentCategory', changeCurrentCategory)
 </script>
 
 <template>
     <div class="eventWrapper">
       <Search />
-      <EventTable
-        :state="state"
-      />
+      <EventTable />
     </div>
 </template>
 

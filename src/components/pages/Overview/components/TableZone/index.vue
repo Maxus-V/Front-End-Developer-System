@@ -17,71 +17,71 @@ const tableZoneState = reactive({
 const alertSourceTable = [
   {
     prop: 'level',
-    label: '事件级别',
+    title: '事件级别',
     // width: '15%',
   },
   {
     prop: 'incidentNameText',
-    label: '事件名称',
+    title: '事件名称',
     // width: '30%',
   },
   {
     prop: 'checks',
-    label: '监控项',
+    title: '监控项',
     // width: '30%',
   },
   {
     prop: 'updatedTime',
-    label: '最近时间',
+    title: '最近时间',
     // width: '25%',
   },
 ]
 const alertSourceObjectTableData = [
   {
     prop: 'sourcename',
-    label: '告警源名称',
+    title: '告警源名称',
     // width: '25%',
   },
   {
     prop: 'modelname',
-    label: '模型名称',
+    title: '模型名称',
     // width: '15%',
   },
   {
     prop: 'ciid',
-    label: '告警次数',
+    title: '告警次数',
     // width: '15%',
   },
   {
     prop: 'timestamp',
-    label: '最近时间',
+    title: '最近时间',
     // width: '30%',
   },
 ]
 const alertSourceIndicatorsTableData = [
   {
     prop: 'sourcename',
-    label: '告警源名称',
+    title: '告警源名称',
     // width: '25%',
   },
   {
     prop: 'ruletype',
-    label: '监控类型',
+    title: '监控类型',
     // width: '15%',
   },
   {
     prop: 'checkname',
-    label: '指标名称',
+    title: '指标名称',
     // width: '15%',
   },
   {
     prop: 'checks',
-    label: '告警次数',
+    title: '告警次数',
     // width: '15%',
   },
   {
     prop: 'timestamp',
-    label: '最近时间',
+    title: '最近时间',
     // width: '30%',
   },
 ]
