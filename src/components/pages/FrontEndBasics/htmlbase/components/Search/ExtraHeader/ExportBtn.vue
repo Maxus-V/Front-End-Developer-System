@@ -1,9 +1,11 @@
 <script setup>
+import { inject } from 'vue'
 import { ElTooltip, ElButton, ElIcon } from 'element-plus';
 import { Download } from '@element-plus/icons-vue';
 
 const msg = '请稍等，正在下载中，请勿离开页面'
-const data = [1]
+
+const htmlBaseState = inject('htmlBaseState')
 
 const download = () => {
     console.log('执行下载逻辑')
@@ -16,7 +18,7 @@ const download = () => {
             <ElButton 
                 class="download" 
                 @click="download"
-                :disabled="data.length === 0"
+                :disabled="!htmlBaseState.hasRowSelection"
                 size="small"
             >
                 <ElIcon><Download/></ElIcon>

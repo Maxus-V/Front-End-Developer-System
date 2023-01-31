@@ -34,9 +34,22 @@ export const useTable = (fetchTableData, initConditions = {}) => {
         }
         fetchData()
     }
+    const modifyPages = (conditions) => {
+        const {pageSize, currentPage} = conditions
+        useTableState.initData = {
+            ...useTableState.initData,
+            conditions: {
+                ...useTableState.initData.conditions,
+                pageSize,
+                currentPage,
+            }
+        }
+        fetchData()
+    }
     fetchData()
     return {
         tableData: useTableState,
         modifyConditions,
+        modifyPages,
     }
 }

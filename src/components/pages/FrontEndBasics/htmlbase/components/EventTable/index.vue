@@ -1,18 +1,36 @@
 <script setup>
-import { inject } from 'vue';
+import { inject, reactive, computed } from 'vue';
 
 import BasicTable from '@/components/basic/BasicTable/index.vue'
 
 const htmlBaseState = inject('htmlBaseState')
+const modifyMethods = inject('modifyMethods')
+const changeRowSelection = inject('changeRowSelection')
+
+const eventTableState = reactive({
+    data: computed(() => modifyMethods.tableData.initData.data || []),
+    pagination: computed(() => {
+        const { conditions: {pageSize, currentPage}, totalPage, count } = modifyMethods.tableData.initData
+        return {
+            pageSize,
+            currentPage,
+            totalPage,
+            count,
+        }
+    })
+})
 </script>
 
 <template>
     <div class="eventTable">
         <BasicTable 
             :tableColumns="htmlBaseState.columns"
-            :tableData="htmlBaseState.data"
+            :tableData="eventTableState.data"
             :hasSelection="true"
+            :changeSelection="changeRowSelection"
             :hasPagination="true"
+            :pagination="eventTableState.pagination"
+            :changePagination="modifyMethods.modifyPages"
         />
     </div> 
 </template>

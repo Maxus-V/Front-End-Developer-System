@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, provide } from 'vue'
+import { reactive, computed, provide } from 'vue'
 
 import Search from './components/Search/index.vue'
 import EventTable from './components/EventTable/index.vue';
@@ -12,26 +12,14 @@ const type = 'ownEvent'
 
 const htmlBaseState = reactive({
   currentCategory: 'PENDING',
+  rowSelection: [],
+  hasRowSelection: computed(() => htmlBaseState.rowSelection.length ? true : false),
   columns: [
     {title: '事件ID', prop: 'seriNum'},
     {title: '事件名称', prop: 'incidentNameText'},
     {title: '告警级别', prop: 'level'},
     {title: '创建时间', prop: 'createdTime'},
     {title: '备注', prop: 'remark'},
-  ],
-  data: [
-      {
-        seriNum: '233333',
-        incidentNameText: '哈哈哈哈哈哈',
-        level: 'high',
-        createdTime: '2023-01-18'
-      },
-      {
-        seriNum: '666666',
-        incidentNameText: '什么动静',
-        level: 'high',
-        createdTime: '2023-01-19'
-      },
   ],
 })
 provide('htmlBaseState', htmlBaseState)
@@ -46,6 +34,11 @@ const changeCurrentCategory = (type) => {
   htmlBaseState.currentCategory = type
 }
 provide('changeCurrentCategory', changeCurrentCategory)
+
+const changeRowSelection = (value) => {
+  htmlBaseState.rowSelection = value
+}
+provide('changeRowSelection', changeRowSelection)
 </script>
 
 <template>

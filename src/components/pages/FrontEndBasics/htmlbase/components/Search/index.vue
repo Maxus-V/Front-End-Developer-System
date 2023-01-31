@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import { ElIcon } from 'element-plus'
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
 
@@ -8,6 +8,8 @@ import LeftHeader from './LeftHeader/index.vue'
 import Handler from './Handler/index.vue'
 import ExtraHeader from './ExtraHeader/index.vue'
 import ExtraColumns from './ExtraColumns/index.vue'
+
+const htmlBaseState = inject('htmlBaseState')
 
 const hasExtraColumns = ref(false)
 
@@ -26,7 +28,7 @@ const changeHasExtraColumns = () => {
                     <span class="label">高级搜索</span>
                     <ElIcon><component :is="hasExtraColumns? ArrowUp : ArrowDown" /></ElIcon>
                 </div>
-                <Handler />
+                <Handler v-if="htmlBaseState.hasRowSelection" />
             </div>
             <div class="rightHeader">
                 <ExtraHeader />

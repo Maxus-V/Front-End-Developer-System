@@ -1,5 +1,18 @@
 {
-    "data": [],
+    "data": [
+        {
+            "seriNum": 233333,
+            "incidentNameText": "哈哈哈哈哈哈",
+            "level": "high",
+            "createdTime": "2023-01-18"
+          },
+          {
+            "seriNum": 666666,
+            "incidentNameText": "什么动静",
+            "level": "high",
+            "createdTime": "2023-01-19"
+          }
+    ],
     "count": 100,
     "totalPage": 20,
     "incidentPageCount":{

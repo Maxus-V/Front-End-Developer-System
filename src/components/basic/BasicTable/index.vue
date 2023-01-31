@@ -1,46 +1,42 @@
 <script setup>
-import { reactive } from 'vue'
 import { ElTable, ElTableColumn, ElEmpty, ElPagination } from 'element-plus';
 
 const props = defineProps({
   tableColumns: Array,
   tableData: Array,
   hasSelection: Boolean,
+  changeSelection: Function,
   hasPagination: Boolean,
+  pagination: Object,
+  changePagination: Function,
 })
 
-const onSelectionChange = () => {
-  console.log('hi')
+const onSelectionChange = (dataArr) => {
+  props.changeSelection(dataArr)
+  console.log('onSelectionChange', dataArr.length)
 }
-
-const tableState = reactive({
-    currentPage: 1,
-    pageSizes: [10, 30, 50, 100],
-    total: 500,
-})
-
-const handleSizeChange = (val) => {
-  console.log(`${val} items per page`, 'sizechange')
-  tableState.currentPage = val
+const onSizeChange = (value) => {
+  props.changePagination({
+    pageSize: value
+  })
 }
-
-const handleCurrentChange = (val) => {
-  console.log(`current page: ${val}`, 'currentchange')
-  tableState.currentPage = val
+const onCurrentChange = (value) => {
+  props.changePagination({
+    currentPage: value
+  })
 }
-
 </script>
 
 <template>
   <div class="basicTable">
     <div class="tableItem">
       <ElTable 
-        :data="props.tableData" 
+        :data="tableData" 
         style="width: 100%"
         @selection-change="onSelectionChange"
       >
         <ElTableColumn v-if="hasSelection" type="selection"/>
-        <ElTableColumn v-for="(column, index) in props.tableColumns" 
+        <ElTableColumn v-for="(column, index) in tableColumns" 
           :key="index"
           :prop="column.prop" 
           :label="column.title" 
@@ -60,15 +56,14 @@ const handleCurrentChange = (val) => {
     </div>
     <div class="paginationItem">
       <ElPagination
-        v-if="props.hasPagination"
-        :total="tableState.total"
+        v-if="hasPagination"
+        :total="pagination.count"
         layout="sizes, prev, pager, next, jumper"
         :page-sizes="[10, 30, 50, 100]"
-        @size-change="handleSizeChange"
+        @size-change="onSizeChange"
         background
-        :current-page="tableState.currentPage"
-        @current-change="handleCurrentChange"
-        :pager-count="5"
+        :current-page="pagination.currentPage"
+        @current-change="onCurrentChange"
       />
     </div>
   </div>

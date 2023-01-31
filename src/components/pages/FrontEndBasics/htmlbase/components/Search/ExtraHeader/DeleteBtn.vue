@@ -1,8 +1,9 @@
 <script setup>
+import { inject } from 'vue';
 import { ElTooltip, ElButton, ElIcon } from 'element-plus';
 import { Delete } from '@element-plus/icons-vue';
 
-const ids = [1]
+const htmlBaseState = inject('htmlBaseState')
 
 const confirmDelete = () => {
     deleteList()
@@ -18,7 +19,7 @@ const deleteList = () => {
             type="primary" 
             class="download" 
             @click="confirmDelete" 
-            :disabled="!ids.length" 
+            :disabled="!htmlBaseState.hasRowSelection" 
             size="small"
         >
             <ElIcon><Delete/></ElIcon>
