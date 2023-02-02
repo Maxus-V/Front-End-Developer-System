@@ -34,7 +34,7 @@ const routes = [
     },
     {
       path: '/frontendframes/formfilling/:type/create',
-      component: () => import('@/components/pages/FrontEndFrame/formFilling/index.vue')
+      component: () => import('@/components/pages/FrontEndFrame/FormFilling/index.vue')
     },
     {
         path: '/frontendframes',
@@ -45,20 +45,16 @@ const routes = [
           },
           {
             path: 'vue',
-            component: () => import('@/components/pages/FrontEndFrame/vueFrame/index.vue')
+            component: () => import('@/components/pages/FrontEndFrame/VueFrame/index.vue')
           },
           {
             path: 'react',
-            component: () => import('@/components/pages/FrontEndFrame/ReactFrame.vue'),
+            component: () => import('@/components/pages/FrontEndFrame/ReactFrame/index.vue'),
           },
           {
             path: 'angular',
-            component: () => import('@/components/pages/FrontEndFrame/AngularFrame.vue')
+            component: () => import('@/components/pages/FrontEndFrame/AngularFrame/index.vue')
           },
-          {
-            path: 'create',
-            component: () => import('@/components/pages/FrontEndFrame/contentForm/index.vue')
-          }
         ]
     },
     {

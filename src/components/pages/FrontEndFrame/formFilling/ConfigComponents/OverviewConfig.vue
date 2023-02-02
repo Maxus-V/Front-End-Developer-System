@@ -23,7 +23,6 @@ const dataSource = [
         desc: '自定义属性值，可以任意的添加属性字段，扩展字段名可自定义,必须符合json格式，且键与值要加双引号',
     },
 ]
-
 const columns = [
     {
         title: '参数',
@@ -41,14 +40,13 @@ const columns = [
 <template>
     <ElTable :data="dataSource">
         <ElTableColumn v-for="column in columns" 
+            :key="column.dataIndex"
             :prop="column.dataIndex"
             :label="column.title"
-            width="auto"
             :min-width="column.width"
         />
     </ElTable>
 </template>
 
 <style lang="scss" scoped>
-
 </style>

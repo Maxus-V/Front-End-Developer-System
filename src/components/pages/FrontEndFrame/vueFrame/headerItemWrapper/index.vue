@@ -1,25 +1,23 @@
 <script setup>
 import { useRouter } from 'vue-router';
 
-import jia from '@/assets/add.svg'
-
-const router = useRouter()
+import Add from '@/assets/add.svg'
 
 const props = defineProps({
     type: String
 })
-const { type } = props
 
+const router = useRouter()
 </script>
 
 <template>
     <div class="headerItemWrapper"
-        @click="router.push(`/frontendframes/formfilling/${type}/create`)"
+      @click="router.push(`/frontendframes/formfilling/${type}/create`)"
     >
-        <slot name="image"></slot>
-        <div class="addBtn">
-            <img :src="jia" alt="" class="addIcon" />
-        </div>
+      <slot name="image"></slot>
+      <div class="addBtn">
+          <img :src="Add" alt="" class="addIcon" />
+      </div>
     </div>
 </template>
 

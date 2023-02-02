@@ -1,23 +1,20 @@
 <script setup>
-import { ref } from 'vue'
-import { ElTabs, ElTabPane, ElTable } from 'element-plus';
+import { ElTabs, ElTabPane } from 'element-plus';
 
 import SearchBar from './SearchBar.vue'
-
-const activeName = ref('0')
-
+import BasicTable from '@/components/basic/BasicTable/index.vue'
 </script>
 
 <template>
     <div class="alertSourceList">
-        <ElTabs v-model="activeName">
-            <ElTabPane label="告警源列表" name="0">
+        <ElTabs>
+            <ElTabPane label="告警源列表">
                 <div class="content">
                     <SearchBar />
-                    <ElTable />
+                    <BasicTable />
                 </div>
             </ElTabPane>
-            <ElTabPane label="回收列表" name="1">
+            <ElTabPane label="回收列表">
                 eee
             </ElTabPane>
         </ElTabs>
@@ -25,5 +22,4 @@ const activeName = ref('0')
 </template>
 
 <style lang="scss" scoped>
-
 </style>
