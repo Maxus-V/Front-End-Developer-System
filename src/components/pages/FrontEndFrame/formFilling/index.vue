@@ -19,6 +19,11 @@ const stepValue = ref(0)
 const isFinalStep = computed(() => stepValue.value === 2)
 const isFold = ref(false)
 
+const changeFold = () => {
+  isFold.value = !isFold.value
+  console.log('isFold.value', isFold.value)
+}
+
 const prevStep = (value) => {
   stepValue.value = value
 }    
@@ -49,7 +54,7 @@ const goBack = () => {
             </div>
             <div class="footerWrapper">
                 <div class="footer">
-                    <ElButton @click="prevStep(stepValue - 1)">上一步</ElButton>
+                    <ElButton v-show="stepValue > 0" @click="prevStep(stepValue - 1)">上一步</ElButton>
                     <ElButton type="primary" @click="nextStepOrSave(stepValue + 1)">
                         {{ isFinalStep ? '完成' : '下一步' }}
                     </ElButton>
@@ -58,7 +63,7 @@ const goBack = () => {
             </div>
         </div>
         <div class="detailWrapper" :style="!isFold? expandPanel : null">
-            <div class="drawerBtn" @click="isFold = !isFold">
+            <div class="drawerBtn" @click="changeFold">
                 <span class="drawerIcon">
                     <span>配置说明</span>
                     <ElIcon>
@@ -162,6 +167,8 @@ const goBack = () => {
       .footerWrapper {
         height: 64px;
         position: relative;
+        background: white;
+        z-index: 100;
 
         .footer {
           height: 40px;

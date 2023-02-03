@@ -1,5 +1,5 @@
 <script setup>
-import { ElTable, ElTableColumn, ElEmpty, ElPagination } from 'element-plus';
+import { ElTable, ElTableColumn, ElEmpty, ElPagination, ElSelect, ElOption } from 'element-plus';
 
 const props = defineProps({
   tableColumns: Array,
@@ -46,6 +46,12 @@ const onCurrentChange = (value) => {
             <RouterLink v-if="column.prop === 'incidentNameText'" :to="'/overview'">
               {{ scope.row[column.prop] || '-' }}
             </RouterLink>
+            <span v-else-if="column.prop === 'originalAlertLevel'">
+              <ElSelect :model-value="scope.row[column.prop]" placeholder="请输入等级后回车" collapse-tags>
+                <ElOption :value="scope.row[column.prop]">
+                </ElOption>
+              </ElSelect>
+            </span>
             <span v-else>{{ scope.row[column.prop] || '-' }}</span>
           </template>
         </ElTableColumn>
