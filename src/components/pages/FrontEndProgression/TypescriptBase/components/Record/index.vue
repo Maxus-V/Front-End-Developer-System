@@ -1,6 +1,6 @@
 <script setup>
 import { ElSelect, ElOption, ElDatePicker } from 'element-plus';
-import BasicTable from '../../../basic/BasicTable/index.vue'
+import BasicTable from '@/components/basic/BasicTable/index.vue'
 </script>
 
 <template>

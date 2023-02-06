@@ -66,15 +66,15 @@ const routes = [
         },
         {
           path: 'typescript',
-          component: () => import('@/components/pages/FrontEndProgression/TypescriptBase.vue')
+          component: () => import('@/components/pages/FrontEndProgression/TypescriptBase/index.vue')
         },
         {
           path: 'webpack',
-          component: () => import('@/components/pages/FrontEndProgression/WebpackBase.vue')
+          component: () => import('@/components/pages/FrontEndProgression/WebpackBase/index.vue')
         },
         {
           path: 'node',
-          component: () => import('@/components/pages/FrontEndProgression/NodeBase.vue')
+          component: () => import('@/components/pages/FrontEndProgression/NodeBase/index.vue')
         },
       ]
     },
