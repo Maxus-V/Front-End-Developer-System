@@ -28,6 +28,10 @@ const editPageState = reactive({
     description: '',
     selfHealing_type: '',
     test2: '',
+    dynamicRules:[{
+        index: 0,
+        dynamickeys: []
+    }],
 })
 const rules = reactive({
     name: [
@@ -53,6 +57,9 @@ const rules = reactive({
 
 const changeModalVisible = () => {
     emit("changeModalVisible", false)
+}
+const changeDynamicRules = (value) => {
+    editPageState.dynamicRules = value
 }
 const onSave = async (ruleFormRef) => {
     if (!ruleFormRef) return
@@ -103,11 +110,11 @@ const onSave = async (ruleFormRef) => {
             <ElDivider />
 
             <h3>处置条件</h3>
-            <HandleRule />
-            <ElDivider />
-            
-            <h3>自愈动作</h3>
-
+            <br />
+            <HandleRule 
+                :editPageState="editPageState"
+                @changeDynamicRules="changeDynamicRules"
+            />
         </div>
         <template #footer>
             <ElButton @click="changeModalVisible">取消</ElButton>

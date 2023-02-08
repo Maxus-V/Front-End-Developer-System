@@ -1,41 +1,18 @@
 <script setup>
-import { reactive } from 'vue';
-import { ElForm, ElFormItem, ElSelect, ElOption, ElButton, ElRow, ElCol } from 'element-plus';
+import { computed, ref } from 'vue';
+import { ElForm, ElFormItem, ElSelect, ElOption, ElButton, ElRow} from 'element-plus';
 
 import IndexBox from '@/components/basic/IndexBox/index.vue'
 
-const handleRuleState = reactive({
-    dynamicRules: [
-        {
-            index: 0,
-            dynamickeys: []
-        },
-    ]
+const props = defineProps({
+    editPageState: Object,
 })
 
-const delelteRule = () => {
+const emit = defineEmits(['changeDynamicRules'])
 
-}
-
-const deleteRuleCondition = (ruleIndex, conditionKey) => {
-    const newRules = [...handleRuleState.dynamicRules]
-    newRules[ruleIndex] = {
-        ...newRules[ruleIndex],
-        dynamickeys: newRules[ruleIndex].dynamickeys.filter(item => item.index !== conditionKey)
-    }
-    handleRuleState.dynamicRules = newRules
-}
-
-const addRuleCondition = (ruleIndex) => {
-    const newRules = [...handleRuleState.dynamicRules]
-    const preDynamicKeys = newRules[ruleIndex].dynamickeys
-    newRules[ruleIndex] = {
-        ...newRules[ruleIndex],
-        dynamickeys: newRules[ruleIndex].dynamickeys.concat({index: getNewLastKey(preDynamicKeys)})
-    }
-    handleRuleState.dynamicRules = newRules
-    console.log('handleRuleState.dynamicRules', handleRuleState.dynamicRules)
-}
+const dynamicRules = computed(() => props.editPageState.dynamicRules || [])
+const mergeRuleList = ref('')
+const optionList = ref('')
 
 const getNewLastKey = (keysArr = []) => {
   if (keysArr.length) {
@@ -44,55 +21,80 @@ const getNewLastKey = (keysArr = []) => {
   return 0
 }
 
-const addRule = (preRules) => {
-    handleRuleState.dynamicRules = preRules.concat({
-        index: getNewLastKey(preRules),
-        dynamickeys: []
+const addRule = () => {
+    const newArr = dynamicRules.value.concat({
+        index: getNewLastKey(dynamicRules.value),
+        dynamickeys: [],
     })
+    emit('changeDynamicRules', newArr)
 }
-
+const delelteRule = (ruleIndex) => {
+    const newArr = dynamicRules.value.filter(item => item.index !== ruleIndex)
+    emit('changeDynamicRules', newArr)
+}   
+const addRuleCondition = (ruleIndex) => {
+    const newRules = [...dynamicRules.value]
+    const preDynamicKeys = newRules[ruleIndex].dynamickeys
+    newRules[ruleIndex] = {
+        ...newRules[ruleIndex],
+        dynamickeys: newRules[ruleIndex].dynamickeys.concat({index: getNewLastKey(preDynamicKeys)})
+    }
+    emit('changeDynamicRules', newRules)
+}
+const deleteRuleCondition = (ruleIndex, conditionKey) => {
+    const newRules = [...dynamicRules.value]
+    newRules[ruleIndex] = {
+        ...newRules[ruleIndex],
+        dynamickeys: newRules[ruleIndex].dynamickeys.filter(item => item.index !== conditionKey)
+    }
+    emit('changeDynamicRules', newRules)
+}
 </script>
 
 <template>
     <div class="handle-rule">
         <div style="padding-left: 10px;">
-            <IndexBox v-for="(item) in handleRuleState.dynamicRules" :key="item.index">
-                <template #index>{{ item.index + 1 }}</template>
+            <IndexBox v-for="(dynamicRule, index) in dynamicRules" :key="dynamicRule.index">
+                <template #index>{{ index + 1 }}</template>
                 <template #title>
                     <ElForm>
                         <ElFormItem class="form-item">
-                            <ElSelect placeholder="请选择合并规则">
-                                <ElOption />
+                            <ElSelect v-model="mergeRuleList" placeholder="请选择合并规则">
+                                <ElOption value="test1" label="标题1" />
+                                <ElOption value="test2" label="标题2" />
                             </ElSelect>
-                            <ElButton @click="delelteRule">删除</ElButton>
+                            <ElButton 
+                                v-show="dynamicRules.length > 1" 
+                                @click="delelteRule(dynamicRule.index)"
+                            >
+                                删除
+                            </ElButton>
                         </ElFormItem>
                     </ElForm>
                 </template>
+                <div v-for="(dynamickey, dynamickeyIndex) in dynamicRule.dynamickeys" :key="dynamickeyIndex">
+                    <ElForm>
+                        <ElFormItem>
+                            <ElSelect v-model="optionList" placeholder="请进行选择">
+                                <ElOption value="test1" label="选项1" />
+                                <ElOption value="test2" label="选项2" />
+                            </ElSelect> 
+                            <ElButton @click="deleteRuleCondition(dynamicRule.index, dynamickey.index)">删除</ElButton>
+                        </ElFormItem>
+                    </ElForm>
+                    <div v-show="dynamickeyIndex !== (dynamicRule.dynamickeys.length - 1)" class="and">和</div>
+                </div>
+                <div style="margin-top: 8px">
+                    <ElButton type="primary" @click="addRuleCondition(index)">添加条件</ElButton>
+                </div>
                 <template #extra>
                     <div class="or">或</div>
                 </template>
-                <div>
-                    <div v-for="(key, keyIndex) in item" :key="key.index">
-                        <ElRow>
-                            <ElForm>
-                                <ElFormItem style="flex: 1">
-                                    <ElSelect />
-                                </ElFormItem>
-                                <ElButton @click="deleteRuleCondition(index, key.index)">删除</ElButton>
-                            </ElForm>
-                        </ElRow>
-                        <div v-show="keyIndex !== (item.dynamickeys.length - 1)" class="and">和</div>
-                    </div>
-                    <div style="margin-top: 8px">
-                        <ElButton type="primary" @click="addRuleCondition(item.index)">添加条件</ElButton>
-                    </div>
-                </div>
             </IndexBox>
         </div>
-        <ElButton type="primary" @click="addRule(handleRuleState.dynamicRules)">添加</ElButton>
+        <ElButton type="primary" @click="addRule">添加</ElButton>
     </div>
 </template>
 
 <style lang="scss" scoped>
-
 </style>

@@ -1,22 +1,11 @@
 <script setup>
-import { ElSelect, ElOption, ElDatePicker } from 'element-plus';
 import BasicTable from '@/components/basic/BasicTable/index.vue'
 </script>
 
 <template>
     <div class="selfHealingStrategy">
         <div class="tableTopLine">
-            <div class="searchHeader">
-                <el-select>
-                    <el-option value="1">
-                        1
-                    </el-option>
-                    <el-option value="2">
-                        2
-                    </el-option>
-                </el-select>
-                <el-date-picker/>
-            </div>
+            <div class="searchHeader"></div>
         </div>
         <div className="content">
             <BasicTable
