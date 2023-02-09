@@ -69,7 +69,12 @@ const routes = {
           name: '刷新频率',
           path: '/settings/refreshrate',
           index: '4-1',
-        }
+        },
+        {
+          name: '黑夜模式',
+          path: '/settings/darkTheme',
+          index: '4-2',
+        },
       ]
     }
   }

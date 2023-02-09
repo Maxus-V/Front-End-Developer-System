@@ -89,7 +89,7 @@
   }
   </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .AsideNav {
         .el-menu {
             border-right: 0px;

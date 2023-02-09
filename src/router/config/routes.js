@@ -88,7 +88,11 @@ const routes = [
         {
           path: 'refreshrate',
           component: () => import('@/components/pages/Settings/RefreshRate/index.vue')
-        }
+        },
+        {
+          path: 'darktheme',
+          component: () => import('@/components/pages/Settings/darkTheme/index.vue')
+        },
       ]
     }
 ];
