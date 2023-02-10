@@ -7,13 +7,13 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
-  const env = loadEnv(mode, process.cwd(), '')
-  env.THEME = 'default'
+  const envConfig = loadEnv(mode, process.cwd(), '')
+  envConfig.THEME = 'default'
   const test = '@import "./src/assets/scss/light.scss";'
   const test2 = '@import "./src/assets/scss/dark.scss";'
   return {
     define: {
-      __APP_ENV__: env,
+      __APP_ENV__: envConfig,
     },
     resolve: {
       alias: {
@@ -32,15 +32,15 @@ export default defineConfig(({ command, mode }) => {
         }
       }
     },
-    // server: {
-    //   port: '5173',
-    //   //设置代理
-    //   proxy: {
-    //     "/gateway": {
-    //       target: "http://10.0.16.154:18080",
-    //       changeOrigin: true,
-    //     },
-    //   }
-    // },
+    server: {
+      port: envConfig.VITE_PORT,
+      //设置代理
+      proxy: {
+        "/gateway": {
+          target: "http://10.0.16.154:18080",
+          changeOrigin: true,
+        },
+      }
+    },
   }
 })
