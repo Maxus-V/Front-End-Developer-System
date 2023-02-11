@@ -23,7 +23,7 @@ const onSwitchChange = (value) => {
 <style lang="scss" scoped>
     .container {
         height: 100%;
-        // color: $text-color;
+        color: $text-color;
         // background-color: $background-color;
     }
 </style>
