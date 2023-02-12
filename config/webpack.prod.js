@@ -31,16 +31,15 @@ module.exports = {
         },
         {
           test: /\.(scss)$/,
-          use: ["style-loader", 
+          use: [
+            "style-loader", 
             "css-loader", 
             {
               loader: 'sass-loader',
               options: {
-                sassOptions: (loaderContext) => {
-                  console.log('hi')
-                }
-              }
-            }
+                additionalData: `@import "./src/assets/scss/light.scss";`
+              },
+            },
           ],
         },
         {
