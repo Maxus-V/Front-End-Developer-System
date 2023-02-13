@@ -5,8 +5,8 @@ import { ElSwitch } from 'element-plus';
 const switchValue = ref(false)
 
 const onSwitchChange = (value) => {
-    __APP_ENV__.THEME = value ? 'default' : 'dark'
-    console.log('233', __APP_ENV__.THEME)
+    // __APP_ENV__.THEME = value ? 'default' : 'dark'
+    // console.log('233', __APP_ENV__.THEME)
 }
 </script>
 

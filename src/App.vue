@@ -63,7 +63,7 @@ const setTitle = (content) => {
   </main>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 
 @media (min-width: 1024px) {
   

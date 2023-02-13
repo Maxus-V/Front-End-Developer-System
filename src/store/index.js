@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { xorWith } from 'lodash';
+import { xorWith } from 'lodash-es';
 
 const store = createStore({
     state () {
