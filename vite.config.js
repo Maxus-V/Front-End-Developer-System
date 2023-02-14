@@ -5,6 +5,8 @@ import ElementPlus from 'unplugin-element-plus/vite'
 
 import vue from '@vitejs/plugin-vue'
 
+console.log('hi', process.env.NODE_ENV)
+
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   const envConfig = loadEnv(mode, process.cwd(), '')

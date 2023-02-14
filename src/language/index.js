@@ -10,7 +10,8 @@ const i18n = createI18n({
     messages: {
         zh,
         en
-    }
+    },
+    // silentTranslationWarn: false,
 })
 
 export default i18n
