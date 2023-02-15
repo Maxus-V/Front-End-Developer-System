@@ -1,10 +1,12 @@
 const path = require("path")
 const WebpackBar = require("webpackbar")
 const DefinePlugin = require('webpack/lib/DefinePlugin');
+const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 
 const { VueLoaderPlugin }=require("vue-loader")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerWebpackPlugin = require("css-minimizer-webpack-plugin")
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 const TerserPlugin = require("terser-webpack-plugin")
@@ -20,6 +22,7 @@ module.exports = {
     alias: {
       "@": path.resolve(__dirname, "../src"),
     },
+    modules: [path.resolve(__dirname, "../node_modules")],
   },
   entry: {
     index: path.join(__dirname, "../src/main.js"),
@@ -39,10 +42,21 @@ module.exports = {
         NODE_ENV: JSON.stringify('production')
       }
     }),
+    // new ParallelUglifyPlugin({
+    //   cacheDir: '',
+    //   sourceMap: false,
+    //   uglifyJS: {
+    //     output: {
+    //       comments: false
+    //     },
+    //     warnings: false
+    //   },
+    // }),
     new WebpackBar(),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'style.css'
+      filename: "css/[name]_[contenthash:6].css",
+      chunkFilename: "[id].css",
     }),
     new CssMinimizerWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -51,8 +65,15 @@ module.exports = {
       minify: {
         collapseWhitespace: true,
         removeComments: true,
+        inifyCSS: true
       },
     }),
+    // new OptimizeCSSAssetsPlugin({
+    //   cssProcessor: require("cssnano"),
+    //   cssProcessorOptions: {
+    //     discardComments: { removeAll: true }
+    //   }
+    //  }),
     new CleanWebpackPlugin(),
     // new BundleAnalyzerPlugin(),
   ],
@@ -99,12 +120,13 @@ module.exports = {
         loader: "babel-loader",
         options: {
           cacheDirectory: true,
-        }
+        },
       },
       {
         oneOf: [
           {
             test:/\.css$/,
+            include: path.join(__dirname, "../src"),
             use:[
               MiniCssExtractPlugin.loader,
               {
@@ -120,12 +142,14 @@ module.exports = {
           },
           {
             test: /\.(scss)$/,
+            include: path.join(__dirname, "../src"),
             use: [
               "style-loader", 
               {
                 loader: "css-loader?minimize",
                 options: {
-                importLoaders: 2,
+                  importLoaders: 2,
+                  modules: true,
                 },
               }, 
               {
