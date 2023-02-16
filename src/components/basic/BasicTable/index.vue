@@ -1,6 +1,10 @@
 <script setup>
 import { ElTable, ElTableColumn, ElEmpty, ElPagination, ElSelect, ElOption } from 'element-plus';
 
+const levelEnum = {
+  "MAJOR": '困难',
+}
+
 const props = defineProps({
   tableColumns: Array,
   tableData: Array,
@@ -34,6 +38,7 @@ const onCurrentChange = (value) => {
         :data="tableData" 
         style="width: 100%"
         @selection-change="onSelectionChange"
+        height="500"
       >
         <ElTableColumn v-if="hasSelection" type="selection"/>
         <ElTableColumn v-for="(column, index) in tableColumns" 
@@ -43,7 +48,7 @@ const onCurrentChange = (value) => {
           :width="column.width"
         >
           <template #default="scope">
-            <RouterLink v-if="column.prop === 'incidentNameText'" :to="'/overview'">
+            <RouterLink v-if="column.prop === 'incidentNameText'" :to="`/frontendbasics/detail/${scope.row.seriNum}`">
               {{ scope.row[column.prop] || '-' }}
             </RouterLink>
             <span v-else-if="column.prop === 'originalAlertLevel'">
@@ -52,6 +57,7 @@ const onCurrentChange = (value) => {
                 </ElOption>
               </ElSelect>
             </span>
+            <span v-else-if="column.prop === 'level'">{{ levelEnum[scope.row[column.prop]] }}</span>
             <span v-else>{{ scope.row[column.prop] || '-' }}</span>
           </template>
         </ElTableColumn>

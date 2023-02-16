@@ -15,10 +15,10 @@ const htmlBaseState = reactive({
   rowSelection: [],
   hasRowSelection: computed(() => htmlBaseState.rowSelection.length ? true : false),
   columns: [
-    {title: '事件ID', prop: 'seriNum'},
-    {title: '事件名称', prop: 'incidentNameText'},
-    {title: '告警级别', prop: 'level'},
-    {title: '创建时间', prop: 'createdTime'},
+    {title: '知识ID', prop: 'seriNum', width: '100px'},
+    {title: '知识名称', prop: 'incidentNameText', width: '420px'},
+    {title: '难度级别', prop: 'level', width: '200px'},
+    {title: '创建时间', prop: 'createdTime', width: '200px'},
     {title: '备注', prop: 'remark'},
   ],
 })

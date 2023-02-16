@@ -13,17 +13,17 @@ const tabState = computed(() => modifyMethods.tableData.initData.incidentPageCou
 
 const categorys = [
     {
-        name: '待处理',
+        name: '待学习',
         processStatus: 'PENDING',
         count: 'pendingCount',
     },
     {
-        name: '处理中',
+        name: '学习中',
         processStatus: 'PROCESSING',
         count: 'processingCount',
     },
     {
-        name: '已解决',
+        name: '已学习',
         processStatus: 'CLOSED',
         count: 'closedCount',
     },
@@ -47,7 +47,7 @@ const changeProcessStatus = (type) => {
                     :class="category.processStatus === htmlBaseState.currentCategory ? 'default active' : 'default'"
                     @click="changeProcessStatus(category.processStatus)"
                 >
-                    {{ category.name }}{{ tabState[category.count]}}
+                    {{ category.name }} {{ tabState[category.count]}}
                 </div>
             </div>
         </div>

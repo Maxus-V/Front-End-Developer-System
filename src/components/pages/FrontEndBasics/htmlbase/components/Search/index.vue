@@ -100,8 +100,8 @@ const changeHasExtraColumns = () => {
     .extraColumns {
       background: white;
       padding: 16px;
-      border-top: 1px solid black;
-      border-bottom: 1px solid black;
+      // border-top: 1px solid black;
+      // border-bottom: 1px solid black;
       margin-top: 16px;
       .content {
         display: flex;

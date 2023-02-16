@@ -29,7 +29,7 @@ const routes = [
       ]
     },
     {
-      path: '/frontendbasics/:type/:id',
+      path: '/frontendbasics/detail/:id',
       component: () => import('@/components/pages/FrontEndBasics/BaseDetail/index.vue')
     },
     {

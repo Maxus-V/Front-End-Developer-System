@@ -1,0 +1,23 @@
+{
+    "data": [
+          {"incidentNameText":"HTML、XML、XHTML之间有什么区别？"},
+          {"incidentNameText":"前缀为data-开头的元素属性是什么？"},
+          {"incidentNameText":"说一下HTML5的离线存储？"},
+          {"incidentNameText":"html常见兼容性问题？"},
+          {"incidentNameText":"webworker"},
+          {"incidentNameText":"说一下音视频标签的使用"},
+          {"incidentNameText":"前端页面由哪三层构成，分别作用是什么"},
+          {"incidentNameText":"为什么最好把JS的<script>标签恰好放在</body>之前"}
+    ],
+    "count": 100,
+    "totalPage": 20,
+    "incidentPageCount":{
+        "closedCount": 8,
+        "pendingCount": 12,
+        "processingCount": 8
+    },
+    "conditions":{
+        "pageSize": 5,
+        "currentPage": 1
+    }
+}

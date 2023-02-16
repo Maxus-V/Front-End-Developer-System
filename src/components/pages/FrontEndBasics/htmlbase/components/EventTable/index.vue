@@ -28,7 +28,7 @@ const eventTableState = reactive({
             :tableData="eventTableState.data"
             :hasSelection="true"
             :changeSelection="changeRowSelection"
-            :hasPagination="true"
+            :hasPagination="false"
             :pagination="eventTableState.pagination"
             :changePagination="modifyMethods.modifyPages"
         />

@@ -45,7 +45,7 @@ const onInputValueChange = (value) => {
             @change="onInputValueChange"
             clearable
             class="input"
-            placeholder="请输入事件名称/ID"
+            placeholder="请输入知识名称/ID"
             :maxlength="50"
         />
     </div>

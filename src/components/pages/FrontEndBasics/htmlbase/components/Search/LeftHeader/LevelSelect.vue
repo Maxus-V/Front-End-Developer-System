@@ -10,27 +10,27 @@ const options = [
     {
         id: 'CRITICAL',
         value: 'CRITICAL',
-        name: '灾难',
+        name: '比较困难',
     },
     {
         id: 'MAJOR',
         value: 'MAJOR',
-        name: '严重',
+        name: '困难',
     },
     {
         id: 'MODERATE',
         value: 'MODERATE',
-        name: '次要',
+        name: '正常',
     },
     {
         id: 'MODERATE',
         value: 'MODERATE',
-        name: '提示',
+        name: '简单',
     },
     {
         id: 'OK',
         value: 'OK',
-        name: '正常',
+        name: '比较简单',
     },
 ]
 
@@ -44,7 +44,7 @@ const changeLevel = (value) => {
 
 <template>
     <ElSelect
-        placeholder="事件级别"
+        placeholder="难度级别"
         class="select"
         clearable
         multiple

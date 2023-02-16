@@ -1,7 +1,9 @@
 <script setup>
-import { ElButton, ElIcon } from 'element-plus'
+import { ref } from 'vue'
+import { ElButton, ElIcon, ElDialog } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue';
 
+import FilterFields from "@/components/pages/FrontEndBasics/HtmlBase/components/Search/ExtraHeader/FilterFields/index.vue" 
 </script>
 
 <template>
@@ -13,14 +15,11 @@ import { Plus } from '@element-plus/icons-vue';
         </div>
         <div class="footer">
             <div class="leftFooter">
-                <ElButton>
-                    <ElIcon><Plus /></ElIcon>
-                    <span>筛选条件</span>
-                </ElButton>
+                <FilterFields :useText="true" />
             </div>
             <div class="rightFooter">
-                <ElButton type="primary">查询</ElButton>
                 <ElButton>重置</ElButton>
+                <ElButton type="primary">查询</ElButton>
             </div>
         </div>
     </div>
@@ -29,8 +28,6 @@ import { Plus } from '@element-plus/icons-vue';
 <style lang="scss" scoped>
 .extraColumns {
     background: transparent;
-    // border-top: 1px solid rgba(0, 0, 0, 0.1);
-    // border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     margin-top: 16px;
     padding: 16px;
     .footer {

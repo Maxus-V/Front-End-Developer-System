@@ -27,8 +27,8 @@ const { state } = toRefs(props)
   }
   .main {
     height: 92%;
-    background-color: rgba(255, 255, 255, 0.3);
-    overflow-y: scroll;
+    background-color: rgba(255, 255, 255, 0.2);
+    /* overflow-y: scroll; */
     margin-top: 10px;
   }
   

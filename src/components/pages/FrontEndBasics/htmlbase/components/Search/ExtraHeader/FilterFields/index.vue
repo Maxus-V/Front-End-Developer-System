@@ -1,7 +1,7 @@
 <script setup>
 import { provide, ref, reactive } from 'vue'
 import { ElTooltip, ElButton,ElIcon } from 'element-plus';
-import { Filter } from '@element-plus/icons-vue';
+import { Plus, Filter } from '@element-plus/icons-vue';
 
 import CustomFieldsModal from './CustomFieldsModal/index.vue'
 
@@ -9,6 +9,10 @@ import { getChildrenByLoop } from '@/utils/index.js';
 import { publicFields } from '@/components/pages/FrontEndBasics/config/constant.js';
 
 import { xorWith, unionWith } from 'lodash-es';
+
+const props = defineProps({
+    useText: Boolean
+})
 
 const modalVisible = ref(false)
 
@@ -49,7 +53,11 @@ const changeModalVisible = (value) => {
 
 <template>
      <ElTooltip content="表格字段显示" effect="light" placement="top">
-        <ElButton size="small" @click="changeModalVisible(true)">
+        <div v-if="useText" class="conditions" @click="changeModalVisible(true)">
+            <ElIcon><Plus /></ElIcon>
+            <span>筛选条件</span>
+        </div>
+        <ElButton v-else size="small" @click="changeModalVisible(true)">
             <ElIcon><Filter /></ElIcon>
         </ElButton>
     </ElTooltip>
@@ -60,4 +68,8 @@ const changeModalVisible = (value) => {
 </template>
 
 <style lang="scss" scoped>
+.conditions:hover {
+    color: #409eff;
+    cursor: pointer;
+}
 </style>

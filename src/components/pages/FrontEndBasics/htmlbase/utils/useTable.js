@@ -1,4 +1,4 @@
-import { reactive, computed } from 'vue'
+import { reactive } from 'vue'
 
 const useTableState = reactive({
     initData: {
@@ -17,8 +17,8 @@ export const useTable = (fetchTableData, initConditions = {}) => {
     useTableState.initData = Object.assign({}, useTableState.initData, {
         conditions: Object.assign({}, useTableState.initData.conditions, initConditions)
     })
-    const fetchData = () => {
-        fetchTableData().then(res => {
+    const fetchData = (params) => {
+        fetchTableData(params).then(res => {
             if (res && res.status === 200) {
                 useTableState.initData = res.data
             }
@@ -32,7 +32,7 @@ export const useTable = (fetchTableData, initConditions = {}) => {
                 ...conditions,
             }
         }
-        fetchData()
+        fetchData(useTableState.initData.conditions)
     }
     const modifyPages = (conditions) => {
         const {pageSize, currentPage} = conditions

@@ -1,0 +1,23 @@
+{
+    "data": [
+          {"incidentNameText":"label标签的作用是什么？"},
+          {"incidentNameText":"Canvas和SVG标签的区别"},
+          {"incidentNameText":"head标签有什么作用，其中什么标签必不可少？"},
+          {"incidentNameText":"文档声明（Doctype）和<!Doctypehtml>标签有何作用?"},
+          {"incidentNameText":"严格模式与混杂模式的区分："},
+          {"incidentNameText":"HTML5为什么只需要写<!DOCTYPEHTML>？"},
+          {"incidentNameText":"浏览器乱码的原因是什么？如何解决？"},
+          {"incidentNameText":"渐进增强和优雅降级之间的区别"}
+    ],
+    "count": 100,
+    "totalPage": 20,
+    "incidentPageCount":{
+        "closedCount": 8,
+        "pendingCount": 12,
+        "processingCount": 8
+    },
+    "conditions":{
+        "pageSize": 5,
+        "currentPage": 1
+    }
+}

@@ -2,25 +2,43 @@
     "alertSourceTableData": [
         {
             "level": 1,
-            "incidentNameText": "你好",
-            "checks": "是的",
+            "incidentNameText": "待处理事件1",
+            "checks": "7天",
+            "updatedTime": "2023-2-1"
+        },
+        {
+            "level": 2,
+            "incidentNameText": "待处理事件2",
+            "checks": "7天",
+            "updatedTime": "2023-2-1"
+        },
+        {
+            "level": 3,
+            "incidentNameText": "待处理事件3",
+            "checks": "7天",
             "updatedTime": "2023-2-1"
         }
     ],
     "alertSourceObjectTableData": [
         {
             "sourcename": 1,
-            "modelname": "你好",
-            "ciid": "是的",
+            "modelname": "对象告警1",
+            "ciid": "7",
+            "timestamp": "2023-2-1"
+        },
+        {
+            "sourcename": 1,
+            "modelname": "对象告警2",
+            "ciid": "7",
             "timestamp": "2023-2-1"
         }
     ],
     "alertSourceIndicatorsTableData": [
         {
             "sourcename": 1,
-            "ruletype": "你好",
-            "checkname": "是的",
-            "checks": "是的",
+            "ruletype": "指标告警1",
+            "checkname": "7",
+            "checks": "7",
             "timestamp": "2023-2-1"
         }
     ]
