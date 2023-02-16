@@ -75,6 +75,11 @@ const routes = {
           path: '/settings/darkTheme',
           index: '4-2',
         },
+        {
+          name: '添加水印',
+          path: '/settings/waterMarker',
+          index: '4-3',
+        },
       ]
     }
   }

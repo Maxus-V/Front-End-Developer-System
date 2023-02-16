@@ -3,7 +3,8 @@ import { ref, reactive } from 'vue'
 import { ElTabs, ElTabPane, ElButton, ElSelect, ElOption } from 'element-plus';
 
 import EditPage from './EditPage.vue'
-import BasicTable from '@/components/basic/BasicTable/index.vue'
+import MarkDown from './MarkDown/index.vue'
+import QuillEditor from './QuillEditor/index.vue'
 
 const modalVisible = ref(false)
 
@@ -19,20 +20,13 @@ const changeModalVisible = (value) => {
 <template>
   <div class="fieldTemplateList">
     <ElTabs>
-      <ElTabPane label="数据导入">
+      <ElTabPane label="MarkDown">
         <div class="fieldTemplateWrapper">
           <div class="listHeader">
             <div class="settingHeader">
               <div class="left">
                 <div class="conditions">
-                  <ElSelect 
-                    v-model="nodeBaseState.seletedStatus"
-                    placeholder="请选择状态"
-                    clearable
-                  >
-                    <ElOption value="success" label="成功"/>
-                    <ElOption value="failure" label="失败"/>
-                  </ElSelect>
+                  <MarkDown />
                 </div>
               </div>
               <div class="right">
@@ -45,12 +39,12 @@ const changeModalVisible = (value) => {
             </div>
           </div>
           <div class="content">
-            <BasicTable />
+            
           </div>
         </div>
       </ElTabPane>
-      <ElTabPane label="事件生成">
-        <BasicTable />
+      <ElTabPane label="富文本编辑器">
+        <QuillEditor />
       </ElTabPane>
     </ElTabs>
     <EditPage 

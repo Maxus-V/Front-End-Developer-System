@@ -30,7 +30,7 @@ export default defineConfig(({ command, mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: test,
+          additionalData: `@use "./src/assets/style/dark.scss" as *;`,
         }
       }
     },

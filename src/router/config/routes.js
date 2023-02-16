@@ -93,6 +93,10 @@ const routes = [
           path: 'darktheme',
           component: () => import('@/components/pages/Settings/darkTheme/index.vue')
         },
+        {
+          path: 'waterMarker',
+          component: () => import('@/components/pages/Settings/waterMarker/index.vue')
+        }
       ]
     }
 ];
