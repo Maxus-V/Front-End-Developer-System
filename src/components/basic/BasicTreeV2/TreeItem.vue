@@ -19,10 +19,8 @@ const changeIsExpand = () => {
 }
 const selectNode = (node) => {
     const { children = [] } = node
-    if (children.length) {
-        changeCheckedKeys([...children], 'addSelectNode')
-    }
-    changeCheckedKeys([node], 'addSelectNode')
+    let tempArr = [node].concat(children).filter(item => !item.defaultSelected)
+    changeCheckedKeys(tempArr, 'addSelectNode')
 }
 </script>
 

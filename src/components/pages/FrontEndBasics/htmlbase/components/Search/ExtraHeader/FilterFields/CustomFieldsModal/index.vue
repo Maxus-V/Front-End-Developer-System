@@ -8,7 +8,9 @@ import DraggableList from '@/components/basic/DraggableList/index.vue'
 import { DndProvider } from 'vue3-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
+const htmlBaseState = inject('htmlBaseState')
 const treeState = inject('treeState')
+const changeColumns = inject('changeColumns')
 
 const props = defineProps({
     modalVisible: Boolean,
@@ -16,12 +18,20 @@ const props = defineProps({
 
 const emit = defineEmits(['changeModalVisible'])
 
-const checkedCounts = computed(() => treeState.checkedKeys.length || 0)
+const checkedCounts = computed(() => treeState.checkedKeysFilter.length || 0)
 
 const changeModalVisible = () => {
   emit("changeModalVisible", false)
 }
 const onSave = () => {
+  let arr = treeState.checkedKeysFilter.map(item => {
+    return {
+      title: item.name,
+      prop: item.id,
+      width: item.id === 'remark' ? undefined : item.id === 'incidentNameText' ? 420 : 200
+    }
+  })
+  changeColumns(arr)
   changeModalVisible()
 }
 </script>

@@ -1,5 +1,5 @@
 <script setup>
-import { provide, ref, reactive } from 'vue'
+import { provide, ref, reactive, computed } from 'vue'
 import { ElTooltip, ElButton,ElIcon } from 'element-plus';
 import { Plus, Filter } from '@element-plus/icons-vue';
 
@@ -24,7 +24,8 @@ const treeDatas = publicFields.concat({
 provide('treeDatas', treeDatas)
 
 const filterFieldsState = reactive({
-    checkedKeys: getChildrenByLoop(publicFields)
+    checkedKeys: getChildrenByLoop(publicFields),
+    checkedKeysFilter: computed(() => filterFieldsState.checkedKeys.filter(item => !Array.isArray(item.children)))
 })
 provide('treeState', filterFieldsState)
 
@@ -68,8 +69,10 @@ const changeModalVisible = (value) => {
 </template>
 
 <style lang="scss" scoped>
-.conditions:hover {
+.conditions {
     color: #409eff;
+}
+.conditions:hover {
     cursor: pointer;
 }
 </style>

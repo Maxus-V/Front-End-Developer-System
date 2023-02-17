@@ -1,16 +1,26 @@
 <script setup>
-import { ref } from 'vue'
-import { ElButton, ElIcon, ElDialog } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue';
+import { inject, computed } from 'vue'
+import { ElForm, ElFormItem, ElRow, ElCol, ElInput, ElButton } from 'element-plus'
 
 import FilterFields from "@/components/pages/FrontEndBasics/HtmlBase/components/Search/ExtraHeader/FilterFields/index.vue" 
+
+const htmlBaseState = inject('htmlBaseState')
+const tempArr = computed(() => htmlBaseState.columns.map(item => item.title))
 </script>
 
 <template>
     <div class="extraColumns">
         <div class="customScrollBar">
             <div class="content">
-
+                <ElForm>
+                    <ElRow>
+                        <ElCol :span="8"  v-for="item in tempArr">
+                            <ElFormItem :label="item" label-width="120">
+                                <ElInput :placeholder="item" />
+                            </ElFormItem>
+                        </ElCol>
+                    </ElRow>
+                </ElForm>
             </div>
         </div>
         <div class="footer">

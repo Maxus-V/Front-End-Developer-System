@@ -15,7 +15,7 @@ const htmlBaseState = reactive({
   rowSelection: [],
   hasRowSelection: computed(() => htmlBaseState.rowSelection.length ? true : false),
   columns: [
-    {title: '知识ID', prop: 'seriNum', width: '100px'},
+    {title: '知识ID', prop: 'seriNum', width: '200px'},
     {title: '知识名称', prop: 'incidentNameText', width: '420px'},
     {title: '难度级别', prop: 'level', width: '200px'},
     {title: '创建时间', prop: 'createdTime', width: '200px'},
@@ -39,6 +39,11 @@ const changeRowSelection = (value) => {
   htmlBaseState.rowSelection = value
 }
 provide('changeRowSelection', changeRowSelection)
+
+const changeColumns = (value) => {
+  htmlBaseState.columns = value
+}
+provide('changeColumns', changeColumns)
 </script>
 
 <template>

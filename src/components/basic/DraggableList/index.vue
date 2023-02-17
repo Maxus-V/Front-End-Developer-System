@@ -6,7 +6,7 @@ import DraggableItem from './DraggableItem.vue'
 
 const treeState = inject('treeState')
 
-const tree = computed(() => treeState.checkedKeys || [])
+const tree = computed(() => treeState.checkedKeysFilter || [])
 </script>
 
 <template>
