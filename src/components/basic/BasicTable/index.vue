@@ -1,5 +1,5 @@
 <script setup>
-import { ElTable, ElTableColumn, ElEmpty, ElPagination, ElSelect, ElOption } from 'element-plus';
+import { ElTable, ElTableColumn, ElEmpty, ElPagination, ElSelect, ElOption } from 'element-plus'
 
 const levelEnum = {
   "MAJOR": '困难',
@@ -39,6 +39,7 @@ const onCurrentChange = (value) => {
         style="width: 100%"
         @selection-change="onSelectionChange"
         height="500"
+        id="out-table"
       >
         <ElTableColumn v-if="hasSelection" type="selection"/>
         <ElTableColumn v-for="(column, index) in tableColumns" 

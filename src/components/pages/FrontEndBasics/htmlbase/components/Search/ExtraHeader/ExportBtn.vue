@@ -3,22 +3,30 @@ import { inject } from 'vue'
 import { ElTooltip, ElButton, ElIcon } from 'element-plus';
 import { Download } from '@element-plus/icons-vue';
 
-const msg = '请稍等，正在下载中，请勿离开页面'
+import FileSaver from "file-saver";
+import * as XLSX from "xlsx";
 
-const htmlBaseState = inject('htmlBaseState')
-
-const download = () => {
-    console.log('执行下载逻辑')
+const exportExcel = () => {
+  let wb = XLSX.utils.table_to_book(document.querySelector("#out-table"))
+  let wbout = XLSX.write(wb, {
+    bookType: "xlsx",
+    bookSST: true,
+    type: "array"
+  })
+  try {
+    FileSaver.saveAs(new Blob([wbout], { type: "application/octet-stream" }), "知识点列表.xlsx")
+  } catch (e) {
+    if (typeof console !== "undefined") console.log(e, wbout)
+  }
 }
 </script>
 
 <template>
         <!-- <span class="helpMsg">{{ msg }}</span> -->
-        <ElTooltip content="下载" effect="light" placement="top">
+        <ElTooltip content="表格下载" effect="light" placement="top">
             <ElButton 
                 class="download" 
-                @click="download"
-                :disabled="!htmlBaseState.hasRowSelection"
+                @click="exportExcel"
                 size="small"
             >
                 <ElIcon><Download/></ElIcon>

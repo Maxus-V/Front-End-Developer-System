@@ -1,12 +1,20 @@
 <script setup>
 import { inject } from 'vue';
-import { ElTooltip, ElButton, ElIcon } from 'element-plus';
+import { ElTooltip, ElButton, ElIcon, ElMessageBox } from 'element-plus';
 import { Delete } from '@element-plus/icons-vue';
 
 const htmlBaseState = inject('htmlBaseState')
 
 const confirmDelete = () => {
-    deleteList()
+    ElMessageBox.confirm("即将批量删除数据, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+    })
+    .then(() => {
+        deleteList()
+     })
+    .catch(() => {})
 }
 const deleteList = () => {
     console.log('删除的异步操作')
