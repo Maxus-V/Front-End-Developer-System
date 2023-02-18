@@ -96,7 +96,11 @@ const routes = [
         {
           path: 'waterMarker',
           component: () => import('@/components/pages/Settings/waterMarker/index.vue')
-        }
+        },
+        {
+          path: 'noviceguide',
+          component: () => import('@/components/pages/Settings/NoviceGuide/index.vue')
+        },
       ]
     }
 ];

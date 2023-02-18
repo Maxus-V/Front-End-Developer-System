@@ -80,6 +80,11 @@ const routes = {
           path: '/settings/waterMarker',
           index: '4-3',
         },
+        {
+          name: '新手引导',
+          path: '/settings/noviceguide',
+          index: '4-4',
+        },
       ]
     }
   }

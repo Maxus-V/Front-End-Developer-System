@@ -96,6 +96,10 @@
             a {
                 text-decoration: none;
             }
+            .el-menu-item:hover {
+              background-color: rgba(250,202,71, 0.8);
+              color: rgb(170, 97, 88);
+            }
         }
     }
 </style>
