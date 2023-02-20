@@ -2,8 +2,9 @@
 import { reactive, computed } from 'vue';
 import { ElIcon } from 'element-plus';
 
-import { thousandth } from '@/utils';
 import UpgradeIcon from '@/components/icons/IconUpgrade.vue'
+
+import { thousandth } from '@/utils';
 
 const props = defineProps({
   title: String,
@@ -22,14 +23,14 @@ const contents = [
     classNames: 'events',
     href: '/frontendbasics/htmlbase',
     count: 'myCount',
-    eventName: '我的事件',
+    eventName: '我的HTML',
     totalCount: 'todayMyTotal',
   },
   {
     classNames: 'all events',
     href: '/frontendbasics/cssbase',
     count: 'allCount',
-    eventName: '所有事件',
+    eventName: '我的CSS',
     totalCount: 'todayAllTotal',
   },
 ]
@@ -57,51 +58,51 @@ const contents = [
 </template>
 
 <style lang="scss" scoped>
-    .textCard{
-    .container {
-      height: 138px;
-      font-size: 14px;
-      background-color: white;
-      .cardTitle {
-        color: black;
-        padding: 16px 0 0 16px;
-      }
-      .cardContent {
+.textCard{
+  .container {
+    height: 138px;
+    font-size: 14px;
+    background-color: white;
+    .cardTitle {
+      color: black;
+      padding: 16px 0 0 16px;
+    }
+    .cardContent {
+      display: flex;
+      font-size: 12px;
+      padding-left: 16px;
+      // border: 1px solid red;
+      .events {
         display: flex;
-        font-size: 12px;
-        padding-left: 16px;
-        // border: 1px solid red;
-        .events {
-          display: flex;
-          flex-direction: column;
-          .head {
-            // padding-bottom: 8px;
-          }
-          .main {
-            font-size: 22px;
-            color: #000000;
-            // margin-bottom: 8px;
-          }
-          .lucency {
-            color: black;
-            margin-bottom: 10px;
-          }
+        flex-direction: column;
+        .head {
+          // padding-bottom: 8px;
         }
-        .all {
-          padding-left: 29%;
+        .main {
+          font-size: 22px;
+          color: #000000;
+          // margin-bottom: 8px;
         }
-        a {
-          text-decoration: none;
+        .lucency {
+          color: black;
+          margin-bottom: 10px;
         }
       }
-      .dashline {
-        position: relative;
-        bottom: 33px;
-        width: 80%;
-        margin-left: 16px;
-        border: 0.5px dashed #000000;
-        opacity: 0.2;
+      .all {
+        padding-left: 29%;
+      }
+      a {
+        text-decoration: none;
       }
     }
+    .dashline {
+      position: relative;
+      bottom: 33px;
+      width: 80%;
+      margin-left: 16px;
+      border: 0.5px dashed #000000;
+      opacity: 0.2;
+    }
   }
+}
 </style>

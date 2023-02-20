@@ -1,25 +1,26 @@
 <script setup>
 import { ref, reactive, computed, toRaw, onMounted, watch, onBeforeUnmount } from 'vue';
 
-import moment from 'moment';
 import * as echarts from 'echarts';
+import moment from 'moment';
 import { formatInt } from '@/utils'
 
 const props = defineProps({
   chartData: Object
 })
 
+let myChart = null
+
+const triLineRef = ref(null)
+
 const triChartState = reactive({
-  formatAlertsXAxisData: computed(() => (toRaw(props.chartData.formatAlertsXAxisData) || []).sort((a,b) => a-b).map(item => moment(new Date(item)).format('YYYY-MM-DD'))),
   incidentTrendData: computed(() => (props.chartData.incidentTrendData) || []),
   alertTrendData: computed(() => (props.chartData.alertTrendData) || []),
   eventTrendData: computed(() => (props.chartData.eventTrendData) || []),
+  formatAlertsXAxisData: computed(() => (toRaw(props.chartData.formatAlertsXAxisData) || []).sort((a,b) => a-b).map(item => moment(new Date(item)).format('YYYY-MM-DD'))),
   leftMaxValue: computed(() => formatInt(Math.max(...toRaw(triChartState.incidentTrendData), ...toRaw(triChartState.alertTrendData))) || 100),
   rightMaxValue: computed(() => Math.max(...toRaw(triChartState.eventTrendData)) || 100),
 })
-
-let myChart = null
-const triLineRef = ref(null)
 
 const init = () => {
   if (myChart) myChart.dispose()
@@ -40,7 +41,7 @@ const init = () => {
         },
       },
       legend: {
-        data: ['事件数', '警报数', '告警数'],
+        data: ['HTML', 'CSS', 'JavaScript'],
         padding: [206, 0, 0, 0],
         icon: 'rect',
         itemHeight: 2,
@@ -71,7 +72,7 @@ const init = () => {
       },
       yAxis: [{
         type: 'value',
-        name: "告警事件数/警报数",
+        name: "HTML/CSS",
         nameTextStyle: {
           align: 'center',
           padding: [0, 0, 0, 30]
@@ -86,14 +87,14 @@ const init = () => {
       },
       {
         type: 'value',
-        name: '告警数',
+        name: 'Javascript',
         nameTextStyle: {
           align: 'center',
           padding: [0, 0, 0, 25]
         },
         min: 0,
         max: triChartState.rightMaxValue, 
-        interval: triChartState.rightMaxValu / 4, 
+        interval: triChartState.rightMaxValue / 4, 
         axisLabel: {
           color: 'rgba(110,112,120)',
           formatter: (value) => value >= 1000 ? Math.floor(value / 1000) + 'K' : value
@@ -101,7 +102,7 @@ const init = () => {
       }],
       series: [
         {
-          name: '事件数',
+          name: 'HTML',
           type: 'line',
           symbolSize: 0,
           data: triChartState.incidentTrendData,
@@ -110,7 +111,7 @@ const init = () => {
           }
         },
         {
-          name: '警报数',
+          name: 'CSS',
           type: 'line',
           symbolSize: 0,
           data: triChartState.alertTrendData,
@@ -119,7 +120,7 @@ const init = () => {
           }
         },
         {
-          name: '告警数',
+          name: 'JavaScript',
           type: 'line',
           symbolSize: 0,
           data: triChartState.eventTrendData,
@@ -135,6 +136,7 @@ const init = () => {
 const chartResize = () => {
   if (myChart) myChart.resize()
 }
+
 onMounted(() => {
   init()
   window.addEventListener('resize', chartResize)
@@ -153,6 +155,3 @@ onBeforeUnmount(() => {
 <template>
   <div ref="triLineRef" style="width:100%; height:222px"></div>
 </template>
-
-<style lang="scss" scoped>
-</style>

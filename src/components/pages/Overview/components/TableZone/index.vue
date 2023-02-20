@@ -15,89 +15,89 @@ const tableZoneState = reactive({
 })
 
 const alertSourceTable = [
+  // {
+  //   prop: 'level',
+  //   title: '难度级别',
+  //   // width: '15%',
+  // },
   {
-    prop: 'level',
-    title: '事件级别',
-    // width: '15%',
-  },
-  {
-    prop: 'incidentNameText',
-    title: '事件名称',
+    prop: 'modelname',
+    title: '知识点名称',
     // width: '30%',
   },
   {
     prop: 'checks',
-    title: '监控项',
+    title: '所需用时',
     // width: '30%',
   },
   {
     prop: 'updatedTime',
-    title: '最近时间',
+    title: '最近学习时间',
     // width: '25%',
   },
 ]
 const alertSourceObjectTableData = [
   {
     prop: 'sourcename',
-    title: '告警源名称',
+    title: '知识点来源',
     // width: '25%',
   },
   {
     prop: 'modelname',
-    title: '模型名称',
+    title: '知识名称',
     // width: '15%',
   },
   {
     prop: 'ciid',
-    title: '告警次数',
+    title: '难度系数',
     // width: '15%',
   },
   {
     prop: 'timestamp',
-    title: '最近时间',
+    title: '最近学习时间',
     // width: '30%',
   },
 ]
 const alertSourceIndicatorsTableData = [
   {
     prop: 'sourcename',
-    title: '告警源名称',
+    title: '知识点来源',
     // width: '25%',
   },
   {
     prop: 'ruletype',
-    title: '监控类型',
+    title: '知识类型',
     // width: '15%',
   },
   {
     prop: 'checkname',
-    title: '指标名称',
+    title: '知识类目名称',
     // width: '15%',
   },
   {
     prop: 'checks',
-    title: '告警次数',
+    title: '类目条数',
     // width: '15%',
   },
   {
     prop: 'timestamp',
-    title: '最近时间',
+    title: '最近学习时间',
     // width: '30%',
   },
 ]
 const itemList = [
     {
-      tab: '待处理事件',
+      tab: '待学习知识点',
       data: 'alertSourceTableData',
       columns: alertSourceTable,
     }, 
     {
-      tab: '对象告警',
+      tab: '待解决知识点',
       data: 'alertSourceObjectTableData',
       columns: alertSourceObjectTableData,
     }, 
     {
-      tab: '指标告警',
+      tab: '待复习知识点',
       data: 'alertSourceIndicatorsTableData',
       columns: alertSourceIndicatorsTableData,
     },
@@ -111,6 +111,7 @@ const itemList = [
         <BasicTable
           :tableColumns="item.columns"
           :tableData="tableZoneState[item.data]"
+          :height="200"
         />
       </ElTabPane>
     </ElTabs>
@@ -119,32 +120,30 @@ const itemList = [
 
 <style lang="scss" scoped>
 .tableZone {
-      margin-top: 16px;
-      padding: 15px;
-      background: white;
-      border-radius: 2px;
-      // box-shadow: 0px 2px 4px 0px rgba(31, 40, 54, 0.2);
-      height: 280px;
-      h3 {
-        // border-bottom: 1px solid #D7DBE0;
-        padding-bottom: 15px;
-      }
-      .levelCircle {
-        width: 8px;
-        height: 8px;
-        display: inline-block;
-        border-radius: 50%;
-        margin-right: 6px;
-      }
-      .label {
-        width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-      .listContent {
-        height: 182px;
-        overflow-y: auto;
-      }
-    }
+  margin-top: 16px;
+  padding: 15px;
+  background: white;
+  border-radius: 2px;
+  height: 280px;
+  h3 {
+    padding-bottom: 15px;
+  }
+  .levelCircle {
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+  .label {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .listContent {
+    height: 182px;
+    overflow-y: scroll;
+  }
+}
 </style>

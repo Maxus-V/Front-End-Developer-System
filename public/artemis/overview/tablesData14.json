@@ -1,42 +1,42 @@
 {
     "alertSourceTableData": [
         {
-            "level": 1,
-            "incidentNameText": "待处理事件1",
+            "level": "掘金",
+            "modelname": "HTML1",
             "checks": "14天",
             "updatedTime": "2023-2-1"
         },
         {
-            "level": 2,
-            "incidentNameText": "待处理事件2",
+            "level": "掘金",
+            "modelname": "HTML2",
             "checks": "14天",
             "updatedTime": "2023-2-1"
         },
         {
-            "level": 3,
-            "incidentNameText": "待处理事件3",
+            "level": "掘金",
+            "modelname": "HTML3",
             "checks": "14天",
             "updatedTime": "2023-2-1"
         }
     ],
     "alertSourceObjectTableData": [
         {
-            "sourcename": 1,
-            "modelname": "对象告警1",
+            "sourcename": "掘金",
+            "modelname": "CSS1",
             "ciid": "14",
             "timestamp": "2023-2-1"
         },
         {
-            "sourcename": 1,
-            "modelname": "对象告警2",
+            "sourcename": "掘金",
+            "modelname": "CSS2",
             "ciid": "14",
             "timestamp": "2023-2-1"
         }
     ],
     "alertSourceIndicatorsTableData": [
         {
-            "sourcename": 1,
-            "ruletype": "指标告警1",
+            "sourcename": "掘金",
+            "ruletype": "JavaScript1",
             "checkname": "14",
             "checks": "14",
             "timestamp": "2023-2-1"

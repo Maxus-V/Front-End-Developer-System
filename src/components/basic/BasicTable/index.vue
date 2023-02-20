@@ -6,6 +6,7 @@ const levelEnum = {
 }
 
 const props = defineProps({
+  height: Number,
   tableColumns: Array,
   tableData: Array,
   hasSelection: Boolean,
@@ -38,7 +39,7 @@ const onCurrentChange = (value) => {
         :data="tableData" 
         style="width: 100%"
         @selection-change="onSelectionChange"
-        height="500"
+        :height="height"
         id="out-table"
       >
         <ElTableColumn v-if="hasSelection" type="selection"/>

@@ -3,9 +3,9 @@ import { ref, reactive, computed, onMounted, watch, onBeforeUnmount } from 'vue'
 import { ElTooltip, ElIcon } from 'element-plus';
 import { QuestionFilled } from '@element-plus/icons-vue'
 
+import * as echarts from 'echarts';
 import moment from 'moment';
 import { s2hms } from '@/utils'
-import * as echarts from 'echarts';
 
 const props = defineProps({
   title: String,
@@ -14,10 +14,11 @@ const props = defineProps({
 })
 
 let myChart = null
+
 const trendRef = ref(null)
 const chartCardZone = reactive({
   chartDataY: computed(() => (props.cardData.statistics || []).map(item => item.value)),
-  chartDataX: computed(() => (props.cardData.statistics || []).map(item => moment(new Date(item.time)).format('YYYY-MM-DD'))),
+  chartDataX: computed(() => (props.cardData.statistics || []).map(item => moment(new Date()).format('YYYY-MM-DD'))),
 })
 
 const init = () => {
@@ -130,51 +131,51 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .chartCard{
-    .container {
-      height: 138px;
-      // width: 230px;
-      font-size: 14px;
-      background-color: white;
-      .chartHead {
-        display: flex;
-        justify-content: space-between;
-        padding: 16px 16px 16px;
-        .cardTitle {
-          color: black;
-          display: flex;
-          align-items: center;
-          .el-icon {
-            color: gray;
-            cursor: pointer;
-            margin-left: 5px;
-          }
-        }
-      }
-      .cardParameter {
-        font-size: 24px;
-        padding-left: 16px;
-      }
-      .progressArea {
-        padding: 0 8% 0;
-        height: 30%;
+  .container {
+    height: 138px;
+    // width: 230px;
+    font-size: 14px;
+    background-color: white;
+    .chartHead {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 16px 16px;
+      .cardTitle {
+        color: black;
         display: flex;
         align-items: center;
-        .progressText {
-          margin-left: 10px;
-          color:white;
-          font-size: 12px;
+        .el-icon {
+          color: gray;
+          cursor: pointer;
+          margin-left: 5px;
         }
-        .aevt-progress-inner {
-          border-radius: 0;
-          .aevt-progress-bg {
-            border-radius: 0;
-          }
-        }
-      }
-      .chartContent {
-        width: 100%;
-        height: 50px;
       }
     }
+    .cardParameter {
+      font-size: 24px;
+      padding-left: 16px;
+    }
+    .progressArea {
+      padding: 0 8% 0;
+      height: 30%;
+      display: flex;
+      align-items: center;
+      .progressText {
+        margin-left: 10px;
+        color:white;
+        font-size: 12px;
+      }
+      .aevt-progress-inner {
+        border-radius: 0;
+        .aevt-progress-bg {
+          border-radius: 0;
+        }
+      }
+    }
+    .chartContent {
+      width: 100%;
+      height: 50px;
+    }
   }
+}
 </style>

@@ -5,6 +5,7 @@ import { ElRow, ElCol } from 'element-plus';
 
 import CardZone from './components/CardZone/index.vue';
 import ChartZone from './components/ChartZone/index.vue'
+import ChartZoneV2 from './components/ChartZoneV2/index.vue'
 import TableZone from './components/TableZone/index.vue'
 
 import { getOverviewCardsData, getOverviewChartsData, getOverviewTablesData } from './service'
@@ -82,10 +83,7 @@ watch(() => overviewState.isAll, () => {
           />
         </ElCol>
         <ElCol :span="12">
-          <ChartZone
-            :chartData='overviewData.chartsData'
-            @changeIsAll="changeIsAll"
-          />
+          <ChartZoneV2 />
         </ElCol>
       </ElRow>
       <TableZone

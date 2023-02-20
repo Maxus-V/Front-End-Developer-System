@@ -24,33 +24,33 @@ const cardZoneState = reactive({
 const cards = [
   {
     width: 4,
-    title: '事件概览',
+    title: '学习概览',
     type: TextCard,
     data: 'incidentSummary',
   },
   {
     width: 4,
-    title: '待办事件',
+    title: '学习待办',
     type: TextCard,
     data: 'pendingIncidentSummary',
   },
   {
     width: 4,
-    title: '压缩比',
+    title: '学习用时占比',
     type: ProgressCard,
     data: 'compressRateSummary',
   },
   {
     width: 6,
     title: 'MTTA',
-    tip: '平均响应时间',
+    tip: '平均学习时间',
     type: ChartCard,
     data: 'mttaSummary',
   },
   {
     width: 6,
     title: 'MTTR',
-    tip: '平均修复时间',
+    tip: '平均应用时间',
     type: ChartCard,
     data: 'mttrSummary',
   },
@@ -70,6 +70,3 @@ const cards = [
       </ElRow>
     </div>
 </template>
-
-<style lang="scss" scoped>
-</style>
