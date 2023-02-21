@@ -18,7 +18,7 @@ onMounted(() => {
 
 <template>
     <div>
-        this is detail {{ test }}
+        this is detail {{ id }}
     </div>
 </template>
 

@@ -1,6 +1,6 @@
 <script setup>
 import { inject } from 'vue';
-import { ElTooltip, ElButton, ElIcon, ElMessageBox } from 'element-plus';
+import { ElTooltip, ElButton, ElIcon, ElMessageBox, ElMessage } from 'element-plus';
 import { Delete } from '@element-plus/icons-vue';
 
 const htmlBaseState = inject('htmlBaseState')
@@ -17,7 +17,10 @@ const confirmDelete = () => {
     .catch(() => {})
 }
 const deleteList = () => {
-    console.log('删除的异步操作')
+    ElMessage({
+        message: '执行删除数据操作',
+        type: 'success',
+    })
 }
 </script>
 

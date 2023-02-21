@@ -1,6 +1,6 @@
 <script setup>
 import { ref, inject } from 'vue'
-import { ElSelect, ElOption } from 'element-plus';
+import { ElMessage, ElSelect, ElOption } from 'element-plus';
 
 const modifyMethods = inject('modifyMethods')
 
@@ -35,6 +35,11 @@ const options = [
 ]
 
 const changeLevel = (value) => {
+    ElMessage({
+        message: '已查询，可在控制台上查看查询参数',
+        type: 'success',
+    })
+    console.log('查询参数：', value)
     modifyMethods.modifyConditions({
         levelList: value || [],
         currentPage: 1,

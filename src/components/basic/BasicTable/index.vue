@@ -18,7 +18,6 @@ const props = defineProps({
 
 const onSelectionChange = (dataArr) => {
   props.changeSelection(dataArr)
-  console.log('onSelectionChange', dataArr.length)
 }
 const onSizeChange = (value) => {
   props.changePagination({

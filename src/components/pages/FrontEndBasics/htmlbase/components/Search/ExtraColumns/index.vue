@@ -1,6 +1,6 @@
 <script setup>
 import { inject, ref, computed, reactive } from 'vue'
-import { ElForm, ElFormItem, ElRow, ElCol, ElInput, ElButton } from 'element-plus'
+import { ElMessage, ElForm, ElFormItem, ElRow, ElCol, ElInput, ElButton } from 'element-plus'
 
 import FilterFields from "@/components/pages/FrontEndBasics/HtmlBase/components/Search/ExtraHeader/FilterFields/index.vue" 
 
@@ -8,11 +8,11 @@ const text = "请输入"
 
 const htmlBaseState = inject('htmlBaseState')
 
-const formRef = ref(null)
+const ruleFormRef = ref(null)
 
 const tempArr = computed(() => htmlBaseState.columns.map(item => item))
 
-const form = reactive({
+const ruleForm = reactive({
 })
 
 const resetForm = (ruleFormRef) => {
@@ -20,7 +20,11 @@ const resetForm = (ruleFormRef) => {
     ruleFormRef.resetFields()
 }
 const onSearch = () => {
-    console.log('参数为', form, '查询中......')
+    ElMessage({
+        message: '已查询，可在控制台上查看查询参数',
+        type: 'success',
+    })
+    console.log('查询参数：', form)
 }
 </script>
 
@@ -28,11 +32,11 @@ const onSearch = () => {
     <div class="extraColumns">
         <div class="customScrollBar">
             <div class="content">
-                <ElForm ref="formRef" :model="form">
+                <ElForm ref="ruleFormRef" :model="ruleForm">
                     <ElRow>
                         <ElCol :span="8"  v-for="item in tempArr">
-                            <ElFormItem :label="item.title" label-width="120">
-                                <ElInput v-model="form[item.prop]" :placeholder="text + item.title" />
+                            <ElFormItem :label="item.title" label-width="120" :prop="item.prop">
+                                <ElInput v-model="ruleForm[item.prop]" :placeholder="text + item.title" />
                             </ElFormItem>
                         </ElCol>
                     </ElRow>
@@ -44,7 +48,7 @@ const onSearch = () => {
                 <FilterFields :useText="true" />
             </div>
             <div class="rightFooter">
-                <!-- <ElButton @click="resetForm(formRef)">重置</ElButton> -->
+                <ElButton @click="resetForm(ruleFormRef)">重置</ElButton>
                 <ElButton type="primary" @click="onSearch">查询</ElButton>
             </div>
         </div>

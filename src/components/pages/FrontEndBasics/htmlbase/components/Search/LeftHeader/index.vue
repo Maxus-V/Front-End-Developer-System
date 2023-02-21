@@ -1,6 +1,6 @@
 <script setup>
 import { ref, inject } from 'vue'
-import { ElDatePicker, ElInput } from 'element-plus';
+import { ElMessage, ElDatePicker, ElInput } from 'element-plus';
 
 import LevelSelect from './LevelSelect.vue';
 
@@ -18,12 +18,22 @@ const onSelectTimeChange = (rangeArr=[]) => {
             currentPage: 1,
         })
     }
+    ElMessage({
+        message: '已查询，可在控制台上查看查询参数',
+        type: 'success',
+    })
+    console.log('查询参数：', rangeArr)
 }
 const onInputValueChange = (value) => {
     modifyMethods.modifyConditions({
         query: value,
         currentPage: 1,
     })
+    ElMessage({
+        message: '已查询，可在控制台上查看查询参数',
+        type: 'success',
+    })
+    console.log('查询参数：', value)
 }
 </script>
 
