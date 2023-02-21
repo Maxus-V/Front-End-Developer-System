@@ -1,6 +1,7 @@
 const routes = {
   overview: {
     name: 'overview',
+    path: '/overview',
   },
   frontendbasics: {
       name: 'frontendbasics',

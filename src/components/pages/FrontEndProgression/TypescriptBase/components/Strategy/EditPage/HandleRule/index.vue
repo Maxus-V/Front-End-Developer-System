@@ -59,7 +59,7 @@ const deleteRuleCondition = (ruleIndex, conditionKey) => {
                 <template #title>
                     <ElForm>
                         <ElFormItem class="form-item">
-                            <ElSelect v-model="mergeRuleList" placeholder="请选择合并规则">
+                            <ElSelect v-model="mergeRuleList" placeholder="请选择转化规则">
                                 <ElOption value="test1" label="标题1" />
                                 <ElOption value="test2" label="标题2" />
                             </ElSelect>

@@ -54,7 +54,7 @@ const AlertSourcesConfig = {
         </ElSelect>
         <ElInput 
             clearable
-            placeholder="请输入告警源名称"
+            placeholder="请输入知识来源"
             class="alertSourceListInput"
             v-model="searchBarState.inputValue"
         >

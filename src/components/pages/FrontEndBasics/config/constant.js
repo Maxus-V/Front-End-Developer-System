@@ -4,19 +4,19 @@ export const publicFields = [
         id: 'public',
         children: [
             {
-                name: '事件ID',
+                name: '知识ID',
                 id: 'seriNum',
                 disabled: true,
                 defaultSelected: true
             },
             {
-                name: '事件名称',
+                name: '知识名称',
                 id: 'incidentNameText',
                 disabled: true,
                 defaultSelected: true
             },
             {
-                name: '事件级别',
+                name: '难度级别',
                 id: 'level',
                 disabled: true,
                 defaultSelected: true
@@ -42,11 +42,11 @@ export const publicFields = [
             },
             {
                 id: 'alertCount',
-                name: '警报数',
+                name: '学习次数',
             },
             {
                 id: 'alertSourceNames',
-                name: '告警源名称',
+                name: '知识来源',
             },
             // {
             //     id: 'targetName',
@@ -72,13 +72,13 @@ export const publicFields = [
                 disabled: false
             },
             {
-                name: '处置人',
+                name: '学习人',
                 id: 'assignees',
                 disabled: false,
                 defaultSelected: false
             },
             {
-                name: '事件分类',
+                name: '知识分类',
                 id: 'incidentGenerateType',
                 disabled: false,
                 defaultSelected: false
@@ -90,7 +90,7 @@ export const publicFields = [
                 defaultSelected: false
             },
             {
-                name: '警报/事件压缩率',
+                name: '知识转化率',
                 id: 'compressRate',
                 disabled: false,
                 defaultSelected: false
@@ -102,7 +102,7 @@ export const publicFields = [
                 defaultSelected: false
             },
             {
-                name: '合并规则',
+                name: '转化规则',
                 id: 'mergeRuleName',
                 disabled: false,
                 defaultSelected: false,

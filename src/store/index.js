@@ -4,11 +4,12 @@ import { xorWith } from 'lodash-es';
 const store = createStore({
     state () {
       return {
-        _is7days : true,
+        _is7days: true,
         refresh: {
           charger: false,
           rate: 30
-        }
+        },
+        title: '概览',
       }
     },
     getters: {
@@ -18,6 +19,9 @@ const store = createStore({
         refreshRate() {
           const { charger, rate} = store.state.refresh
           return charger? rate: charger
+        },
+        getTitle() {
+          return store.title
         }
     },
     mutations: {
@@ -29,6 +33,10 @@ const store = createStore({
       },
       setRefreshRate(state, value) {
         state.refresh.rate = value
+      },
+      changeTitle(state, value) {
+        console.log('hi', value)
+        state.title = value
       }
     },
     modules: {

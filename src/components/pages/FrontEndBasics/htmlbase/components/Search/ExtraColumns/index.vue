@@ -1,22 +1,38 @@
 <script setup>
-import { inject, computed } from 'vue'
+import { inject, ref, computed, reactive } from 'vue'
 import { ElForm, ElFormItem, ElRow, ElCol, ElInput, ElButton } from 'element-plus'
 
 import FilterFields from "@/components/pages/FrontEndBasics/HtmlBase/components/Search/ExtraHeader/FilterFields/index.vue" 
 
+const text = "请输入"
+
 const htmlBaseState = inject('htmlBaseState')
-const tempArr = computed(() => htmlBaseState.columns.map(item => item.title))
+
+const formRef = ref(null)
+
+const tempArr = computed(() => htmlBaseState.columns.map(item => item))
+
+const form = reactive({
+})
+
+const resetForm = (ruleFormRef) => {
+    if (!ruleFormRef) return
+    ruleFormRef.resetFields()
+}
+const onSearch = () => {
+    console.log('参数为', form, '查询中......')
+}
 </script>
 
 <template>
     <div class="extraColumns">
         <div class="customScrollBar">
             <div class="content">
-                <ElForm>
+                <ElForm ref="formRef" :model="form">
                     <ElRow>
                         <ElCol :span="8"  v-for="item in tempArr">
-                            <ElFormItem :label="item" label-width="120">
-                                <ElInput :placeholder="item" />
+                            <ElFormItem :label="item.title" label-width="120">
+                                <ElInput v-model="form[item.prop]" :placeholder="text + item.title" />
                             </ElFormItem>
                         </ElCol>
                     </ElRow>
@@ -28,8 +44,8 @@ const tempArr = computed(() => htmlBaseState.columns.map(item => item.title))
                 <FilterFields :useText="true" />
             </div>
             <div class="rightFooter">
-                <ElButton>重置</ElButton>
-                <ElButton type="primary">查询</ElButton>
+                <!-- <ElButton @click="resetForm(formRef)">重置</ElButton> -->
+                <ElButton type="primary" @click="onSearch">查询</ElButton>
             </div>
         </div>
     </div>

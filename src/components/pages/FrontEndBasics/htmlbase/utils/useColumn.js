@@ -3,7 +3,7 @@ const fieldEnum_zh = {
     modelname: '模型名称',
     host: '主机',
     description: '描述',
-    sourcename: '告警源名称',
+    sourcename: '知识来源',
     sourcetype: '告警源类型',
     env: '环境',
     application: '应用',
@@ -31,7 +31,7 @@ const fieldEnum_zh = {
     remark:'备注',
     //Zabbix 告警消息
     triggername: "触发器名称",
-    eventid: "告警事件ID",
+    eventid: "告警知识ID",
     triggerurl: "触发器URL",
     triggerstatus: "触发器状态",
     alert_value: "真实值",
@@ -64,40 +64,40 @@ const fieldEnum_zh = {
     pattern: '算法聚合的模式',
     rule_id: '规则id',
     controlled: '是否纳管',
-    assignees: '处置人',
+    assignees: '学习人',
     CI: 'CI属性',
     closedType: '事件关闭类型',
-    seriNum: '事件ID',
-    incidentId: '事件ID',
-    incidentName: '事件名称',
-    incidentNameText: '事件名称',
+    seriNum: '知识ID',
+    incidentId: '知识ID',
+    incidentName: '知识名称',
+    incidentNameText: '知识名称',
     createdTime: '创建时间',
     updatedTime: '最近更新时间',
-    alertSourceNames: '告警源名称',
-    sourceIdList: '告警源名称',
-    alertCount: '警报数',
+    alertSourceNames: '知识来源',
+    sourceIdList: '知识来源',
+    alertCount: '学习次数',
     targetname: '告警对象',
-    notifyFlagCount: '被屏蔽警报数',
+    notifyFlagCount: '被屏蔽学习次数',
     blockNotify: '告警屏蔽',
-    incidentGenerateType: '事件分类',
-    mergeRuleName:'合并规则',
-    compressRate:'警报/事件压缩率',
+    incidentGenerateType: '知识分类',
+    mergeRuleName:'转化规则',
+    compressRate:'知识转化率',
     priority:'优先级',
     sim_threshold:'相似度阀值',
     dataType:'数据分类',
     from:'发送人地址',
     subject:'主题',
     messageid:'邮件id',
-    mergeRuleIdList: '合并规则'
+    mergeRuleIdList: '转化规则'
 }
 
 const specialColumns = {
     alertSourceNames: {
-        title: '告警源名称',
+        title: '知识来源',
         prop: 'alertSourceNames',
     },
     assignees: {
-        title: '处置人',
+        title: '学习人',
         prop: 'assignees',
     },
     checks: {
@@ -113,11 +113,11 @@ const specialColumns = {
         prop: 'updatedTime',
     },
     incidentNameText: {
-        title: '事件名称',
+        title: '知识名称',
         prop: 'incidentNameText',
     },
     alertCount: {
-        title: '警报数',
+        title: '学习次数',
         prop: 'alertCount',
     },
     labels: {
@@ -125,7 +125,7 @@ const specialColumns = {
         prop: 'labels',
     },
     incidentGenerateType: {
-        title: '事件分类',
+        title: '知识分类',
         prop: 'incidentGenerateType',
     },
     description: {

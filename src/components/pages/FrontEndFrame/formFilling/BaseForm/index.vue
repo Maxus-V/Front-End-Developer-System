@@ -6,8 +6,8 @@ import { ElForm,ElFormItem, ElInput } from 'element-plus';
 <template>
     <div class="baseForm">
         <ElForm label-width="120px">
-            <ElFormItem label="告警源名称：">
-                <ElInput placeholder="请输入告警源名称" />
+            <ElFormItem label="知识来源：">
+                <ElInput placeholder="请输入知识来源" />
             </ElFormItem>
             <ElFormItem label="服务器端口：">
                 <ElInput placeholder="请输入服务器和端口" />

@@ -1,18 +1,7 @@
 <script setup>
-import { ref, reactive } from 'vue'
-
 import BasicLayout from './components/basic/BasicLayout.vue'
 import AsideNav from './components/basic/AsideNav/index.vue';
 import LayoutWrapper from './components/basic/LayoutWrapper/index.vue'
-
-
-let state = reactive({
-  title: '概览'
-})
-
-const setTitle = (content) => {
-    state.title = content
-}
 </script>
 
 <template>
@@ -26,14 +15,10 @@ const setTitle = (content) => {
         </div>
       </template>
       <template #aside>
-        <AsideNav
-          @changeTitle="setTitle"
-        />
+        <AsideNav />
       </template>
       <template #main>
-        <LayoutWrapper
-          :state="state"
-        >
+        <LayoutWrapper>
           <template #content>
             <!-- <router-view /> -->
             <RouterView v-slot="{ Component }">

@@ -1,19 +1,18 @@
 <script setup>
-import { toRefs } from 'vue'
+import { computed } from 'vue'
+import { useRoute } from "vue-router"
 
 import RadioGroup from './components/RadioGroup.vue'
 
-const props = defineProps({
-  state: Object
-})
+const route = useRoute()
 
-const { state } = toRefs(props)
+const title = computed(() => route.meta.title)
 </script>
 
 <template>
     <div class="top">
-        <h2>{{ state.title }}</h2>
-        <component :is="state.title == '概览'? RadioGroup : null"/>
+        <h2>{{ title }}</h2>
+        <component :is="title == '概览'? RadioGroup : null"/>
     </div>
     <div class="main">
         <slot name="content"></slot>
