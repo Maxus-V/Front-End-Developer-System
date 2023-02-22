@@ -6,6 +6,10 @@ import TemplateForm from './TemplateForm.vue';
 
 const modalVisible = ref(false)
 
+const props = defineProps({
+    fieldFormState: Object,
+})
+
 const changeModalVisible = (value) => {
     modalVisible.value = value
 }
@@ -14,18 +18,18 @@ const changeModalVisible = (value) => {
 <template>
     <div class="fieldForm">
         <ElForm>
-            <ElFormItem label="字段配置模式：" >
-                <ElRadioGroup>
-                    <ElRadio label="customize">自定义映射关系</ElRadio>
-                    <ElRadio label="template">关联字段映射规则</ElRadio>
+            <ElFormItem label="难度系数：" >
+                <ElRadioGroup v-model="fieldFormState.radioValue">
+                    <ElRadio label="customize">简单模式</ElRadio>
+                    <ElRadio label="template">复杂模式</ElRadio>
                 </ElRadioGroup>
             </ElFormItem>
             <ElFormItem>
                 <div class="saveAsTemplate">
-                    <span class="saveAsTemplateTitle">字段映射</span>
+                    <span class="saveAsTemplateTitle">简单模式</span>
                     <span class="saveBtn" @click="changeModalVisible(true)">保存为模板</span>
                 </div>
-                <div style="width: 100%;">
+                <div style="width: 90%;">
                     <Reflect />
                 </div>
             </ElFormItem>
@@ -39,22 +43,20 @@ const changeModalVisible = (value) => {
 
 <style lang="scss" scoped>
 .fieldForm {
-          height: 100%;
-          padding: 0 24px;
-          .saveAsTemplate {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-
-            .saveAsTemplateTitle {
-              font-size: 16px;
-              font-weight: 800;
-            }
-
-            .saveBtn {
-              color: #008DFF;
-              cursor: pointer;
-            }
-          }
-        }
+    height: 100%;
+    padding: 0 24px;
+    .saveAsTemplate {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .saveAsTemplateTitle {
+        font-size: 16px;
+        font-weight: 800;
+    }
+    .saveBtn {
+        color: #008DFF;
+        cursor: pointer;
+    }
+    }
+}
 </style>

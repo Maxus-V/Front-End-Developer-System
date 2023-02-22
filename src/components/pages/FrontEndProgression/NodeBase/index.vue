@@ -18,7 +18,7 @@ const changeModalVisible = (value) => {
 </script>
 
 <template>
-  <div class="fieldTemplateList">
+  <!-- <div class="fieldTemplateList">
     <ElTabs>
       <ElTabPane label="MarkDown">
         <div class="fieldTemplateWrapper">
@@ -26,7 +26,6 @@ const changeModalVisible = (value) => {
             <div class="settingHeader">
               <div class="left">
                 <div class="conditions">
-                  <MarkDown />
                 </div>
               </div>
               <div class="right">
@@ -44,14 +43,14 @@ const changeModalVisible = (value) => {
         </div>
       </ElTabPane>
       <ElTabPane label="富文本编辑器">
-        <QuillEditor />
+
       </ElTabPane>
     </ElTabs>
     <EditPage 
       :modalVisible="modalVisible"
       @changeModalVisible="changeModalVisible"
     />
-  </div>
+  </div> -->
 </template>
 
 <style lang="scss" scoped>

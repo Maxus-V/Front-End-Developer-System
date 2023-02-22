@@ -4,19 +4,19 @@ import { ElTable, ElTableColumn } from 'element-plus';
 const dataSource = [
     {
         level: 'targetName',
-        desc: '告警的对象',
+        desc: '面相对象',
     },
     {
         level: 'check',
-        desc: '告警指标描述',
+        desc: '是否检查',
     },
     {
         level: 'description',
-        desc: '告警详情',
+        desc: '详情',
     },
     {
         level: 'level',
-        desc: '分为5种级别：正常：OK，提示：Minor，次要：Moderate，严重： Major，灾难：Critical',
+        desc: '分为5种级别：非常简单：OK，简单：Minor，正常：Moderate，困难： Major，非常困难：Critical',
     },
     {
         level: '[additional_attributes]',

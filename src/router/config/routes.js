@@ -42,10 +42,16 @@ const routes = [
     },
     {
       path: '/frontendbasics/detail/:id',
+      meta: {
+        title: "知识详情",
+      },
       component: () => import('@/components/pages/FrontEndBasics/BaseDetail/index.vue')
     },
     {
       path: '/frontendframes/formfilling/:type/create',
+      meta: {
+        title: "配置详情",
+      },
       component: () => import('@/components/pages/FrontEndFrame/FormFilling/index.vue')
     },
     {

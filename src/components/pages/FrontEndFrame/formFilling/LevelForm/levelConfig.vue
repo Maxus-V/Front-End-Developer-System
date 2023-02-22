@@ -3,33 +3,33 @@ import BasicTable from '@/components/basic/BasicTable/index.vue'
 
 const columns = [
     {
-        title: '事件中心告警级别',
+        title: '理论难度级别',
         prop: 'level',
     },
     {
-        title: '告警源告警级别',
+        title: '实际难度级别',
         prop: 'originalAlertLevel',
     },
 ]
 const data = [
     {
-        level: '提示 MINOR',
+        level: '非常简单 MINOR',
         originalAlertLevel: '233',
     },
     {
-        level: '次要 MODERATE',
+        level: '简单 MODERATE',
         originalAlertLevel: '233',
     },
     {
-        level: '严重 MAJOR',
+        level: '正常 MAJOR',
         originalAlertLevel: '233',
     },
     {
-        level: '灾难 CRITICAL',
+        level: '困难 CRITICAL',
         originalAlertLevel: '233',
     },
     {
-        level: '正常 OK',
+        level: '非常困难 OK',
         originalAlertLevel: '233',
     },
 ]

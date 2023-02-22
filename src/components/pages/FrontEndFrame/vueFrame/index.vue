@@ -1,6 +1,6 @@
 <script setup>
 import HeaderItemWrapper from './headerItemWrapper/index.vue'
-import AlertSourceList from './alertSourceList/index.vue'
+import EditorTab from './EditorTab/index.vue'
 
 const svgsEum = {
   overview: '0',
@@ -22,7 +22,7 @@ const svgsEum = {
             <template #image>{{ svg }}</template>
         </HeaderItemWrapper>
     </div>
-    <AlertSourceList />
+    <EditorTab />
 </template>
 
 <style lang="scss" scoped>
