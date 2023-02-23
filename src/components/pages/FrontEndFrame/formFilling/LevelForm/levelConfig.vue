@@ -2,6 +2,10 @@
 import { ref } from 'vue';
 import BasicTable from '@/components/basic/BasicTable/index.vue'
 
+const props = defineProps({
+    levelFormState: Object,
+})
+
 const columns = [
     {
         title: '理论难度级别',
@@ -41,7 +45,7 @@ const data = ref([
 <template>
     <BasicTable 
         :tableColumns="columns"
-        :tableData="data"
+        :tableData="levelFormState.initData"
     />
 </template>
 

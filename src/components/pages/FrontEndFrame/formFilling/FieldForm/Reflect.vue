@@ -1,62 +1,38 @@
 <script setup>
-import { ref } from 'vue'
 import { ElIcon } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
 
 import BasicTable from '@/components/basic/BasicTable/index.vue'
 
-const columns = [
-        {
-            title: '知识名称',
-            prop: 'fieldDescription',
-            type: 'input',
-        },
-        {
-            title: '知识分类',
-            prop: 'eventField',
-            type: 'input',
-        },
-        {
-            title: '知识来源',
-            prop: 'originalField',
-            type: 'input',
-        },
-        {
-            title: '额外操作',
-            prop: 'operate',
-            type: 'input',
-        },
-    ]
+const props = defineProps({
+    fieldFormState: Object,
+})
 
-const data = ref([
+const columns = [
     {
-        fieldDescription: '面向对象',
-        eventField: 'targetname',
-        originalField: 'targetname',
-        operate: '',
+        title: '知识名称',
+        prop: 'fieldDescription',
+        type: 'input',
     },
     {
-        fieldDescription: '是否检查',
-        eventField: 'check',
-        originalField: 'check',
-        operate: '',
+        title: '知识分类',
+        prop: 'eventField',
+        type: 'input',
     },
     {
-        fieldDescription: '详情',
-        eventField: 'description',
-        originalField: 'description',
-        operate: '',
+        title: '知识来源',
+        prop: 'originalField',
+        type: 'input',
     },
     {
-        fieldDescription: '等级',
-        eventField: 'level',
-        originalField: 'level',
-        operate: '',
+        title: '额外操作',
+        prop: 'operate',
+        type: 'input',
     },
-])
+]
 
 const addContent = () => {
-    data.value.push({
+    props.fieldFormState.initData.push({
         fieldDescription: '告警对象',
         eventField: 'targetname',
         originalField: 'targetname',
@@ -64,7 +40,7 @@ const addContent = () => {
     })
 }
 const deleteContent = (value) => {
-    data.value.splice(value, 1)
+    props.fieldFormState.initData.splice(value, 1)
 }
 </script>
 
@@ -72,7 +48,7 @@ const deleteContent = (value) => {
     <div class="reflect">
         <BasicTable 
             :tableColumns="columns"
-            :tableData="data"
+            :tableData="fieldFormState.initData"
             :canDelete="true"
             @deleteContent="deleteContent"
         />
@@ -96,7 +72,6 @@ const deleteContent = (value) => {
         border-radius: 4px;
         cursor: pointer;
     }
-
     .addBtn2 {
         color: #008DFF;
         line-height: 48px;

@@ -1,9 +1,8 @@
 <script setup>
+import { inject } from 'vue';
 import { ElForm,ElFormItem, ElInput } from 'element-plus';
 
-const props = defineProps({
-    baseFormState: Object
-})
+const baseFormState = inject('formFillingState').baseFormState
 </script>
 
 <template>

@@ -1,14 +1,13 @@
 <script setup>
-import { ref } from 'vue'
+import { inject, ref } from 'vue'
 import { ElForm, ElFormItem, ElRadioGroup, ElRadio } from 'element-plus';
+
 import Reflect from './Reflect.vue';
 import TemplateForm from './TemplateForm.vue';
 
-const modalVisible = ref(false)
+const fieldFormState = inject('formFillingState').fieldFormState
 
-const props = defineProps({
-    fieldFormState: Object,
-})
+const modalVisible = ref(false)
 
 const changeModalVisible = (value) => {
     modalVisible.value = value
@@ -30,7 +29,7 @@ const changeModalVisible = (value) => {
                     <span class="saveBtn" @click="changeModalVisible(true)">保存为模板</span>
                 </div>
                 <div style="width: 90%;">
-                    <Reflect />
+                    <Reflect :fieldFormState="fieldFormState" />
                 </div>
             </ElFormItem>
         </ElForm>

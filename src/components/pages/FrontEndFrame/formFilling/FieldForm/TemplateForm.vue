@@ -42,7 +42,3 @@ const onSave = () => {
         </template>
     </ElDialog>
 </template>
-
-<style lang="scss" scoped>
-
-</style>

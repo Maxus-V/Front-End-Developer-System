@@ -47,6 +47,3 @@ const columns = [
         />
     </ElTable>
 </template>
-
-<style lang="scss" scoped>
-</style>
