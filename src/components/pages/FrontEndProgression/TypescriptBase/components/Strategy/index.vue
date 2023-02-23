@@ -1,12 +1,16 @@
 <script setup>
 import { ref } from 'vue'
-import { ElInput, ElButton } from 'element-plus';
+import { ElInput, ElButton, ElCard } from 'element-plus';
 
-import BasicTable from '@/components/basic/BasicTable/index.vue'
 import EditPage from './EditPage/index.vue'
 
 const searchValue = ref('')
 const modalVisible = ref(false)
+const count = ref(0)
+
+const load = () => {
+  count.value += 1;
+}
 
 const onSearch = (value) => {
   console.log('发送请求', value.trim())
@@ -31,7 +35,18 @@ const changeModalVisible = (value) => {
       </ElButton>
     </div>
     <div class="content">
-      <BasicTable />
+      <ElCard> 
+        <template #header>
+          <div class="card-header">
+            无限滚动列表
+          </div>
+        </template>
+        <ul v-infinite-scroll="load" class="infinite-list" style="overflow: auto">
+          <li v-for="i in count" :key="i" class="infinite-list-item">
+            {{ `我是第${i}` }}
+          </li>
+        </ul>
+      </ElCard>
     </div>
     <EditPage 
       :modalVisible="modalVisible"
@@ -49,6 +64,9 @@ const changeModalVisible = (value) => {
       .addBtn {
         margin-left: 30px;
       }
+    }
+    .content {
+      margin-top: 20px;
     }
   }
 </style>

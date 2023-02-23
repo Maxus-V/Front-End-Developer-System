@@ -7,7 +7,7 @@ import QuillEditor from './QuillEditor/index.vue'
 
 <template>
     <div class="editorTabs">
-        <ElTabs>
+        <ElTabs type="border-card">
             <ElTabPane label="MarkDown">
                 <div class="content">
                     <MarkDown />
@@ -24,7 +24,7 @@ import QuillEditor from './QuillEditor/index.vue'
 
 <style lang="scss" scoped>
 .content {
-    height: 560px;
+    height: 540px;
     overflow-y: scroll;
 }
 </style>

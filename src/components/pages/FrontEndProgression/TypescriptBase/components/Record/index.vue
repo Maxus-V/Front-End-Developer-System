@@ -1,5 +1,10 @@
 <script setup>
-import BasicTable from '@/components/basic/BasicTable/index.vue'
+import { ref } from "vue"
+import { ElCard, ElInput } from "element-plus";
+import { useQRCode } from "@vueuse/integrations/useQRCode";
+
+const text = ref("")
+const qrCode = useQRCode(text)
 </script>
 
 <template>
@@ -8,9 +13,17 @@ import BasicTable from '@/components/basic/BasicTable/index.vue'
             <div class="searchHeader"></div>
         </div>
         <div className="content">
-            <BasicTable
-              :data="[]"
-            />
+          <ElCard class="box-card">
+            <template #header>
+              <div class="card-header">
+                <span>二维码生成</span>
+              </div>
+            </template>
+            <div class="text item">
+              <ElInput v-model="text" placeholder="输入内容即可在下方展示二维码" />
+              <img v-if="text" :src="qrCode" alt="QR Code" />
+            </div>
+          </ElCard>
         </div>
     </div>
 </template>

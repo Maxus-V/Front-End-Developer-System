@@ -6,11 +6,11 @@ import Record from './components/Record/index.vue'
 
 <template>
   <div class="faultSelfHealing">
-    <ElTabs>
-      <ElTabPane label="自愈策略">
+    <ElTabs type="border-card">
+      <ElTabPane label="学习策略">
         <Strategy />       
       </ElTabPane>
-      <ElTabPane label="自愈记录">
+      <ElTabPane label="学习辅助">
         <Record />
       </ElTabPane>
     </ElTabs>
@@ -22,7 +22,7 @@ import Record from './components/Record/index.vue'
   height: 100%;
   width: 100%;
   background-color: white;
-  padding: 0px 12px;
+  padding: 10px 12px;
   box-sizing: border-box;
 }
 </style>
