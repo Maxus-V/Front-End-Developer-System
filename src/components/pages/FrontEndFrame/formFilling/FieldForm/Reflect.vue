@@ -9,18 +9,22 @@ const columns = [
         {
             title: '知识名称',
             prop: 'fieldDescription',
+            type: 'input',
         },
         {
             title: '知识分类',
             prop: 'eventField',
+            type: 'input',
         },
         {
             title: '知识来源',
             prop: 'originalField',
+            type: 'input',
         },
         {
             title: '额外操作',
             prop: 'operate',
+            type: 'input',
         },
     ]
 
@@ -59,6 +63,9 @@ const addContent = () => {
         operate: '',
     })
 }
+const deleteContent = (value) => {
+    data.value.splice(value, 1)
+}
 </script>
 
 <template>
@@ -66,6 +73,8 @@ const addContent = () => {
         <BasicTable 
             :tableColumns="columns"
             :tableData="data"
+            :canDelete="true"
+            @deleteContent="deleteContent"
         />
         <span class="addBtn2" @click="addContent">
             <ElIcon><Plus /></ElIcon>

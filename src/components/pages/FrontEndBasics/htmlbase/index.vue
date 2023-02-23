@@ -16,7 +16,7 @@ const htmlBaseState = reactive({
   hasRowSelection: computed(() => htmlBaseState.rowSelection.length ? true : false),
   columns: [
     {title: '知识ID', prop: 'seriNum', width: '200px'},
-    {title: '知识名称', prop: 'incidentNameText', width: '420px'},
+    {title: '知识名称', prop: 'incidentNameText', width: '420px', type: 'link'},
     {title: '难度级别', prop: 'level', width: '200px'},
     {title: '创建时间', prop: 'createdTime', width: '200px'},
     {title: '备注', prop: 'remark'},

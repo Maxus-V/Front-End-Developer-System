@@ -1,8 +1,15 @@
 <script setup>
-import { ElTable, ElTableColumn, ElEmpty, ElPagination, ElSelect, ElOption } from 'element-plus'
+import { ElTable, ElTableColumn, ElEmpty, ElPagination, ElSelect, ElOption, ElInput, ElIcon } from 'element-plus'
+import { Delete } from '@element-plus/icons-vue';
+
+const emit = defineEmits(['deleteContent'])
 
 const levelEnum = {
+  "OK": '非常简单',
+  "MINOR": '简单',
+  "MODERATE": '正常',
   "MAJOR": '困难',
+  "CRITICAL": '非常困难',
 }
 
 const props = defineProps({
@@ -14,6 +21,7 @@ const props = defineProps({
   hasPagination: Boolean,
   pagination: Object,
   changePagination: Function,
+  canDelete: Boolean,
 })
 
 const onSelectionChange = (dataArr) => {
@@ -41,32 +49,55 @@ const onCurrentChange = (value) => {
         :height="height"
         id="out-table"
       >
-        <ElTableColumn v-if="hasSelection" type="selection"/>
-        <ElTableColumn v-for="(column, index) in tableColumns" 
-          :key="index"
-          :prop="column.prop" 
-          :label="column.title" 
-          :width="column.width"
-        >
-          <template #default="scope">
-            <RouterLink v-if="column.prop === 'incidentNameText'" :to="`/frontendbasics/detail/${scope.row.seriNum}`">
-              {{ scope.row[column.prop] || '-' }}
-            </RouterLink>
-            <span v-else-if="column.prop === 'originalAlertLevel'">
-              <ElSelect :model-value="scope.row[column.prop]" placeholder="请输入等级后回车" collapse-tags>
-                <ElOption :value="scope.row[column.prop]">
-                </ElOption>
+          <ElTableColumn v-if="hasSelection" type="selection"/>
+
+          <ElTableColumn v-for="(column, index) in tableColumns" 
+            :label="column.title"
+            :key="column.prop"
+            :width="column.width"
+          >
+            <template #default="scope">
+              <ElInput v-if="column.type === 'input'" 
+                v-model="scope.row[Object.keys(scope.row)[index]]" 
+                placeholder="请输入内容"
+                collapse-tags
+              />
+
+              <ElSelect v-else-if="column.type === 'select'"  
+                v-model="scope.row[Object.keys(scope.row)[index]]"
+                placeholder="请选择难度" 
+              >
+                <ElOption value="ok" label="非常简单" />
+                <ElOption value="minor" label="简单" />
+                <ElOption value="moderate" label="正常" />
+                <ElOption value="major" label="困难" />
+                <ElOption value="critical" label="非常困难" />
               </ElSelect>
-            </span>
-            <span v-else-if="column.prop === 'level'">{{ levelEnum[scope.row[column.prop]] }}</span>
-            <span v-else>{{ scope.row[column.prop] || '-' }}</span>
+
+              <RouterLink v-else-if="column.type === 'link'" 
+                :to="`/frontendbasics/detail/${scope.row[Object.keys(scope.row)[0]]}`"
+              >
+                {{ scope.row[column.prop] || '-' }}
+              </RouterLink>
+
+              <span v-else>{{ scope.row[Object.keys(scope.row)[index]] || '-' }}</span>
+            </template>
+          </ElTableColumn>
+
+          <ElTableColumn v-if="canDelete" width="50">
+            <template #default="scope">
+              <ElIcon @click="emit('deleteContent', scope.$index)" style="cursor: pointer">
+                <Delete />
+              </ElIcon>
+            </template>
+          </ElTableColumn>
+
+          <template #empty>
+            <ElEmpty  description="暂无数据" />
           </template>
-        </ElTableColumn>
-        <template #empty>
-          <ElEmpty  description="暂无数据" />
-        </template>
       </ElTable>
     </div>
+
     <div class="paginationItem">
       <ElPagination
         v-if="hasPagination"

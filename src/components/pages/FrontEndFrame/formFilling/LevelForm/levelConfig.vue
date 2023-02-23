@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 import BasicTable from '@/components/basic/BasicTable/index.vue'
 
 const columns = [
@@ -9,30 +10,31 @@ const columns = [
     {
         title: '实际难度级别',
         prop: 'originalAlertLevel',
+        type: 'select',
     },
 ]
-const data = [
+const data = ref([
     {
-        level: '非常简单 MINOR',
-        originalAlertLevel: '233',
+        level: 'OK',
+        originalAlertLevel: 'ok',
     },
     {
-        level: '简单 MODERATE',
-        originalAlertLevel: '233',
+        level: 'Minor',
+        originalAlertLevel: 'minor',
     },
     {
-        level: '正常 MAJOR',
-        originalAlertLevel: '233',
+        level: 'Moderate',
+        originalAlertLevel: 'moderate',
     },
     {
-        level: '困难 CRITICAL',
-        originalAlertLevel: '233',
+        level: 'Major',
+        originalAlertLevel: 'major',
     },
     {
-        level: '非常困难 OK',
-        originalAlertLevel: '233',
+        level: 'Critical',
+        originalAlertLevel: 'critical',
     },
-]
+])
 
 </script>
 
