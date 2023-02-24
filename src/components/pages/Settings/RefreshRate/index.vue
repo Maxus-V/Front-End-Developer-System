@@ -1,9 +1,11 @@
 <script setup>
 import { reactive } from 'vue';
-import { ElForm, ElFormItem, ElSwitch, ElSelect, ElOption } from 'element-plus';
-import { useStore } from 'vuex'
+import { useStore } from 'vuex';
+import { ElForm, ElFormItem, ElSwitch, ElSelect, ElOption, ElTooltip, ElIcon } from 'element-plus';
+import { QuestionFilled } from '@element-plus/icons-vue';
 
-import { timeConfig } from '@/components/pages/Settings/config/index.js'
+import { timeConfig } from '@/components/pages/Settings/config/index.js';
+import BasicCard from '@/components/basic/BasicCard/index.vue'
 
 const store = useStore()
 const { charger, rate } = store.state.refresh
@@ -16,42 +18,48 @@ const state = reactive({
 const onSwitchChange = () => {
     store.commit('setRefreshCharger', state.switchValue)
 }
-
 const onSelectChange = () => {
     store.commit('setRefreshRate', state.selectValue)
 }
-
 </script>
 
 <template>
-    <ElForm class="systemSetting">
-        <ElFormItem label="刷新频率">
-            <ElSwitch
-                v-model="state.switchValue"
-                @change="onSwitchChange"
-            />
-        </ElFormItem>
-        <ElFormItem label="刷新时间">
-            <ElSelect
-                v-model="state.selectValue"
-            >
-                <ElOption v-for="config in timeConfig" 
-                    :key="config.value" 
-                    :value="config.value"
-                    @click="onSelectChange"
+    <BasicCard title="刷新频率">
+        <ElForm class="systemSetting">
+            <ElFormItem label="刷新频率">
+                <ElSwitch
+                    v-model="state.switchValue"
+                    @change="onSwitchChange"
+                />
+                <ElTooltip content="开启“刷新频率”并返回概览页，等待所选“刷新时间”后，页面会自动更新数据" 
+                    effect="light" 
+                    placement="top"
                 >
-                    {{ config.name }}
-                </ElOption>
-            </ElSelect>
-        </ElFormItem>
-    </ElForm>
+                    <ElIcon style="margin-left: 12px"><QuestionFilled /></ElIcon>
+                </ElTooltip>
+            </ElFormItem>
+            <ElFormItem label="刷新时间">
+                <ElSelect
+                    v-model="state.selectValue"
+                >
+                    <ElOption v-for="config in timeConfig" 
+                        :key="config.value" 
+                        :value="config.value"
+                        @click="onSelectChange"
+                    >
+                        {{ config.name }}
+                    </ElOption>
+                </ElSelect>
+            </ElFormItem>
+        </ElForm>
+    </BasicCard>
 </template>
 
 <style lang="scss" scoped>
-    .systemSetting {
+.systemSetting {
     height: 100%;
     width: 100%;
     background-color: white;
     box-sizing: border-box;
-  }
+}
 </style>

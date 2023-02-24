@@ -6,7 +6,7 @@ import router from './router/index.js'
 import store from './store/index.js'
 
 import './assets/main.css'
-import infiniteScroll from "vue-infinite-scroll"
+import infiniteScroll from "vue3-infinite-scroll-good"
 
 
-createApp(App).use(router).use(store).use(i18n).use(infiniteScroll).mount('#app')
+createApp(App).use(infiniteScroll).use(router).use(store).use(i18n).mount('#app')

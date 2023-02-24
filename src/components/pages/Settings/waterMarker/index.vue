@@ -2,6 +2,8 @@
 import { ref, watch, onUnmounted, onDeactivated } from 'vue'
 import { ElForm, ElFormItem, ElCard, ElSwitch } from 'element-plus';
 
+import BasicCard from '@/components/basic/BasicCard/index.vue'
+
 const id = "1.234523841642.1234124163";
 const setWatermark = (str) => {
   if (document.getElementById(id) !== null) {
@@ -76,13 +78,8 @@ onDeactivated(() => {
 </script>
 
 <template>
-    <ElCard shadow="never" :body-style="{ padding: '30px' }">
-        <template #header>
-            <div class="card-header">
-                添加水印
-            </div>
-        </template>
-        <ElForm>
+    <BasicCard title="添加水印">
+      <ElForm>
             <ElFormItem label="开启水印">
                 <ElSwitch 
                     v-model="value" 
@@ -90,7 +87,7 @@ onDeactivated(() => {
                 />
             </ElFormItem>
         </ElForm>
-  </ElCard>
+    </BasicCard>
 </template>
 
 <style lang="scss" scoped>

@@ -2,6 +2,10 @@
 import { ref } from 'vue'
 import { ElSwitch } from 'element-plus';
 import { useDark, useToggle } from '@vueuse/core'
+
+
+import BasicCard from '@/components/basic/BasicCard/index.vue'
+
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 
@@ -14,16 +18,18 @@ const onSwitchChange = (value) => {
 </script>
 
 <template>
-    <div class="container">
-        黑夜模式实验地带
-        <!-- <ElSwitch
-            v-model="switchValue"
-            @change="onSwitchChange"
-        /> -->
-        <button @click="toggleDark()">
-            当前状态是: {{ isDark }}
-        </button>
-    </div>
+    <BasicCard title="黑夜模式">
+        <div class="container">
+            黑夜模式实验地带
+            <!-- <ElSwitch
+                v-model="switchValue"
+                @change="onSwitchChange"
+            /> -->
+            <button @click="toggleDark()">
+                当前状态是: {{ isDark }}
+            </button>
+        </div>
+    </BasicCard>
 </template>
 
 <style lang="scss" scoped>

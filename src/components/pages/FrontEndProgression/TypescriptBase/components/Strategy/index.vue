@@ -9,8 +9,7 @@ const searchValue = ref('')
 const modalVisible = ref(false)
 
 const load = () => {
-  console.log('hi')
-  count.value += 1;
+  count.value += 1
 }
 const onSearch = (value) => {
   console.log('发送请求', value.trim())
@@ -44,7 +43,7 @@ const enterPage = () => {
       <ElCard shadow="never" :body-style="{ padding: '30px' }"> 
         <ul v-infinite-scroll="load" infinite-scroll-distance="1000" class="infinite-list" style="overflow: auto">
           <li v-for="i in count" :key="i" class="infinite-list-item" @click="enterPage" style="cursor: pointer;">
-            {{ `学习策略${i}` }}
+            {{ `无限滚动·学习策略${i}` }}
           </li>
         </ul>
       </ElCard>

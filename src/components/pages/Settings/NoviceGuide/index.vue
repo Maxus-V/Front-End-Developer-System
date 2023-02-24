@@ -1,6 +1,8 @@
 <script setup>
 import { ElCard, ElButton } from 'element-plus';
 
+import BasicCard from '@/components/basic/BasicCard/index.vue'
+
 import Driver from "driver.js";
 import "driver.js/dist/driver.min.css";
 
@@ -36,9 +38,9 @@ const toGuide = () => {
 </script>
 
 <template>
-    <ElCard>
+    <BasicCard title="新手引导">
         <ElButton type="primary" @click="toGuide">进入新手引导</ElButton>
-    </ElCard>
+    </BasicCard>
 </template>
 
 <style lang="scss" scoped>

@@ -1,7 +1,7 @@
 <script setup>
 import { computed, reactive, onBeforeMount, watch } from 'vue';
 import { useStore } from 'vuex';
-import { ElRow, ElCol } from 'element-plus';
+import { ElRow, ElCol, ElMessage } from 'element-plus';
 
 import CardZone from './components/CardZone/index.vue';
 import ChartZone from './components/ChartZone/index.vue'
@@ -53,20 +53,30 @@ const getTablesData = (value) => {
   })
 }
 
-onBeforeMount(() => {
+const getData = () => {
   getCardsData(overviewState.isRecent7days)
   getChartsData(overviewState.isRecent7days, overviewState.isAll)
   getTablesData(overviewState.isRecent7days)
+}
+ 
+onBeforeMount(() => {
+  getData()
 })
 
 watch(() => overviewState.isRecent7days, () => {   
-  getCardsData(overviewState.isRecent7days)
-  getChartsData(overviewState.isRecent7days, overviewState.isAll)
-  getTablesData(overviewState.isRecent7days)
+  getData()
 })
 
 watch(() => overviewState.isAll, () => {
   getChartsData(overviewState.isRecent7days, overviewState.isAll)
+})
+
+watch(() => store.state.refresh.charger, () => {
+  if (store.state.refresh.charger) {
+    setInterval(() => {
+      getData()
+    }, store.state.refresh.rate * 1000)
+  }
 })
 </script>
 
