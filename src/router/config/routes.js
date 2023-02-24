@@ -124,28 +124,28 @@ const routes = [
         {
           path: 'refreshrate',
           meta: {
-            title: "RefreshRate",
+            title: "刷新频率",
           },
           component: () => import('@/components/pages/Settings/RefreshRate/index.vue')
         },
         {
           path: 'darktheme',
           meta: {
-            title: "DarkTheme",
+            title: "黑夜模式",
           },
           component: () => import('@/components/pages/Settings/darkTheme/index.vue')
         },
         {
           path: 'waterMarker',
           meta: {
-            title: "WaterMarker",
+            title: "添加水印",
           },
           component: () => import('@/components/pages/Settings/waterMarker/index.vue')
         },
         {
           path: 'noviceguide',
           meta: {
-            title: "NoviceGuide",
+            title: "新手引导",
           },
           component: () => import('@/components/pages/Settings/NoviceGuide/index.vue')
         },

@@ -6,9 +6,7 @@ import LayoutWrapper from './components/basic/LayoutWrapper/index.vue'
 
 <template>
   <header>
-    <BasicLayout
-      :showHead="false"
-    >
+    <BasicLayout :showHead="false" >
       <template #header>
         <div style="color: white;">
           欢迎来到前端知识储备系统~！

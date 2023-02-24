@@ -10,6 +10,7 @@ const store = createStore({
           rate: 30
         },
         title: '概览',
+        hasWaterMarker: localStorage.getItem('hasWaterMarker')? true : false,
       }
     },
     getters: {

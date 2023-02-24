@@ -1,21 +1,18 @@
-<script>
-  import { 
-    ElContainer,
-    ElHeader,
-    ElAside,
-    ElMain
-  } from 'element-plus'
-  export default {
-    components: { 
-      ElContainer,
-      ElHeader,
-      ElAside,
-      ElMain
-    },
-    props: {
-      showHead: Boolean
-    }
+<script setup>
+import { onBeforeMount } from 'vue';
+import { ElContainer, ElHeader, ElAside, ElMain } from 'element-plus';
+
+import { setWaterMarker } from '@/utils/setWaterMark';
+
+const props = defineProps({
+  showHead: Boolean,
+})
+
+onBeforeMount(() => {
+  if (localStorage.getItem('hasWaterMarker')){
+    setWaterMarker("FrontEndDeveloperSystem")
   }
+})
 </script>
 
 <template>
