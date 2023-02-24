@@ -26,7 +26,7 @@ const handleClose = () => {}
 
 <template>
     <div class="AsideNav">
-        <el-menu
+        <ElMenu
           active-text-color="#ffd04b"
           background-color="rgba(170, 97, 88)"
           class="el-menu-vertical-demo"
@@ -37,22 +37,22 @@ const handleClose = () => {}
           @close="handleClose"
         >
             <router-link to="/overview">
-                <el-menu-item index="/overview">
-                    <el-icon><icon-menu /></el-icon>
+                <ElMenuItem index="/overview">
+                    <ElIcon><icon-menu /></ElIcon>
                     <span>{{ $t(`${overview.name}`) }}</span>
-                </el-menu-item>
+                </ElMenuItem>
             </router-link>
 
-          <el-sub-menu v-for="(item, index) in asideNavArr" :index="index+'1'">
+          <ElSubMenu v-for="(item, index) in asideNavArr" :index="index+'1'">
             <template #title>
-              <el-icon><component :is="index2Icon[index+1]" /></el-icon>
+              <ElIcon><component :is="index2Icon[index+1]" /></ElIcon>
               <span>{{ $t(`${item.name}`) }}</span>
             </template>
             <router-link v-for="subItem in item.children" :to="subItem.path">
-                <el-menu-item :index="subItem.path">{{ subItem.name }}</el-menu-item>
+                <ElMenuItem :index="subItem.path">{{ subItem.name }}</ElMenuItem>
             </router-link>
-          </el-sub-menu>
-        </el-menu>
+          </ElSubMenu>
+        </ElMenu>
     </div>
   </template>
 

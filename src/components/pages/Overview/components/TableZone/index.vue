@@ -15,11 +15,11 @@ const tableZoneState = reactive({
 })
 
 const alertSourceTable = [
-  // {
-  //   prop: 'level',
-  //   title: '难度级别',
-  //   // width: '15%',
-  // },
+  {
+    prop: 'level',
+    title: '难度级别',
+    // width: '15%',
+  },
   {
     prop: 'modelname',
     title: '知识点名称',

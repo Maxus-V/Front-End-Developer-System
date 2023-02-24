@@ -4,14 +4,6 @@ import { Delete } from '@element-plus/icons-vue';
 
 const emit = defineEmits(['deleteContent'])
 
-const levelEnum = {
-  "OK": '非常简单',
-  "MINOR": '简单',
-  "MODERATE": '正常',
-  "MAJOR": '困难',
-  "CRITICAL": '非常困难',
-}
-
 const props = defineProps({
   height: Number,
   tableColumns: Array,

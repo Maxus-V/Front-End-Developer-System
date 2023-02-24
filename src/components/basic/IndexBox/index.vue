@@ -26,7 +26,6 @@
     width: 100%;
     padding: 0 16px 16px 16px;
     border-left: 1px dashed #AEB0B8;
-
     .circle {
       border-radius: 50%;
       white-space: nowrap;
@@ -41,24 +40,20 @@
       line-height: 24px;
       color: black;
     }
-
     .title {
       line-height: 16px;
       font-weight: 12px;
       font-size: 16px;
     }
-
     .content {
       background: white;
       box-sizing: border-box;
       padding: 8px;
     }
-
     &:last-child {
       border-left: none;
     }
   }
-
   .index-box-border {
     border-left: 1px dashed #AEB0B8 !important;
   }

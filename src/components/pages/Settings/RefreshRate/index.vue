@@ -45,10 +45,9 @@ const onSelectChange = () => {
                     <ElOption v-for="config in timeConfig" 
                         :key="config.value" 
                         :value="config.value"
+                        :label="config.name"
                         @click="onSelectChange"
-                    >
-                        {{ config.name }}
-                    </ElOption>
+                    />
                 </ElSelect>
             </ElFormItem>
         </ElForm>

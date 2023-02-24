@@ -17,19 +17,19 @@ onBeforeMount(() => {
 
 <template>
   <div class="basicLayout">
-    <el-container>
-      <el-header v-if="showHead">
+    <ElContainer>
+      <ElHeader v-if="showHead">
         <slot name="header"></slot>
-      </el-header>
-      <el-container>
-        <el-aside>
+      </ElHeader>
+      <ElContainer>
+        <ElAside>
           <slot name="aside"></slot>
-        </el-aside>
-        <el-main>
+        </ElAside>
+        <ElMain>
           <slot name="main"></slot>
-        </el-main>
-      </el-container>
-    </el-container>
+        </ElMain>
+      </ElContainer>
+    </ElContainer>
   </div>
 </template>
 

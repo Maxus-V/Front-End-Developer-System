@@ -21,7 +21,7 @@ export const timeConfig = [
     },
     {
         name: "15m",
-        value: 15,
+        value: 900,
     },
     {
         name: "30m",
