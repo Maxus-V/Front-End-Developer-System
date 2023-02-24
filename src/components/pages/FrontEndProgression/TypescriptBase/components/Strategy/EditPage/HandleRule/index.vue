@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { ElForm, ElFormItem, ElSelect, ElOption, ElButton, ElRow} from 'element-plus';
 
 import IndexBox from '@/components/basic/IndexBox/index.vue'
@@ -11,8 +11,6 @@ const props = defineProps({
 const emit = defineEmits(['changeDynamicRules'])
 
 const dynamicRules = computed(() => props.editPageState.dynamicRules || [])
-const mergeRuleList = ref('')
-const optionList = ref('')
 
 const getNewLastKey = (keysArr = []) => {
   if (keysArr.length) {
@@ -25,6 +23,7 @@ const addRule = () => {
     const newArr = dynamicRules.value.concat({
         index: getNewLastKey(dynamicRules.value),
         dynamickeys: [],
+        studyCategory: 'studyTheme',
     })
     emit('changeDynamicRules', newArr)
 }
@@ -37,7 +36,7 @@ const addRuleCondition = (ruleIndex) => {
     const preDynamicKeys = newRules[ruleIndex].dynamickeys
     newRules[ruleIndex] = {
         ...newRules[ruleIndex],
-        dynamickeys: newRules[ruleIndex].dynamickeys.concat({index: getNewLastKey(preDynamicKeys)})
+        dynamickeys: newRules[ruleIndex].dynamickeys.concat({index: getNewLastKey(preDynamicKeys), detail: 'outline'})
     }
     emit('changeDynamicRules', newRules)
 }
@@ -54,14 +53,14 @@ const deleteRuleCondition = (ruleIndex, conditionKey) => {
 <template>
     <div class="handle-rule">
         <div style="padding-left: 10px;">
-            <IndexBox v-for="(dynamicRule, index) in dynamicRules" :key="dynamicRule.index">
+            <IndexBox v-for="(dynamicRule, index) in editPageState.dynamicRules" :key="dynamicRule.index">
                 <template #index>{{ index + 1 }}</template>
                 <template #title>
                     <ElForm>
                         <ElFormItem class="form-item">
-                            <ElSelect v-model="mergeRuleList" placeholder="请选择转化规则">
-                                <ElOption value="test1" label="标题1" />
-                                <ElOption value="test2" label="标题2" />
+                            <ElSelect v-model="dynamicRule.studyCategory">
+                                <ElOption value="studyTheme" label="学习主题" />
+                                <ElOption value="studyOutline" label="学习大纲" />
                             </ElSelect>
                             <ElButton 
                                 v-show="dynamicRules.length > 1" 
@@ -75,9 +74,9 @@ const deleteRuleCondition = (ruleIndex, conditionKey) => {
                 <div v-for="(dynamickey, dynamickeyIndex) in dynamicRule.dynamickeys" :key="dynamickeyIndex">
                     <ElForm>
                         <ElFormItem>
-                            <ElSelect v-model="optionList" placeholder="请进行选择">
-                                <ElOption value="test1" label="选项1" />
-                                <ElOption value="test2" label="选项2" />
+                            <ElSelect v-model="dynamickey.detail" placeholder="请进行选择">
+                                <ElOption value="theme" label="主题" />
+                                <ElOption value="outline" label="大纲" />
                             </ElSelect> 
                             <ElButton @click="deleteRuleCondition(dynamicRule.index, dynamickey.index)">删除</ElButton>
                         </ElFormItem>
@@ -95,6 +94,3 @@ const deleteRuleCondition = (ruleIndex, conditionKey) => {
         <ElButton type="primary" @click="addRule">添加</ElButton>
     </div>
 </template>
-
-<style lang="scss" scoped>
-</style>

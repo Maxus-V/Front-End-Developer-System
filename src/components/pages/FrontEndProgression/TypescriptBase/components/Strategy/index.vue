@@ -1,22 +1,28 @@
 <script setup>
 import { ref } from 'vue'
-import { ElInput, ElButton, ElCard } from 'element-plus';
+import { ElInput, ElButton, ElCard, ElMessage } from 'element-plus';
 
 import EditPage from './EditPage/index.vue'
 
+const count = ref(8)
 const searchValue = ref('')
 const modalVisible = ref(false)
-const count = ref(0)
 
 const load = () => {
+  console.log('hi')
   count.value += 1;
 }
-
 const onSearch = (value) => {
   console.log('发送请求', value.trim())
 }
 const changeModalVisible = (value) => {
   modalVisible.value = value
+}
+const enterPage = () => {
+  ElMessage({
+    message: '尚未开发完成，敬请期待！',
+    type: 'error',
+  })
 }
 </script>
 
@@ -35,15 +41,10 @@ const changeModalVisible = (value) => {
       </ElButton>
     </div>
     <div class="content">
-      <ElCard> 
-        <template #header>
-          <div class="card-header">
-            无限滚动列表
-          </div>
-        </template>
-        <ul v-infinite-scroll="load" class="infinite-list" style="overflow: auto">
-          <li v-for="i in count" :key="i" class="infinite-list-item">
-            {{ `我是第${i}` }}
+      <ElCard shadow="never" :body-style="{ padding: '30px' }"> 
+        <ul v-infinite-scroll="load" infinite-scroll-distance="1000" class="infinite-list" style="overflow: auto">
+          <li v-for="i in count" :key="i" class="infinite-list-item" @click="enterPage" style="cursor: pointer;">
+            {{ `学习策略${i}` }}
           </li>
         </ul>
       </ElCard>
@@ -67,6 +68,24 @@ const changeModalVisible = (value) => {
     }
     .content {
       margin-top: 20px;
+      .infinite-list {
+        height: calc(100vh - 300px);
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+      .infinite-list .infinite-list-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        background: var(--el-color-primary-light-9);
+        margin: 10px;
+        color: var(--el-color-primary);
+      }
+      .infinite-list .infinite-list-item+.list-item {
+        margin-top: 10px;
+      }
     }
   }
 </style>

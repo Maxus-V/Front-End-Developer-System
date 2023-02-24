@@ -1,17 +1,17 @@
 <script setup>
 import { ref, reactive } from 'vue';
-import { ElDialog, ElForm, ElFormItem, ElInput, ElSelect, ElOption, ElDivider, ElButton } from 'element-plus';
+import { ElDialog, ElForm, ElFormItem, ElInput, ElSelect, ElOption, ElDivider, ElButton, ElMessage } from 'element-plus';
 
 import HandleRule from './HandleRule/index.vue'
 
 const selfJobList = [
     {
         jobId: 0,
-        jobName: '测试1'
+        jobName: '自学'
     },
     {
         jobId: 1,
-        jobName: '测试2'
+        jobName: '课程'
     },
 ]
 
@@ -26,16 +26,17 @@ const ruleFormRef = ref()
 const editPageState = reactive({
     name: '',
     description: '',
-    selfHealing_type: '',
-    test2: '',
+    type: '自学',
+    subType: '',
     dynamicRules:[{
         index: 0,
-        dynamickeys: []
+        dynamickeys: [],
+        studyCategory: 'studyTheme',
     }],
 })
 const rules = reactive({
     name: [
-        { required: true, message: '请输入策略名称' },
+        { required: true, message: '请输入学习策略名称' },
         { max: 50, message: '策略名称长度最大为50' },
         { pattern: /^[\u4E00-\u9FA5\w(\./\\:\(\)&\-\s)]{1,200}$/, 
           message: '名称只支持输入中文、英文、数字、_、.、()、-、&、/、\\、: 最大长度不能超过50',
@@ -44,13 +45,10 @@ const rules = reactive({
     description: [
         {
             max: 200,
-            message: '策略描述最多可输入200字符'
+            message: '策略描述最多可输入200字符',
         },
     ],
-    selfHealing_type: [
-        { required: true, message: '必填' },
-    ],
-    test2: [
+    type: [
         { required: true, message: '必填' },
     ],
 })
@@ -65,9 +63,17 @@ const onSave = async (ruleFormRef) => {
     if (!ruleFormRef) return
     ruleFormRef.validate((valid, fields) => {
         if (valid) {
-            console.log('submit!', editPageState)
+            ElMessage({
+                message: '表单已提交！',
+                type: 'success',
+            })
+            console.log('提交的参数为：', editPageState)
             changeModalVisible()
         } else {
+            ElMessage({
+                message: '请检查表单内容是否填写正确！',
+                type: 'error',
+            })
             console.log('error submit!', fields)
             return 
         }
@@ -80,7 +86,7 @@ const onSave = async (ruleFormRef) => {
         :model-value="modalVisible"
         @close="changeModalVisible"
     >
-        <div style="height: 350px;overflow-y: scroll;">
+        <div style="height: 350px; overflow-y: scroll;">
             <ElForm 
                 ref="ruleFormRef"
                 :model="editPageState"
@@ -89,13 +95,13 @@ const onSave = async (ruleFormRef) => {
                 label-position="top"
             >
                 <ElFormItem prop="name" label="策略名称" class="form-item">
-                    <ElInput v-model="editPageState.name" placeholder="请输入策略名称" />
+                    <ElInput v-model="editPageState.name" placeholder="请输入学习策略名称" />
                 </ElFormItem>
                 <ElFormItem prop="description" label="策略描述" class="form-item">
-                    <ElInput type="textarea" v-model="editPageState.description" placeholder="请输入策略描述" :autosize="{ minRows: 4, maxRows: 4 }" />
+                    <ElInput type="textarea" v-model="editPageState.description" placeholder="请输入学习策略描述" :autosize="{ minRows: 4, maxRows: 4 }" />
                 </ElFormItem>
-                <ElFormItem prop="selfHealing_type" label="自愈类型" class="form-item">
-                    <ElSelect v-model="editPageState.selfHealing_type" placeholder="请选择自愈类型">
+                <ElFormItem prop="type" label="知识类型" class="form-item">
+                    <ElSelect v-model="editPageState.type" placeholder="请选择知识类型">
                         <ElOption v-for="item in selfJobList" 
                             :value="item.jobId" 
                             :key="item.jobId"
@@ -103,13 +109,13 @@ const onSave = async (ruleFormRef) => {
                         />
                     </ElSelect>
                 </ElFormItem>
-                <ElFormItem v-show="editPageState.selfHealing_type === 1" prop="test2" label="测试2" class="form-item">
-                    <ElInput v-model="editPageState.test2" placeholder="请输入测试2内容" />
+                <ElFormItem v-show="editPageState.type === 1" prop="subType" label="课程主题" class="form-item">
+                    <ElInput v-model="editPageState.subType" placeholder="请输入课程主题" />
                 </ElFormItem>
             </ElForm>
             <ElDivider />
 
-            <h3>处置条件</h3>
+            <h3>学习流程</h3>
             <br />
             <HandleRule 
                 :editPageState="editPageState"
@@ -122,7 +128,3 @@ const onSave = async (ruleFormRef) => {
         </template>
     </ElDialog>
 </template>
-
-<style lang="scss" scoped>
-
-</style>
