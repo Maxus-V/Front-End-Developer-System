@@ -1,11 +1,7 @@
 <script setup>
-
+import Building from '@/components/basic/Building/index'
 </script>
 
 <template>
- this is true js
+  <Building title="JavaScript" />
 </template>
-
-<style lang="scss" scoped>
-
-</style>

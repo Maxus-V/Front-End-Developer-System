@@ -19,15 +19,22 @@ export const s2hms = (time = 0) => {
 }
 
   //向上往整10取整数
- export const formatInt = (num) => {
-    let str = num + ''
-    let len = str.length
-    let mult = Math.pow(10, len)
-    return Math.ceil(num / mult) * mult
-  }
+export const formatInt = (num) => {
+  let str = num + ''
+  let len = str.length
+  let mult = Math.pow(10, len)
+  return Math.ceil(num / mult) * mult
+}
 
+//子列表展开
 export const getChildrenByLoop = (children) => children.reduce((list, child) => {
     const {defaultSelected, children} = child
     const childList = children && children.length ? getChildrenByLoop(children) : []
     return defaultSelected ? list.concat(child, ...childList) : list.concat(...childList)
 }, [])
+
+//获取图片
+export const getImage = (url, type) => {
+  const str = `../assets/images/${url}.${type}`
+  return new URL(str, import.meta.url).href
+}

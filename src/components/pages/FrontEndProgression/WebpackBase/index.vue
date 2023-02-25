@@ -1,7 +1,7 @@
 <script setup>
-
+import Building from '@/components/basic/Building/index'
 </script>
 
 <template>
-   this is webpack
+  <Building title="Webpack" />
 </template>

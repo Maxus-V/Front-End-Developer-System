@@ -1,11 +1,7 @@
 <script setup>
-
+import Building from '@/components/basic/Building/index'
 </script>
 
 <template>
- this is true css
+  <Building title="CSS" />
 </template>
-
-<style lang="scss" scoped>
-
-</style>

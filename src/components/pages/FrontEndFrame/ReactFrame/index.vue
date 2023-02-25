@@ -1,9 +1,7 @@
 <script setup>
-
+import Building from '@/components/basic/Building/index'
 </script>
 
 <template>
-    <div>
-      react
-    </div>
+  <Building title="React" />
 </template>
