@@ -11,6 +11,7 @@ const store = createStore({
         },
         title: '概览',
         hasWaterMarker: localStorage.getItem('hasWaterMarker')? true : false,
+        openDarkMode: localStorage.getItem('openDarkMode')? true : false,
       }
     },
     getters: {

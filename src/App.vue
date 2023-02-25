@@ -1,7 +1,7 @@
 <script setup>
-import BasicLayout from '@/components/basic/BasicLayout/index.vue'
-import AsideNav from '@/components/basic/AsideNav/index.vue'
-import LayoutWrapper from '@/components/basic/LayoutWrapper/index.vue'
+import BasicLayout from '@/components/basic/BasicLayout/index'
+import AsideNav from '@/components/basic/AsideNav/index'
+import LayoutWrapper from '@/components/basic/LayoutWrapper/index'
 </script>
 
 <template>

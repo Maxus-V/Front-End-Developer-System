@@ -11,8 +11,6 @@ console.log('hi', process.env.NODE_ENV)
 export default defineConfig(({ command, mode }) => {
   const envConfig = loadEnv(mode, process.cwd(), '')
   envConfig.THEME = 'default'
-  const test = '@import "./src/assets/scss/light.scss";'
-  const test2 = '@import "./src/assets/scss/dark.scss";'
   return {
     define: {
       __APP_ENV__: envConfig,
@@ -20,8 +18,9 @@ export default defineConfig(({ command, mode }) => {
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
-        'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
+        'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
       },
+      extensions: [".js", ".ts", ".json", ".vue"],
     },
     plugins: [
       ElementPlus(),
@@ -30,7 +29,7 @@ export default defineConfig(({ command, mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "./src/assets/style/dark.scss" as *;`,
+          additionalData: '@use "./src/assets/style/theme.scss" as *;',
         }
       }
     },

@@ -28,7 +28,7 @@ const handleClose = () => {}
     <div class="AsideNav">
         <ElMenu
           active-text-color="#ffd04b"
-          background-color="rgba(170, 97, 88)"
+          background-color="var(--ld-aside-color)"
           class="el-menu-vertical-demo"
           :default-active="onRoutes"
           :collapse-transition="true"

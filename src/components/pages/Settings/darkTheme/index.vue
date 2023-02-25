@@ -1,41 +1,34 @@
 <script setup>
-import { ref } from 'vue'
-import { ElSwitch } from 'element-plus';
+import { ref, watch } from 'vue'
+import { useStore } from 'vuex'
+import { ElForm, ElFormItem, ElSwitch } from 'element-plus'
 import { useDark, useToggle } from '@vueuse/core'
 
+import BasicCard from '@/components/basic/BasicCard/index'
 
-import BasicCard from '@/components/basic/BasicCard/index.vue'
+const store = useStore()
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 
-const switchValue = ref(false)
-
-const onSwitchChange = (value) => {
-    // __APP_ENV__.THEME = value ? 'default' : 'dark'
-    // console.log('233', __APP_ENV__.THEME)
-}
+watch(() => store.state.openDarkMode, (newV, oldV) => {
+  if (newV) {
+    localStorage.setItem('openDarkMode', true)
+  } else {
+    localStorage.removeItem('openDarkMode')
+  }
+  toggleDark()
+})
 </script>
 
 <template>
     <BasicCard title="黑夜模式">
-        <div class="container">
-            黑夜模式实验地带
-            <!-- <ElSwitch
-                v-model="switchValue"
-                @change="onSwitchChange"
-            /> -->
-            <button @click="toggleDark()">
-                当前状态是: {{ isDark }}
-            </button>
-        </div>
+        <ElForm>
+            <ElFormItem label="黑夜模式实验地带">
+                <ElSwitch
+                    v-model="store.state.openDarkMode"
+                />
+            </ElFormItem>
+        </ElForm>
     </BasicCard>
 </template>
-
-<style lang="scss" scoped>
-    .container {
-        height: 100%;
-        // color: $text-color;
-        // background-color: $background-color;
-    }
-</style>

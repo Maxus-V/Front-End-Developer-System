@@ -1,12 +1,16 @@
 <script setup>
 import { onBeforeMount } from 'vue';
 import { ElContainer, ElHeader, ElAside, ElMain } from 'element-plus';
+import { useDark } from '@vueuse/core'
 
 import { setWaterMarker } from '@/utils/setWaterMark';
 
 const props = defineProps({
   showHead: Boolean,
 })
+
+//用来保持页面切换时的黑夜状态
+const isDark = useDark()
 
 onBeforeMount(() => {
   if (localStorage.getItem('hasWaterMarker')){
@@ -44,10 +48,13 @@ onBeforeMount(() => {
     height: 100vh;
     .el-aside {
       width: 200px;
-      background-color: rgba(170, 97, 88);
+      background-color: var(--ld-aside-color);
     }
     .el-main {
-      background-color: rgba(249, 205, 144);
+      h2{
+        color: var(--ld-text-color);
+      }
+      background-color: var(--ld-main-color);
     }
   }
 }
