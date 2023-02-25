@@ -158,7 +158,7 @@ module.exports = {
               {
                 loader: 'sass-loader',
                 options: {
-                  additionalData: `@import "./src/assets/scss/light.scss";`
+                  additionalData: `@import "./src/assets/style/theme.scss";`
                 },
               },
             ],

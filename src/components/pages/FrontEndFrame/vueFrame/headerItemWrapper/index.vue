@@ -1,7 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 
-import Add from '@/assets/add.svg'
+import Add from '@/assets/images/add.svg'
 
 const props = defineProps({
     type: String
