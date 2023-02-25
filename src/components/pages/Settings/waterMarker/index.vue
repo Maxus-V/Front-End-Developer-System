@@ -25,7 +25,6 @@ watch(() => store.state.hasWaterMarker, (newV, oldV) => {
         <ElFormItem label="开启水印">
           <ElSwitch 
               v-model="store.state.hasWaterMarker" 
-              style="display: block" 
           />
         </ElFormItem>
       </ElForm>

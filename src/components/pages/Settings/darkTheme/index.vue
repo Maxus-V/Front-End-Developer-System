@@ -24,7 +24,7 @@ watch(() => store.state.openDarkMode, (newV, oldV) => {
 <template>
     <BasicCard title="黑夜模式">
         <ElForm>
-            <ElFormItem label="黑夜模式实验地带">
+            <ElFormItem label="黑夜模式">
                 <ElSwitch
                     v-model="store.state.openDarkMode"
                 />
