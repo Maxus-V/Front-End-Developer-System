@@ -7,7 +7,7 @@ const store = createStore({
         _is7days: true,
         refresh: {
           charger: false,
-          rate: 30
+          rate: 30 
         },
         title: '概览',
         hasWaterMarker: localStorage.getItem('hasWaterMarker')? true : false,
