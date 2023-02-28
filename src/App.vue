@@ -17,7 +17,7 @@ import LayoutWrapper from '@/components/basic/LayoutWrapper/index'
         <LayoutWrapper>
           <template #content>
             <!-- <router-view /> -->
-            <RouterView v-slot="{ Component }">
+            <RouterView v-slot="{ Component }"> 
               <KeepAlive>
                 <component :is="Component"></component>
               </KeepAlive>
