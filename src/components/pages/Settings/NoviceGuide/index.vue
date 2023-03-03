@@ -1,5 +1,5 @@
 <script setup>
-import { ElCard, ElButton } from 'element-plus';
+import { ElButton } from 'element-plus';
 
 import BasicCard from '@/components/basic/BasicCard/index.vue'
 

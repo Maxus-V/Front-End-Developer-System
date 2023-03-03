@@ -86,6 +86,11 @@ const routes = {
           path: '/settings/noviceguide',
           index: '4-4',
         },
+        {
+          name: '音乐盒子',
+          path: '/settings/cloudmusic',
+          index: '4-5',
+        },
       ]
     }
   }

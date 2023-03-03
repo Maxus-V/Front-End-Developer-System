@@ -149,6 +149,13 @@ const routes = [
           },
           component: () => import('@/components/pages/Settings/NoviceGuide/index.vue')
         },
+        {
+          path: 'cloudmusic',
+          meta: {
+            title: "音乐盒子",
+          },
+          component: () => import('@/components/pages/Settings/CloudMusic/index.vue')
+        },
       ]
     }
 ];
