@@ -27,7 +27,7 @@ const onSearch = async () => {
             return {
                 id,
                 name,
-                img1v1Url,
+                img1v1Url, 
                 albumName, 
             }
         })
