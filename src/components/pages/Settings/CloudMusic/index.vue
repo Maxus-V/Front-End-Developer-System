@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue'
-import { ElMessage, ElForm, ElFormItem, ElInput, ElButton, ElDivider, ElTable, ElTableColumn, ElIcon } from 'element-plus'
+import { ElMessage, ElForm, ElFormItem, ElInput, ElButton, ElSwitch, ElDivider, ElTable, ElTableColumn, ElIcon } from 'element-plus'
 import { VideoPause, VideoPlay, Download } from '@element-plus/icons-vue'
 
 import BasicCard from '@/components/basic/BasicCard/index.vue'
@@ -13,6 +13,7 @@ const state = reactive({
     searchName: '',
     musicList: [],
 
+    loop: false,
     playingMusicId: '',
     playingMusicName: '',
     playingMusic: false,
@@ -44,6 +45,11 @@ const onPlaying = async (song) => {
         audio = new Audio()
         audio.src = data[0].url
         audio.play()
+        audio.addEventListener('ended', () => {
+            if  (state.loop) {
+                audio.play()
+            }
+        })
         state.playingMusic = true
         state.playingMusicId = id
         state.playingMusicName = name
@@ -77,6 +83,9 @@ const onPlaying = async (song) => {
                 <ElButton @click="onSearch">查询</ElButton>
                 <span> {{ state.playingMusicName ? '当前歌曲：' + state.playingMusicName : '' }}</span>
             </ElFormItem>
+            <ElFormItem label="单曲循环：">
+                <ElSwitch v-model="state.loop" />
+            </ElFormItem>
         </ElForm>
         <ElDivider />
         <ElTable :data="state.musicList">
@@ -107,7 +116,7 @@ const onPlaying = async (song) => {
     margin: 0 10px 0;
 }
 .el-table {
-    height: 520px;
+    height: 470px;
     overflow-y: scroll;   
 }
 </style>
