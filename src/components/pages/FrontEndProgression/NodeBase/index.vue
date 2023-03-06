@@ -13,7 +13,7 @@ const openai = new OpenAIApi(configuration)
 
 <template>
   <div>
-    23
+    <Building title="Node"  />
   </div>
 </template>
 
