@@ -1,28 +1,52 @@
 # Front-End-Developer-System
 
-## 介绍
+## Introduction(介绍)
 
-基于 Vue3 + Vuex + Element-Plus + Vite（开发环境） + Webpack （生产环境）开发的用户系统
+A management system with common features.
 
-#### 1.1、使用技术
-Vue3 + Vuex + Vite + Vite（开发环境） + Webpack （生产环境）+ Element-Plus + Sass + Vue-router + Vue-i8n + Echarts
+#### 1.1 Technology （技术栈)
+Vue3 + Vue-router + Vue-i8n + Vuex + Vite（development）+ Webpack（production）+ Element-Plus + Sass + Echarts
 
-#### 1.2、兼容性注意
-Vite 需要 Node.js 版本 >= 12.0.0
+#### 1.2 compatibility（兼容性）
+Vite requires Node.js version >= 12.0.0
 
-## 项目运行
+## How to start (如何开始)
 
-### 项目拉取
+### 1.Clone project to local
 
 ```sh
 git clone https://github.com/Maxus-V/Front-End-Developer-System.git
+```
+
+### 2.Go to the folder
+
+```sh
 cd Front-End-Developer-System
 ```
 
-### 项目运行
+### 3.Install dependencies
 
 ```sh
-npm install
+npm run install
+```
+
+### 4.Run the project
+
+```sh
 npm run dev
 ```
 
+### 5.Build the project
+
+```sh
+npm run build
+```
+
+## Development (开发)
+
+### Dependency backend (后端涉及)
+
+* netease api service:
+  [**NeteaseCloudMusicApi**](https://github.com/ziming1/NeteaseCloudMusicApi)
+
+## Desktop Preview (效果预览)
