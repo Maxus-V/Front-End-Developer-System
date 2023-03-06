@@ -3,49 +3,49 @@
         {
             "seriNum": 131,
             "incidentNameText":"HTML、XML、XHTML之间有什么区别？",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-18"
         },
         {
             "seriNum": 132,
             "incidentNameText":"前缀为data-开头的元素属性是什么？",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-18"
         },
         {
             "seriNum": 133,
             "incidentNameText":"说一下HTML5的离线存储？",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-18"
         },
         {
             "seriNum": 134,
             "incidentNameText":"html常见兼容性问题？",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-18"
         },
         {
             "seriNum": 135,
             "incidentNameText":"webworker",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-18"
         },
         {
             "seriNum": 136,
             "incidentNameText":"说一下音视频标签的使用",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-18"
         },
         {
             "seriNum": 137,
             "incidentNameText":"前端页面由哪三层构成，分别作用是什么",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-18"
         },
         {
             "seriNum": 138,
             "incidentNameText":"为什么最好把JS的<script>标签恰好放在</body>之前",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-18"
         }
     ],

@@ -3,73 +3,73 @@
         {
             "seriNum": 101,
             "incidentNameText": "说说对HTML语义化的理解",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-18"
         },
         {
             "seriNum": 102,
             "incidentNameText": "script标签中defer和async的区别",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-19"
         },
         {
             "seriNum": 103,
             "incidentNameText":"HTML5对比HTML4有哪些不同之处？HTML5有哪些新特性",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-19"
         },
         {
             "seriNum": 104,
             "incidentNameText":"src和href的区别",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-19"
         },
         {
             "seriNum": 105,
             "incidentNameText":"img的srcset属性的作⽤",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-19"
         },
         {
             "seriNum": 106,
             "incidentNameText":"响应式图片处理优化:Picture标签",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-19"
         },
         {
             "seriNum": 107,
             "incidentNameText":"DOCTYPE(⽂档类型)的作⽤是什么",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-19"
         },
         {
             "seriNum": 108,
             "incidentNameText":"常⽤的meta标签有哪些",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-19"
         },
         {
             "seriNum": 109,
             "incidentNameText":"行内元素有哪些？块级元素有哪些？空(void)元素有那些？",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-19"
         },
         {
             "seriNum": 110,
             "incidentNameText":"title与h1的区别、b与strong的区别、i与em的区别？",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-19"
         },
         {
             "seriNum": 111,
             "incidentNameText":"iframe标签有那些优点和缺点？",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-19"
         },
         {
             "seriNum": 112,
             "incidentNameText":"说一下HTML5drag(拖拽)API",
-            "level": "MAJOR",
+            "level": "困难",
             "createdTime": "2023-01-19"
         }
     ],
