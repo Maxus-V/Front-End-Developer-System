@@ -156,8 +156,21 @@ const routes = [
           },
           component: () => import('@/components/pages/Settings/CloudMusic/index.vue')
         },
+        {
+          path: 'cicd',
+          meta: {
+            title: "集成部署",
+          },
+          component: () => import('@/components/pages/Settings/CICD/index.vue')
+        },
       ]
-    }
+    },
+    {
+      path: '/settings/cicd/:id',
+      meta: {
+        title: "配置详情",
+      },
+      component: () => import('@/components/pages/Settings/DetailPage/index.vue')
+    },
 ];
-
 export default routes

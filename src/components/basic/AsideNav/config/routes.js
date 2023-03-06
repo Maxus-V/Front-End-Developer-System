@@ -91,6 +91,11 @@ const routes = {
           path: '/settings/cloudmusic',
           index: '4-5',
         },
+        {
+          name: '集成部署',
+          path: '/settings/cicd',
+          index: '4-6',
+        },
       ]
     }
   }
