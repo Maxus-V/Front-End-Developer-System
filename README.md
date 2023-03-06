@@ -16,27 +16,22 @@ Vite requires Node.js version >= 12.0.0
 
 ```sh
 git clone https://github.com/Maxus-V/Front-End-Developer-System.git
-```
-
-### 2.Go to the folder
-
-```sh
 cd Front-End-Developer-System
 ```
 
-### 3.Install dependencies
+### 2.Install dependencies
 
 ```sh
 npm run install
 ```
 
-### 4.Run the project
+### 3.Run the project
 
 ```sh
 npm run dev
 ```
 
-### 5.Build the project
+### 4.Build the project
 
 ```sh
 npm run build
@@ -50,3 +45,4 @@ npm run build
   [**NeteaseCloudMusicApi**](https://github.com/ziming1/NeteaseCloudMusicApi)
 
 ## Desktop Preview (效果预览)
+![overview](https://github.com/Maxus-V/Front-End-Developer-System/blob/main/public/images/1-1.jpeg) 
