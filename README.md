@@ -80,4 +80,5 @@ npm run build
 ![5-5](https://github.com/Maxus-V/Front-End-Developer-System/blob/main/public/images/5-5.jpeg) 
 
 ## Change Log(更新日志)
- **2023/03/03**  接入云音乐，实现系统内部搜歌听歌
+**2023/03/03**  接入云音乐，实现系统内部搜歌听歌
+**2023/03/06**  整合 NODE-CICD 项目的前端部分
