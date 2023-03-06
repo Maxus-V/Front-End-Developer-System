@@ -16,3 +16,4 @@ const openai = new OpenAIApi(configuration)
     23
   </div>
 </template>
+
