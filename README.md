@@ -78,3 +78,6 @@ npm run build
 ![5-3](https://github.com/Maxus-V/Front-End-Developer-System/blob/main/public/images/5-3.jpeg) 
 ![5-4](https://github.com/Maxus-V/Front-End-Developer-System/blob/main/public/images/5-4.jpeg) 
 ![5-5](https://github.com/Maxus-V/Front-End-Developer-System/blob/main/public/images/5-5.jpeg) 
+
+## Change Log(更新日志)
+ **2023/03/03**  接入云音乐，实现系统内部搜歌听歌
