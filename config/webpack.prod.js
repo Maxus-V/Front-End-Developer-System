@@ -13,8 +13,6 @@ const TerserPlugin = require("terser-webpack-plugin")
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
 
-console.log('hi', process.env.NODE_ENV)
-
 module.exports = {
   mode: "production",
   resolve: {
@@ -30,6 +28,7 @@ module.exports = {
   output: {
     filename: "[name].[chunkhash:4].js",
     path: path.join(__dirname, "../dist"), 
+    publicPath: '/assets/',
   },
   optimization: {
     splitChunks: {
@@ -96,8 +95,8 @@ module.exports = {
             loader: "url-loader",
             options: {
               limit: 10 * 1024,
-              name: "[name].[contenthash:8].[ext]",
-              outputPath: "assets/images",
+              name: "assets/[name].[contenthash:8].[ext]",
+              // outputPath: "assets/images",
             },
           },
         ],
@@ -108,8 +107,8 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              name: "[name].[contenthash:8].[ext]",
-              outputPath: "assets/fonts",
+              name: "assets/[name].[contenthash:8].[ext]",
+              // outputPath: "assets/fonts",
             },
           },
         ],

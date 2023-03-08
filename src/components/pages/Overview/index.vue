@@ -1,7 +1,7 @@
 <script setup>
 import { computed, reactive, onBeforeMount, watch } from 'vue';
 import { useStore } from 'vuex';
-import { ElRow, ElCol, ElMessage } from 'element-plus';
+import { ElRow, ElCol } from 'element-plus';
 
 import CardZone from './components/CardZone/index.vue';
 import ChartZone from './components/ChartZone/index.vue'
