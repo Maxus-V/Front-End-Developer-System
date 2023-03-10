@@ -42,6 +42,7 @@ const onPlaying = async (song) => {
         const res = await getMusicUrl(id)
         const { data } = res.data
         if (audio) audio.pause()
+
         audio = new Audio()
         audio.src = data[0].url
         audio.play()
