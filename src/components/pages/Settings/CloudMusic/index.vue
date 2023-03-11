@@ -38,11 +38,10 @@ const onSearch = async () => {
 
 const onPlaying = async (song) => {
     const { id, name } = song
-    if (id !== state.playingMusicId) {
+    if (id !== state.playingMusicId) { 
         const res = await getMusicUrl(id)
         const { data } = res.data
         if (audio) audio.pause()
-
         audio = new Audio()
         audio.src = data[0].url
         audio.play()
