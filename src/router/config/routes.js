@@ -163,6 +163,13 @@ const routes = [
           },
           component: () => import('@/components/pages/Settings/CICD/index.vue')
         },
+        {
+          path: 'amap',
+          meta: {
+            title: "高德地图",
+          },
+          component: () => import('@/components/pages/Settings/Amap/index.vue')
+        },
       ]
     },
     {

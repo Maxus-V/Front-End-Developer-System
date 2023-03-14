@@ -96,6 +96,11 @@ const routes = {
           path: '/settings/cicd',
           index: '4-6',
         },
+        {
+          name: '高德地图',
+          path: '/settings/amap',
+          index: '4-7',
+        },
       ]
     }
   }

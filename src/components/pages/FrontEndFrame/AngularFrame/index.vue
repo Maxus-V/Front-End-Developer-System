@@ -1,11 +1,16 @@
 <script setup>
-import { onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { ElInput } from 'element-plus';
 import AMapLoader from '@amap/amap-jsapi-loader' 
 
-//出于保密，不能将key放在仓库上
+const searchValue = ref('')
+const onValueChange = (value) => {
+  
+}
+
 const initMap = () => {
   AMapLoader.load({
-    key: "", // 申请好的Web端开发者Key，首次调用 load 时必填。
+    key: "02c85434b6ea9c8f1e85cb0a6f2882f", // 申请好的Web端开发者Key，首次调用 load 时必填。
     version: "1.4.15", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
     plugins: [
       "AMap.Scale", //工具条，控制地图的缩放、平移等
@@ -13,6 +18,8 @@ const initMap = () => {
       "AMap.Geolocation", //定位，提供了获取用户当前准确位置、所在城市的方法
       "AMap.HawkEye", //鹰眼，显示缩略图
       "AMap.ControlBar",
+      "AMap.MapType",
+      // "AMap.Autocomplete"
     ],
   }).then((AMap) => {
       let map = new AMap.Map("map", {
@@ -28,22 +35,33 @@ const initMap = () => {
       map.addControl(new AMap.Scale()) //异步同时加载多个插件
       map.addControl(new AMap.ToolBar())
       map.addControl(new AMap.Geolocation())
-      map.addControl(new AMap.ControlBar())
+      // map.addControl(new AMap.ControlBar({
+      //   showControlButton: false
+      // }))
+      map.addControl(new AMap.MapType())
+      // map.addControl(new AMap.Autocomplete({
+      //   input: 'tipinput'
+      // }))
       map.add(
         new AMap.Marker({
           position: map.getCenter(),
         })
       )
 
-      //可多次调用load
-      AMapLoader.load({
-        plugins: ["AMap.MapType"],
-      })
-      .then((AMap) => {
-          map.addControl(new AMap.MapType());
-      })
-      .catch((e) => {
-        console.error(e);
+      AMap.plugin(['AMap.Autocomplete', 'AMap.PlaceSearch'], function() {
+        const autoOptions = {
+          // 使用联想输入的input的div的id
+          input: 'tipinput'
+        }
+        const autocomplete = new AMap.Autocomplete(autoOptions)
+        const placeSearch = new AMap.PlaceSearch({
+          city: '长沙',
+          map: map
+        })
+        AMap.event.addListener(autocomplete, 'input', function(e) {
+          console.log(e.poi.location) // 获取选中的的地址的经纬度
+          placeSearch.search(e.poi.name)
+        })
       })
 
       let geojson = new AMap.GeoJSON({
@@ -92,6 +110,9 @@ const initMap = () => {
         saveData(geojson.toGeoJSON())
       })
       
+      map.on("click", (e) => {
+        console.log('e', geojson)
+      })
     })
     .catch((e) => {
       console.log(e)
@@ -110,12 +131,15 @@ const saveData = (data) => {
 }
 
 onMounted(() => {
-  // initMap()
+  initMap()
+})
+watch(searchValue, (value) => {
+  onValueChange(value)
 })
 </script>
 
 <template>
-  <div>需要在代码里加上你自己的key，地图才能展示出来</div>
+  <!-- <ElInput v-model="searchValue" placeholder="请输入关键词" id="tipinput" /> -->
   <div id="map" class="container"></div>
 </template>
 
